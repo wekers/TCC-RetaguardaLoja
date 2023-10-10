@@ -1,0 +1,237 @@
+﻿$PBExportHeader$m_menu.srm
+forward
+global type m_menu from menu
+end type
+type m_usuários from menu within m_menu
+end type
+type m_cadastrar from menu within m_usuários
+end type
+type m_usuários from menu within m_menu
+m_cadastrar m_cadastrar
+end type
+type m_editar from menu within m_menu
+end type
+type m_incluir from menu within m_editar
+end type
+type m_editar from menu within m_menu
+m_incluir m_incluir
+end type
+type m_1 from menu within m_menu
+end type
+global type m_menu from menu
+m_usuários m_usuários
+m_editar m_editar
+m_1 m_1
+end type
+end forward
+
+global type m_menu from menu
+m_usuários m_usuários
+m_editar m_editar
+m_1 m_1
+end type
+global m_menu m_menu
+
+on m_menu.create
+m_menu=this
+call super::create
+this.text = "m_menu"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_usuários=create m_usuários
+this.m_editar=create m_editar
+this.m_1=create m_1
+this.Item[UpperBound(this.Item)+1]=this.m_usuários
+this.Item[UpperBound(this.Item)+1]=this.m_editar
+this.Item[UpperBound(this.Item)+1]=this.m_1
+end on
+
+on m_menu.destroy
+call super::destroy
+destroy(this.m_usuários)
+destroy(this.m_editar)
+destroy(this.m_1)
+end on
+
+type m_usuários from menu within m_menu
+m_cadastrar m_cadastrar
+end type
+
+on m_usuários.create
+call super::create
+this.text = "&Usuários"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_cadastrar=create m_cadastrar
+this.Item[UpperBound(this.Item)+1]=this.m_cadastrar
+end on
+
+on m_usuários.destroy
+call super::destroy
+destroy(this.m_cadastrar)
+end on
+
+type m_cadastrar from menu within m_usuários
+end type
+
+event clicked;//OpenSheet(w_cad_usuarios, ParentWindow, 2, Layered!)
+end event
+
+on m_cadastrar.create
+call super::create
+this.text = "&Cadastrar"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_cadastrar.destroy
+call super::destroy
+end on
+
+type m_editar from menu within m_menu
+m_incluir m_incluir
+end type
+
+on m_editar.create
+call super::create
+this.text = "&Editar"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbaranimation = true
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_incluir=create m_incluir
+this.Item[UpperBound(this.Item)+1]=this.m_incluir
+end on
+
+on m_editar.destroy
+call super::destroy
+destroy(this.m_incluir)
+end on
+
+type m_incluir from menu within m_editar
+end type
+
+on m_incluir.create
+call super::create
+this.text = "&Incluir~tCtrl+I"
+this.shortcut = 329
+this.microhelp = "Inserir Linha"
+this.toolbaritemname = "computesum!"
+this.toolbaritemtext = "Incluir"
+this.menuimage = "ComputeSum!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbaranimation = true
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_incluir.destroy
+call super::destroy
+end on
+
+event clicked;ParentWindow.GetActiveSheet().TriggerEvent("ue_incluir")
+end event
+
+type m_1 from menu within m_menu
+end type
+
+on m_1.create
+call super::create
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_1.destroy
+call super::destroy
+end on
+
