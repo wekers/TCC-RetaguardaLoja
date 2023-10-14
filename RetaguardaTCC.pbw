@@ -1,7 +1,6 @@
 Save Format v3.0(19990112)
 @begin Targets
  0 "retaguarda.pbt";
- 1 "E:\\Sistema Retaguarda de Loja PB2021\\retaguarda.pbt";
 @end;
 DefaultTarget "retaguarda.pbt";
 DefaultExportEncode "UTF-8";
