@@ -13,6 +13,8 @@ end forward
 global variables
 string nome_usuario, senha_usuario
 long codigo_usuario = 99999
+
+Boolean de_alt_fornecedor, de_fornecedor, de_clientes
 end variables
 
 global type retaguarda from application
