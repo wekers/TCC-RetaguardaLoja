@@ -1,0 +1,17 @@
+﻿$PBExportHeader$of_menu_in_close.srf
+global type of_menu_in_close from function_object
+end type
+
+forward prototypes
+global subroutine of_menu_in_close ()
+end prototypes
+
+global subroutine of_menu_in_close ();m_menu.m_editar.enabled = false
+m_menu.m_editar.m_fechar.toolbaritemvisible = false
+m_menu.m_editar.m_incluir.toolbaritemvisible = false
+m_menu.m_editar.m_gerar.toolbaritemvisible = false
+m_menu.m_editar.m_confirmar.toolbaritemvisible = false
+m_menu.m_editar.m_excluir.toolbaritemvisible = false
+m_menu.m_editar.m_imprimir.toolbaritemvisible = false
+end subroutine
+
