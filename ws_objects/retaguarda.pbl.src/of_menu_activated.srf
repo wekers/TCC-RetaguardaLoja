@@ -1,0 +1,53 @@
+﻿$PBExportHeader$of_menu_activated.srf
+global type of_menu_activated from function_object
+end type
+
+forward prototypes
+global subroutine of_menu_activated (boolean m_confirmar, boolean m_incluir, boolean m_excluir, boolean m_gerar, boolean m_imprimir, boolean m_fechar)
+end prototypes
+
+global subroutine of_menu_activated (boolean m_confirmar, boolean m_incluir, boolean m_excluir, boolean m_gerar, boolean m_imprimir, boolean m_fechar);m_menu.m_editar.enabled = true
+m_menu.m_editar.m_fechar.toolbaritemvisible = true
+m_menu.m_editar.m_incluir.toolbaritemvisible = true
+m_menu.m_editar.m_gerar.toolbaritemvisible = true
+m_menu.m_editar.m_confirmar.toolbaritemvisible = true
+m_menu.m_editar.m_excluir.toolbaritemvisible = true
+m_menu.m_editar.m_imprimir.toolbaritemvisible = true
+
+If m_confirmar then
+	m_menu.m_editar.m_confirmar.enabled = True
+Else
+	m_menu.m_editar.m_confirmar.enabled = False
+End If
+
+If m_incluir then
+	m_menu.m_editar.m_incluir.enabled = True
+Else
+	m_menu.m_editar.m_incluir.enabled = False
+End If
+	
+If m_gerar then
+	m_menu.m_editar.m_gerar.enabled = True
+Else
+	m_menu.m_editar.m_gerar.enabled = False
+End If
+
+If m_excluir then
+	m_menu.m_editar.m_excluir.enabled = True
+Else
+	m_menu.m_editar.m_excluir.enabled = False
+End If
+
+If m_fechar then
+	m_menu.m_editar.m_fechar.enabled = True
+Else
+	m_menu.m_editar.m_fechar.enabled = False
+End If
+
+If m_imprimir then
+	m_menu.m_editar.m_imprimir.enabled = True
+Else
+	m_menu.m_editar.m_imprimir.enabled = False
+End If
+end subroutine
+
