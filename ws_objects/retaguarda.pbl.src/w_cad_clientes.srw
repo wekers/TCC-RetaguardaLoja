@@ -83,6 +83,12 @@ gravar = dw_1.Update(True, True)
 	If gravar = 1 Then
 	
 		Commit;
+
+		open(w_response_msg)
+		w_response_msg.st_msg.Text = "Cliente adicionado a base de dados.."
+		sleep(3)
+		close(w_response_msg)
+		
 		dw_1.reset()
 		dw_1.insertrow(0)
 		m_menu.m_editar.m_confirmar.enabled = False
