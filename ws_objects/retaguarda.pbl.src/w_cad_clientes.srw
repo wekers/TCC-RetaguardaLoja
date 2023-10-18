@@ -151,6 +151,11 @@ msg_del = MessageBox("Atenção", &
 		if gravar_exclusao = 1 Then
 				Commit;
 				
+				open(w_response_msg)
+				w_response_msg.st_msg.Text = "Cliente foi excluído da base de dados.."
+				sleep(3)
+				close(w_response_msg)
+		
 				dw_1.reset()
 				dw_1.insertrow(0)
 				m_menu.m_editar.m_confirmar.enabled = False

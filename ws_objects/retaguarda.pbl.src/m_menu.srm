@@ -2,31 +2,54 @@
 forward
 global type m_menu from menu
 end type
-type m_usuários from menu within m_menu
+type m_usuarios from menu within m_menu
 end type
-type m_cadastrar from menu within m_usuários
+type m_cadastrar from menu within m_usuarios
 end type
-type m_usuários from menu within m_menu
+type m_usuarios from menu within m_menu
 m_cadastrar m_cadastrar
 end type
 type m_editar from menu within m_menu
 end type
 type m_incluir from menu within m_editar
 end type
+type m_confirmar from menu within m_editar
+end type
+type m_gerar from menu within m_editar
+end type
+type m_excluir from menu within m_editar
+end type
+type m_imprimir from menu within m_editar
+end type
+type m_fechar from menu within m_editar
+end type
 type m_editar from menu within m_menu
 m_incluir m_incluir
+m_confirmar m_confirmar
+m_gerar m_gerar
+m_excluir m_excluir
+m_imprimir m_imprimir
+m_fechar m_fechar
 end type
 type m_1 from menu within m_menu
 end type
+type m_clientes from menu within m_1
+end type
+type m_fornecodor from menu within m_1
+end type
+type m_1 from menu within m_menu
+m_clientes m_clientes
+m_fornecodor m_fornecodor
+end type
 global type m_menu from menu
-m_usuários m_usuários
+m_usuarios m_usuarios
 m_editar m_editar
 m_1 m_1
 end type
 end forward
 
 global type m_menu from menu
-m_usuários m_usuários
+m_usuarios m_usuarios
 m_editar m_editar
 m_1 m_1
 end type
@@ -53,26 +76,29 @@ this.toolbarbackcolor = 67108864
 this.toolbarhighlightcolor = 134217741
 this.toolbargradient = true
 this.bitmapgradient = true
-this.m_usuários=create m_usuários
+this.m_usuarios=create m_usuarios
 this.m_editar=create m_editar
 this.m_1=create m_1
-this.Item[UpperBound(this.Item)+1]=this.m_usuários
+this.Item[UpperBound(this.Item)+1]=this.m_usuarios
 this.Item[UpperBound(this.Item)+1]=this.m_editar
 this.Item[UpperBound(this.Item)+1]=this.m_1
 end on
 
 on m_menu.destroy
 call super::destroy
-destroy(this.m_usuários)
+destroy(this.m_usuarios)
 destroy(this.m_editar)
 destroy(this.m_1)
 end on
 
-type m_usuários from menu within m_menu
+event clicked;OpenSheet(w_cad_fornecedor, ParentWindow, 2, Layered!)	
+end event
+
+type m_usuarios from menu within m_menu
 m_cadastrar m_cadastrar
 end type
 
-on m_usuários.create
+on m_usuarios.create
 call super::create
 this.text = "&Usuários"
 this.menustyle = contemporarymenu!
@@ -96,12 +122,12 @@ this.m_cadastrar=create m_cadastrar
 this.Item[UpperBound(this.Item)+1]=this.m_cadastrar
 end on
 
-on m_usuários.destroy
+on m_usuarios.destroy
 call super::destroy
 destroy(this.m_cadastrar)
 end on
 
-type m_cadastrar from menu within m_usuários
+type m_cadastrar from menu within m_usuarios
 end type
 
 event clicked;//OpenSheet(w_cad_usuarios, ParentWindow, 2, Layered!)
@@ -135,11 +161,17 @@ end on
 
 type m_editar from menu within m_menu
 m_incluir m_incluir
+m_confirmar m_confirmar
+m_gerar m_gerar
+m_excluir m_excluir
+m_imprimir m_imprimir
+m_fechar m_fechar
 end type
 
 on m_editar.create
 call super::create
 this.text = "&Editar"
+this.toolbaritemvisible = false
 this.menustyle = contemporarymenu!
 this.menutextcolor = 134217735
 this.menubackcolor = 15780518
@@ -160,12 +192,27 @@ this.toolbaranimation = true
 this.toolbargradient = true
 this.bitmapgradient = true
 this.m_incluir=create m_incluir
+this.m_confirmar=create m_confirmar
+this.m_gerar=create m_gerar
+this.m_excluir=create m_excluir
+this.m_imprimir=create m_imprimir
+this.m_fechar=create m_fechar
 this.Item[UpperBound(this.Item)+1]=this.m_incluir
+this.Item[UpperBound(this.Item)+1]=this.m_confirmar
+this.Item[UpperBound(this.Item)+1]=this.m_gerar
+this.Item[UpperBound(this.Item)+1]=this.m_excluir
+this.Item[UpperBound(this.Item)+1]=this.m_imprimir
+this.Item[UpperBound(this.Item)+1]=this.m_fechar
 end on
 
 on m_editar.destroy
 call super::destroy
 destroy(this.m_incluir)
+destroy(this.m_confirmar)
+destroy(this.m_gerar)
+destroy(this.m_excluir)
+destroy(this.m_imprimir)
+destroy(this.m_fechar)
 end on
 
 type m_incluir from menu within m_editar
@@ -173,9 +220,10 @@ end type
 
 on m_incluir.create
 call super::create
-this.text = "&Incluir~tCtrl+I"
+this.text = "Incluir~tCtrl+I"
 this.shortcut = 329
 this.microhelp = "Inserir Linha"
+this.toolbaritemvisible = false
 this.toolbaritemname = "computesum!"
 this.toolbaritemtext = "Incluir"
 this.menuimage = "ComputeSum!"
@@ -207,11 +255,18 @@ end on
 event clicked;ParentWindow.GetActiveSheet().TriggerEvent("ue_incluir")
 end event
 
-type m_1 from menu within m_menu
+type m_confirmar from menu within m_editar
 end type
 
-on m_1.create
+on m_confirmar.create
 call super::create
+this.text = "Confirmar~tCtrl+S"
+this.shortcut = 339
+this.microhelp = "Salvar"
+this.toolbaritemvisible = false
+this.toolbaritemname = "Save!"
+this.toolbaritemtext = "Confirmar"
+this.menuimage = "Save!"
 this.menustyle = contemporarymenu!
 this.menutextcolor = 134217735
 this.menubackcolor = 15780518
@@ -222,6 +277,7 @@ this.facename = "Tahoma"
 this.titlebackcolor = 134217730
 this.bitmapbackcolor = 16711680
 this.menubitmaps = true
+this.menuanimation = true
 this.titlegradient = true
 this.toolbarstyle = contemporarytoolbar!
 this.toolbartextcolor = 16711680
@@ -231,7 +287,274 @@ this.toolbargradient = true
 this.bitmapgradient = true
 end on
 
-on m_1.destroy
+on m_confirmar.destroy
 call super::destroy
 end on
+
+event clicked;ParentWindow.GetActiveSheet().TriggerEvent("ue_salvar")
+end event
+
+type m_gerar from menu within m_editar
+end type
+
+on m_gerar.create
+call super::create
+this.text = "Gerar~tCtrl+G"
+this.shortcut = 327
+this.microhelp = "Gerar"
+this.toolbaritemvisible = false
+this.toolbaritemname = "Retrieve!"
+this.toolbaritemtext = "Gerar"
+this.menuimage = "Retrieve!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_gerar.destroy
+call super::destroy
+end on
+
+event clicked;ParentWindow.GetActiveSheet().TriggerEvent("ue_gerar")
+end event
+
+type m_excluir from menu within m_editar
+end type
+
+on m_excluir.create
+call super::create
+this.text = "Excluir~tCtrl+E"
+this.shortcut = 325
+this.microhelp = "Excluir"
+this.toolbaritemvisible = false
+this.toolbaritemname = "DeleteRow!"
+this.toolbaritemtext = "Excluir"
+this.menuimage = "DeleteRow!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_excluir.destroy
+call super::destroy
+end on
+
+event clicked;ParentWindow.GetActiveSheet().TriggerEvent("ue_excluir")
+end event
+
+type m_imprimir from menu within m_editar
+end type
+
+on m_imprimir.create
+call super::create
+this.text = "Imprimir~tCtrl+P"
+this.shortcut = 336
+this.microhelp = "Imprimir"
+this.toolbaritemvisible = false
+this.toolbaritemname = "Print!"
+this.toolbaritemtext = "Imprimir"
+this.menuimage = "Print!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_imprimir.destroy
+call super::destroy
+end on
+
+event clicked;ParentWindow.GetActiveSheet().TriggerEvent("ue_imprimir")
+end event
+
+type m_fechar from menu within m_editar
+end type
+
+on m_fechar.create
+call super::create
+this.text = "Fechar~tCtrl+F4"
+this.shortcut = 371
+this.microhelp = "Fechar Janela Atual"
+this.toolbaritemvisible = false
+this.toolbaritemname = "Exit!"
+this.toolbaritemtext = "Fechar"
+this.menuimage = "Exit!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_fechar.destroy
+call super::destroy
+end on
+
+event clicked;Close(GetActiveSheet(ParentWindow))
+end event
+
+type m_1 from menu within m_menu
+m_clientes m_clientes
+m_fornecodor m_fornecodor
+end type
+
+on m_1.create
+call super::create
+this.text = "&Cadastro"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_clientes=create m_clientes
+this.m_fornecodor=create m_fornecodor
+this.Item[UpperBound(this.Item)+1]=this.m_clientes
+this.Item[UpperBound(this.Item)+1]=this.m_fornecodor
+end on
+
+on m_1.destroy
+call super::destroy
+destroy(this.m_clientes)
+destroy(this.m_fornecodor)
+end on
+
+type m_clientes from menu within m_1
+end type
+
+on m_clientes.create
+call super::create
+this.text = "Cli&entes"
+this.microhelp = "Cadastro de Clientes"
+this.menuimage = "SelectScript!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_clientes.destroy
+call super::destroy
+end on
+
+event clicked;OpenSheet(w_cad_clientes, ParentWindow, 2, Layered!)
+end event
+
+type m_fornecodor from menu within m_1
+end type
+
+on m_fornecodor.create
+call super::create
+this.text = "&Fornecedor"
+this.microhelp = "Cadastro de Fornecedor"
+this.menuimage = "Custom087!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_fornecodor.destroy
+call super::destroy
+end on
+
+event clicked;OpenSheet(w_cad_fornecedor, ParentWindow, 2, Layered!)
+end event
 
