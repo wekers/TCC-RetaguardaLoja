@@ -240,6 +240,39 @@ ALTER TABLE IF EXISTS endereco
 
 -- -----------------------------------------------------------
 
+-- Table: forma_pagamento
+
+-- DROP TABLE IF EXISTS forma_pagamento;
+
+CREATE TABLE IF NOT EXISTS forma_pagamento
+(
+    descricao character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    ativo integer
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS forma_pagamento
+    OWNER to unicesumar;
+
+-- -----------------------------------------------------------
+
+-- Table: unidade
+
+-- DROP TABLE IF EXISTS unidade;
+
+CREATE TABLE IF NOT EXISTS unidade
+(
+    id serial PRIMARY KEY,
+    unidade character varying(6) COLLATE pg_catalog."default" NOT NULL
+    
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS unidade
+    OWNER to unicesumar;
 
 
+-- -----------------------------------------------------------
 
