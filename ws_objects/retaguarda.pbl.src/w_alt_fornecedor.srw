@@ -30,7 +30,7 @@ end type
 global w_alt_fornecedor w_alt_fornecedor
 
 type variables
-Boolean m_confirmar, m_incluir, m_excluir, m_gerar, m_fechar
+Boolean m_confirmar, m_incluir, m_excluir, m_gerar, m_fechar, m_imprimir
 end variables
 
 event ue_excluir();Integer gravar, wk_ret, ll
@@ -89,50 +89,10 @@ m_excluir = True
 
 end event
 
-event activate;m_menu.m_editar.enabled = true
-m_menu.m_editar.m_fechar.toolbaritemvisible = true
-m_menu.m_editar.m_incluir.toolbaritemvisible = true
-m_menu.m_editar.m_gerar.toolbaritemvisible = true
-m_menu.m_editar.m_confirmar.toolbaritemvisible = true
-m_menu.m_editar.m_excluir.toolbaritemvisible = true
-
-If m_confirmar then
-	m_menu.m_editar.m_confirmar.enabled = True
-Else
-	m_menu.m_editar.m_confirmar.enabled = False
-End If
-
-If m_incluir then
-	m_menu.m_editar.m_incluir.enabled = True
-Else
-	m_menu.m_editar.m_incluir.enabled = False
-End If
-	
-If m_gerar then
-	m_menu.m_editar.m_gerar.enabled = True
-Else
-	m_menu.m_editar.m_gerar.enabled = False
-End If
-
-If m_excluir then
-	m_menu.m_editar.m_excluir.enabled = True
-Else
-	m_menu.m_editar.m_excluir.enabled = False
-End If
-
-If m_fechar then
-	m_menu.m_editar.m_fechar.enabled = True
-Else
-	m_menu.m_editar.m_fechar.enabled = False
-End If
+event activate;of_menu_activated( m_confirmar, m_incluir, m_excluir, m_gerar, m_imprimir, m_fechar)
 end event
 
-event close;m_menu.m_editar.enabled = false
-m_menu.m_editar.m_fechar.toolbaritemvisible = false
-m_menu.m_editar.m_incluir.toolbaritemvisible = false
-m_menu.m_editar.m_gerar.toolbaritemvisible = false
-m_menu.m_editar.m_confirmar.toolbaritemvisible = false
-m_menu.m_editar.m_excluir.toolbaritemvisible = false
+event close;of_menu_in_close()
 end event
 
 type st_1 from statictext within w_alt_fornecedor
