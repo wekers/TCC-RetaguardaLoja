@@ -177,7 +177,7 @@ integer width = 2002
 integer height = 372
 integer taborder = 20
 string title = "none"
-string dataobject = "w_ddd_ceps"
+string dataobject = "d_ddd_ceps"
 boolean border = false
 boolean livescroll = true
 end type
