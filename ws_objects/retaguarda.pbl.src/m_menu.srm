@@ -37,9 +37,29 @@ type m_clientes from menu within m_1
 end type
 type m_fornecodor from menu within m_1
 end type
+type m_0 from menu within m_1
+end type
+type m_2 from menu within m_1
+end type
+type m_unidadedoproduto from menu within m_1
+end type
+type m_3 from menu within m_1
+end type
+type m_4 from menu within m_1
+end type
+type m_5 from menu within m_4
+end type
+type m_4 from menu within m_1
+m_5 m_5
+end type
 type m_1 from menu within m_menu
 m_clientes m_clientes
 m_fornecodor m_fornecodor
+m_0 m_0
+m_2 m_2
+m_unidadedoproduto m_unidadedoproduto
+m_3 m_3
+m_4 m_4
 end type
 global type m_menu from menu
 m_usuarios m_usuarios
@@ -453,6 +473,11 @@ end event
 type m_1 from menu within m_menu
 m_clientes m_clientes
 m_fornecodor m_fornecodor
+m_0 m_0
+m_2 m_2
+m_unidadedoproduto m_unidadedoproduto
+m_3 m_3
+m_4 m_4
 end type
 
 on m_1.create
@@ -478,14 +503,29 @@ this.toolbargradient = true
 this.bitmapgradient = true
 this.m_clientes=create m_clientes
 this.m_fornecodor=create m_fornecodor
+this.m_0=create m_0
+this.m_2=create m_2
+this.m_unidadedoproduto=create m_unidadedoproduto
+this.m_3=create m_3
+this.m_4=create m_4
 this.Item[UpperBound(this.Item)+1]=this.m_clientes
 this.Item[UpperBound(this.Item)+1]=this.m_fornecodor
+this.Item[UpperBound(this.Item)+1]=this.m_0
+this.Item[UpperBound(this.Item)+1]=this.m_2
+this.Item[UpperBound(this.Item)+1]=this.m_unidadedoproduto
+this.Item[UpperBound(this.Item)+1]=this.m_3
+this.Item[UpperBound(this.Item)+1]=this.m_4
 end on
 
 on m_1.destroy
 call super::destroy
 destroy(this.m_clientes)
 destroy(this.m_fornecodor)
+destroy(this.m_0)
+destroy(this.m_2)
+destroy(this.m_unidadedoproduto)
+destroy(this.m_3)
+destroy(this.m_4)
 end on
 
 type m_clientes from menu within m_1
@@ -556,5 +596,199 @@ call super::destroy
 end on
 
 event clicked;OpenSheet(w_cad_fornecedor, ParentWindow, 2, Layered!)
+end event
+
+type m_0 from menu within m_1
+end type
+
+on m_0.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_0.destroy
+call super::destroy
+end on
+
+type m_2 from menu within m_1
+end type
+
+on m_2.create
+call super::create
+this.text = "F&orma de Pagamento"
+this.menuimage = "Custom048!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_2.destroy
+call super::destroy
+end on
+
+event clicked;OpenSheet(w_cad_forma_pagamento, ParentWindow, 2, Layered!)
+end event
+
+type m_unidadedoproduto from menu within m_1
+end type
+
+on m_unidadedoproduto.create
+call super::create
+this.text = "&Unidade do Produto"
+this.menuimage = "Parameter!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_unidadedoproduto.destroy
+call super::destroy
+end on
+
+event clicked;OpenSheet(w_cad_unidade, ParentWindow, 2, Layered!)
+end event
+
+type m_3 from menu within m_1
+end type
+
+on m_3.create
+call super::create
+this.text = "-"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_3.destroy
+call super::destroy
+end on
+
+type m_4 from menu within m_1
+m_5 m_5
+end type
+
+on m_4.create
+call super::create
+this.text = "&Alterar"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_5=create m_5
+this.Item[UpperBound(this.Item)+1]=this.m_5
+end on
+
+on m_4.destroy
+call super::destroy
+destroy(this.m_5)
+end on
+
+type m_5 from menu within m_4
+end type
+
+on m_5.create
+call super::create
+this.text = "Fornecedor"
+this.menuimage = "Custom087!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_5.destroy
+call super::destroy
+end on
+
+event clicked;OpenSheet(w_alt_fornecedor, ParentWindow, 2, Layered!)
 end event
 
