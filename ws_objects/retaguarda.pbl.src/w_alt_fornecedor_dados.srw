@@ -182,10 +182,12 @@ boolean border = false
 boolean livescroll = true
 end type
 
-event retrievestart;Open(w_response_fornecedor)
+event retrievestart;open(w_response_msg)
+w_response_msg.st_msg.Text = "Localizando DADOS... Por Favor Aguarde..."
+		
 end event
 
-event retrieveend;Close(w_response_fornecedor)
+event retrieveend;close(w_response_msg)
 end event
 
 type dw_1 from datawindow within w_alt_fornecedor_dados
@@ -195,7 +197,7 @@ integer width = 3205
 integer height = 1376
 integer taborder = 10
 string title = "none"
-string dataobject = "w_cad_fornecedor"
+string dataobject = "d_cad_fornecedor"
 boolean border = false
 boolean livescroll = true
 end type

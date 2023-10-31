@@ -23,6 +23,7 @@ long backcolor = 67108864
 string icon = "DosEdit5!"
 boolean center = true
 event ue_excluir ( )
+event ue_postopen ( )
 st_1 st_1
 dw_1 dw_1
 gb_1 gb_1
@@ -36,10 +37,12 @@ end variables
 event ue_excluir();Integer gravar, wk_ret, ll
 ll = dw_1.GetRow()
 
-wk_ret = MessageBox("Atenção", & 
+if ll > 0 then
+	wk_ret = MessageBox("Atenção", & 
 					"Deseja Realmente Excluir o Fornecedor: " + "[" +String(dw_1.GetItemString(ll,"nome")) +"]", &
 		    		 Exclamation!,YesNo!,1)
 
+end if
 
 IF wk_ret = 1 Then
 
@@ -50,12 +53,17 @@ IF wk_ret = 1 Then
 
 		If gravar = 1 Then
 			Commit;
+			dw_1.reset()
+			this.Post Event open()
 		Else
 			MessageBox("Erro",SQLCA.SQLErrText)
 			RollBack;
 		End If
 		
 End if
+end event
+
+event ue_postopen();close(this)
 end event
 
 on w_alt_fornecedor.create
@@ -73,18 +81,21 @@ destroy(this.dw_1)
 destroy(this.gb_1)
 end on
 
-event open;dw_1.settransobject(SQLCA)
-dw_1.retrieve()
+event open;integer recuperar
+dw_1.settransobject(SQLCA)
+recuperar = dw_1.retrieve()
 
-m_menu.m_editar.m_fechar.enabled = true
+if recuperar < 1 then
+	Messagebox("Atenção", "Não existe até o momento nenhum fornecedor cadastrado!", StopSign!)
+	this.Post Event ue_postopen()
+end if
+
+
+
 m_fechar = True
-m_menu.m_editar.m_incluir.enabled = false
 m_incluir = False
-m_menu.m_editar.m_gerar.enabled = false
 m_gerar = False
-m_menu.m_editar.m_confirmar.enabled = false
 m_confirmar = False
-m_menu.m_editar.m_excluir.enabled = true
 m_excluir = True
 
 end event
