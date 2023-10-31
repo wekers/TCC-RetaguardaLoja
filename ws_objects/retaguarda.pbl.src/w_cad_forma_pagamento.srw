@@ -65,15 +65,10 @@ destroy(this.dw_1)
 destroy(this.gb_1)
 end on
 
-event open;m_menu.m_editar.m_fechar.enabled = true
-m_fechar = True
-m_menu.m_editar.m_incluir.enabled = false
+event open;m_fechar = True
 m_incluir = False
-m_menu.m_editar.m_gerar.enabled = false
 m_gerar = False
-m_menu.m_editar.m_confirmar.enabled = false
 m_confirmar = False
-m_menu.m_editar.m_excluir.enabled = false
 m_excluir = False
 
 
