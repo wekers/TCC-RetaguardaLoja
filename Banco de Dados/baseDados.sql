@@ -38,8 +38,8 @@ CREATE DATABASE "TccRetaguarda"
 CREATE TABLE IF NOT EXISTS usuarios
 (
     cod integer NOT NULL,
-    nome character varying(255) COLLATE pg_catalog."default",
-    senha text COLLATE pg_catalog."default",
+    nome character varying(255) COLLATE ,
+    senha text COLLATE ,
     CONSTRAINT usuarios_pkey PRIMARY KEY (cod)
 )
 
@@ -67,33 +67,33 @@ INSERT INTO usuarios(cod, nome, senha)
 CREATE TABLE IF NOT EXISTS clientes
 (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
-    nome character varying(255) COLLATE pg_catalog."default" NOT NULL,
-    apelido_ml character varying(255) COLLATE pg_catalog."default",
-    fone character varying(255) COLLATE pg_catalog."default",
-    email character varying(255) COLLATE pg_catalog."default",
-    cep character varying(10) COLLATE pg_catalog."default",
-    n_endereco character varying(255) COLLATE pg_catalog."default",
-    logradouro character varying(255) COLLATE pg_catalog."default",
-    bairro character varying(255) COLLATE pg_catalog."default",
-    cidade character varying(255) COLLATE pg_catalog."default",
-    uf character varying(5) COLLATE pg_catalog."default",
-    email_alt character varying(255) COLLATE pg_catalog."default",
-    celular character varying(10) COLLATE pg_catalog."default",
-    cnpj_cpf character varying(14) COLLATE pg_catalog."default",
-    cmun character varying(7) COLLATE pg_catalog."default",
-    ie character varying(14) COLLATE pg_catalog."default",
-    isuf character varying(9) COLLATE pg_catalog."default",
-    logradouro_cpl character varying(60) COLLATE pg_catalog."default",
-    tipo_c character varying(2) COLLATE pg_catalog."default",
-    endereco_ent_dif character varying(2) COLLATE pg_catalog."default",
-    d_nome character varying(100) COLLATE pg_catalog."default",
-    d_cep character varying(10) COLLATE pg_catalog."default",
-    d_n_endereco character varying(60) COLLATE pg_catalog."default",
-    d_logradouro character varying(100) COLLATE pg_catalog."default",
-    d_bairro character varying(100) COLLATE pg_catalog."default",
-    d_cidade character varying(100) COLLATE pg_catalog."default",
-    d_uf character varying(2) COLLATE pg_catalog."default",
-    d_logradouro_cpl character varying(60) COLLATE pg_catalog."default",
+    nome character varying(255) COLLATE  NOT NULL,
+    apelido_ml character varying(255) COLLATE ,
+    fone character varying(255) COLLATE ,
+    email character varying(255) COLLATE ,
+    cep character varying(10) COLLATE ,
+    n_endereco character varying(255) COLLATE ,
+    logradouro character varying(255) COLLATE ,
+    bairro character varying(255) COLLATE ,
+    cidade character varying(255) COLLATE ,
+    uf character varying(5) COLLATE ,
+    email_alt character varying(255) COLLATE ,
+    celular character varying(10) COLLATE ,
+    cnpj_cpf character varying(14) COLLATE ,
+    cmun character varying(7) COLLATE ,
+    ie character varying(14) COLLATE ,
+    isuf character varying(9) COLLATE ,
+    logradouro_cpl character varying(60) COLLATE ,
+    tipo_c character varying(2) COLLATE ,
+    endereco_ent_dif character varying(2) COLLATE ,
+    d_nome character varying(100) COLLATE ,
+    d_cep character varying(10) COLLATE ,
+    d_n_endereco character varying(60) COLLATE ,
+    d_logradouro character varying(100) COLLATE ,
+    d_bairro character varying(100) COLLATE ,
+    d_cidade character varying(100) COLLATE ,
+    d_uf character varying(2) COLLATE ,
+    d_logradouro_cpl character varying(60) COLLATE ,
     CONSTRAINT clientes_pkey PRIMARY KEY (id)
 )
 
@@ -110,16 +110,16 @@ ALTER TABLE IF EXISTS clientes
 CREATE TABLE IF NOT EXISTS fornecedor
 (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
-    nome character varying(255) COLLATE pg_catalog."default",
-    cep character varying(10) COLLATE pg_catalog."default",
-    fone character varying(15) COLLATE pg_catalog."default",
-    fax character varying(15) COLLATE pg_catalog."default",
-    cnpj_cpf character varying(15) COLLATE pg_catalog."default",
-    inscr_estadual character varying(15) COLLATE pg_catalog."default",
-    email character varying(255) COLLATE pg_catalog."default",
-    contato character varying(255) COLLATE pg_catalog."default",
-    n_endereco character varying(255) COLLATE pg_catalog."default",
-    tipo_c character varying(2) COLLATE pg_catalog."default",
+    nome character varying(255) COLLATE ,
+    cep character varying(10) COLLATE ,
+    fone character varying(15) COLLATE ,
+    fax character varying(15) COLLATE ,
+    cnpj_cpf character varying(15) COLLATE ,
+    inscr_estadual character varying(15) COLLATE ,
+    email character varying(255) COLLATE ,
+    contato character varying(255) COLLATE ,
+    n_endereco character varying(255) COLLATE ,
+    tipo_c character varying(2) COLLATE ,
     CONSTRAINT fornecedor_pkey PRIMARY KEY (id)
 )
 
@@ -137,9 +137,9 @@ ALTER TABLE IF EXISTS fornecedor
 CREATE TABLE IF NOT EXISTS bairro
 (
     id_bairro integer NOT NULL,
-    id_uf character varying(2) COLLATE pg_catalog."default",
+    id_uf character varying(2) COLLATE ,
     id_cidade integer,
-    bairro_nome character varying(72) COLLATE pg_catalog."default"
+    bairro_nome character varying(72) COLLATE 
 )
 
 TABLESPACE pg_default;
@@ -156,19 +156,19 @@ ALTER TABLE IF EXISTS bairro
 
 CREATE TABLE IF NOT EXISTS estado
 (
-    id_uf character varying(2) COLLATE pg_catalog."default" NOT NULL,
-    estado_nome character varying(72) COLLATE pg_catalog."default",
-    faixa_cep1_ini character varying(8) COLLATE pg_catalog."default",
-    faixa_cep1_fim character varying(8) COLLATE pg_catalog."default",
-    faixa_cep2_ini character varying(8) COLLATE pg_catalog."default",
-    faixa_cep2_fim character varying(8) COLLATE pg_catalog."default",
+    id_uf character varying(2) COLLATE  NOT NULL,
+    estado_nome character varying(72) COLLATE ,
+    faixa_cep1_ini character varying(8) COLLATE ,
+    faixa_cep1_fim character varying(8) COLLATE ,
+    faixa_cep2_ini character varying(8) COLLATE ,
+    faixa_cep2_fim character varying(8) COLLATE ,
     pac numeric(10,2),
     sedex numeric(10,2),
-    capital character varying(255) COLLATE pg_catalog."default",
-    prazo_capital_pac character varying(255) COLLATE pg_catalog."default",
-    prazo_capital_sedex character varying(255) COLLATE pg_catalog."default",
-    prazo_noc_pac character varying(255) COLLATE pg_catalog."default",
-    prazo_noc_sedex character varying(255) COLLATE pg_catalog."default"
+    capital character varying(255) COLLATE ,
+    prazo_capital_pac character varying(255) COLLATE ,
+    prazo_capital_sedex character varying(255) COLLATE ,
+    prazo_noc_pac character varying(255) COLLATE ,
+    prazo_noc_sedex character varying(255) COLLATE 
 )
 
 TABLESPACE pg_default;
@@ -185,10 +185,10 @@ ALTER TABLE IF EXISTS estado
 CREATE TABLE IF NOT EXISTS cidade
 (
     id_cidade integer NOT NULL,
-    id_uf character varying(2) COLLATE pg_catalog."default",
-    cidade_nome character varying(60) COLLATE pg_catalog."default",
-    cep character varying(9) COLLATE pg_catalog."default",
-    codigo_municipio character varying(7) COLLATE pg_catalog."default"
+    id_uf character varying(2) COLLATE ,
+    cidade_nome character varying(60) COLLATE ,
+    cep character varying(9) COLLATE ,
+    codigo_municipio character varying(7) COLLATE 
 )
 
 TABLESPACE pg_default;
@@ -207,8 +207,8 @@ CREATE TABLE IF NOT EXISTS cidade_ibge
     id integer NOT NULL,
     id_estado integer,
     codigo_municipio integer,
-    nome character varying(250) COLLATE pg_catalog."default",
-    uf character varying(2) COLLATE pg_catalog."default"
+    nome character varying(250) COLLATE ,
+    uf character varying(2) COLLATE 
 )
 
 TABLESPACE pg_default;
@@ -225,12 +225,12 @@ ALTER TABLE IF EXISTS cidade_ibge
 CREATE TABLE IF NOT EXISTS endereco
 (
     id_endereco integer NOT NULL,
-    id_uf character varying(2) COLLATE pg_catalog."default",
+    id_uf character varying(2) COLLATE ,
     id_cidade integer,
     id_bairro integer,
-    endereco_nome character varying(72) COLLATE pg_catalog."default",
-    cep character varying(8) COLLATE pg_catalog."default",
-    complemento character varying(100) COLLATE pg_catalog."default"
+    endereco_nome character varying(72) COLLATE ,
+    cep character varying(8) COLLATE ,
+    complemento character varying(100) COLLATE 
 )
 
 TABLESPACE pg_default;
@@ -246,7 +246,7 @@ ALTER TABLE IF EXISTS endereco
 
 CREATE TABLE IF NOT EXISTS forma_pagamento
 (
-    descricao character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    descricao character varying(255) COLLATE  NOT NULL,
     ativo integer
 )
 
@@ -264,7 +264,7 @@ ALTER TABLE IF EXISTS forma_pagamento
 CREATE TABLE IF NOT EXISTS unidade
 (
     id serial PRIMARY KEY,
-    unidade character varying(6) COLLATE pg_catalog."default" NOT NULL
+    unidade character varying(6) COLLATE  NOT NULL
     
 )
 
@@ -276,3 +276,47 @@ ALTER TABLE IF EXISTS unidade
 
 -- -----------------------------------------------------------
 
+-- Table: categoria
+
+-- DROP TABLE IF EXISTS categoria;
+
+CREATE TABLE IF NOT EXISTS categoria
+(
+    id serial PRIMARY KEY,
+    descricao character varying(255) NOT NULL
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS categoria
+    OWNER to unicesumar;
+
+-- -----------------------------------------------------------
+
+-- Table: produto
+
+-- DROP TABLE IF EXISTS produto;
+
+CREATE TABLE IF NOT EXISTS produto
+(
+    codigo character varying(12) NOT NULL,
+    descricao text NOT NULL,
+    und character varying(10) NOT NULL,
+    preco_custo numeric(7,2) NOT NULL,
+    preco_venda numeric(7,2),
+    desconto integer,
+    saldo double precision,
+    id_fornecedor integer,
+    preco_final_venda numeric(7,2),
+    categoria character varying(255),
+    codigo_barras character varying(14),
+    ncm character varying(8),
+    peso numeric(5,3),
+    status character varying(1) DEFAULT 'A'
+   
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS produto
+    OWNER to unicesumar;
