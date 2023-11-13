@@ -308,11 +308,13 @@ CREATE TABLE IF NOT EXISTS produto
     saldo double precision,
     id_fornecedor integer,
     preco_final_venda numeric(7,2),
-    categoria character varying(255),
+    id_categoria int NOT NULL,
     codigo_barras character varying(14),
     ncm character varying(8),
     peso numeric(5,3),
-    status character varying(1) DEFAULT 'A'
+    status character varying(1) DEFAULT 'A',
+    FOREIGN KEY ("id_fornecedor") REFERENCES fornecedor ("id"),
+    FOREIGN KEY ("id_categoria") REFERENCES categoria ("id")
    
 )
 
