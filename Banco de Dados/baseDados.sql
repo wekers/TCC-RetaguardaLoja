@@ -313,6 +313,7 @@ CREATE TABLE IF NOT EXISTS produto
     ncm character varying(8),
     peso numeric(5,3),
     status character varying(1) DEFAULT 'A',
+    estacao varchar(15),
     FOREIGN KEY ("id_fornecedor") REFERENCES fornecedor ("id"),
     FOREIGN KEY ("id_categoria") REFERENCES categoria ("id")
    
