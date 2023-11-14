@@ -299,7 +299,7 @@ ALTER TABLE IF EXISTS categoria
 
 CREATE TABLE IF NOT EXISTS produto
 (
-    codigo character varying(12) NOT NULL,
+    codigo character varying(12) PRIMARY KEY,
     descricao text NOT NULL,
     und character varying(10) NOT NULL,
     preco_custo numeric(7,2) NOT NULL,
