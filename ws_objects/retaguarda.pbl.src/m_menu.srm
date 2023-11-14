@@ -41,6 +41,8 @@ type m_0 from menu within m_1
 end type
 type m_2 from menu within m_1
 end type
+type m_categoria from menu within m_1
+end type
 type m_unidadedoproduto from menu within m_1
 end type
 type m_3 from menu within m_1
@@ -57,6 +59,7 @@ m_clientes m_clientes
 m_fornecodor m_fornecodor
 m_0 m_0
 m_2 m_2
+m_categoria m_categoria
 m_unidadedoproduto m_unidadedoproduto
 m_3 m_3
 m_4 m_4
@@ -475,6 +478,7 @@ m_clientes m_clientes
 m_fornecodor m_fornecodor
 m_0 m_0
 m_2 m_2
+m_categoria m_categoria
 m_unidadedoproduto m_unidadedoproduto
 m_3 m_3
 m_4 m_4
@@ -505,6 +509,7 @@ this.m_clientes=create m_clientes
 this.m_fornecodor=create m_fornecodor
 this.m_0=create m_0
 this.m_2=create m_2
+this.m_categoria=create m_categoria
 this.m_unidadedoproduto=create m_unidadedoproduto
 this.m_3=create m_3
 this.m_4=create m_4
@@ -512,6 +517,7 @@ this.Item[UpperBound(this.Item)+1]=this.m_clientes
 this.Item[UpperBound(this.Item)+1]=this.m_fornecodor
 this.Item[UpperBound(this.Item)+1]=this.m_0
 this.Item[UpperBound(this.Item)+1]=this.m_2
+this.Item[UpperBound(this.Item)+1]=this.m_categoria
 this.Item[UpperBound(this.Item)+1]=this.m_unidadedoproduto
 this.Item[UpperBound(this.Item)+1]=this.m_3
 this.Item[UpperBound(this.Item)+1]=this.m_4
@@ -523,6 +529,7 @@ destroy(this.m_clientes)
 destroy(this.m_fornecodor)
 destroy(this.m_0)
 destroy(this.m_2)
+destroy(this.m_categoria)
 destroy(this.m_unidadedoproduto)
 destroy(this.m_3)
 destroy(this.m_4)
@@ -660,6 +667,40 @@ end on
 
 event clicked;OpenSheet(w_cad_forma_pagamento, ParentWindow, 2, Layered!)
 end event
+
+type m_categoria from menu within m_1
+end type
+
+event clicked;OpenSheet(w_cad_categoria, ParentWindow, 2, Layered!)
+end event
+
+on m_categoria.create
+call super::create
+this.text = "Cate&goria"
+this.menuimage = "Custom097!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_categoria.destroy
+call super::destroy
+end on
 
 type m_unidadedoproduto from menu within m_1
 end type
