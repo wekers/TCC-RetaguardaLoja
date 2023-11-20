@@ -37,6 +37,23 @@ end variables
 event ue_excluir();Integer gravar, wk_ret, ll
 ll = dw_1.GetRow()
 
+// --------------------------------------
+// não deixa excluir se tiver dados vinculados
+Integer id, existe_fornecedor
+
+id =	dw_1.GetItemNumber(ll,"id")
+Select count(*)
+Into :existe_fornecedor
+From produto
+Where id_fornecedor = :id;
+
+if (existe_fornecedor > 0) then
+			Messagebox("Atenção", "Não é possível excluir o Fonecedor: " + "[ " +String(dw_1.GetItemString(ll,"nome")) +" ]" &
+	+" - Existem produtos que estão (cadastrados) vinculados a ele!", StopSign!)
+	return 
+end if
+// --------------------------------------
+
 if ll > 0 then
 	wk_ret = MessageBox("Atenção", & 
 					"Deseja Realmente Excluir o Fornecedor: " + "[" +String(dw_1.GetItemString(ll,"nome")) +"]", &
@@ -139,17 +156,20 @@ end type
 event doubleclicked;Open(w_alt_fornecedor_dados)
 end event
 
-event dberror;CHOOSE CASE sqldbcode
+event dberror;
 
-        CASE -198
-
-        MessageBox("Erro na Exclusão", "Não é possivel excluir o fornecedor, pois existe dados vinculados ao mesmo. Duvidas contate o Analista do Sistema")
+CHOOSE CASE sqldbcode
+		
+		// não vai funcionar
+	   // no postgresql, só extraindo o codigo do erro, atraves do texto completo do sqlErrText
+		
+       CASE 23503
+			//sybase anywhere
+			//-198
+	   MessageBox("Erro na Exclusão", "Não é possivel excluir o fornecedor, pois existe dados vinculados ao mesmo. Duvidas contate o Analista do Sistema")
 
 
 END CHOOSE
-
-RETURN 1
-
 
 
 
