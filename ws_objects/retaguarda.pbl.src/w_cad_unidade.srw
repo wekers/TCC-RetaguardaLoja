@@ -39,6 +39,8 @@ if prossegue then
 	dw_1.ScrolltoRow(linha)
 	m_menu.m_editar.m_excluir.enabled = true
 	m_excluir = True
+	m_menu.m_editar.m_incluir.enabled = False
+	m_incluir = False
 	m_menu.m_editar.m_confirmar.enabled = false
 	m_confirmar = false
 	dw_1.Modify("unidade.Protect='1~tIf(getrow() = rowcount(), 0, 1)'")
@@ -70,10 +72,10 @@ if dw_1.RowCount() = 1 then
 else
 	prossegue = true
 	dw_1.DeleteRow(ll)
-
 	m_menu.m_editar.m_confirmar.enabled = true
 	m_confirmar = true
-	
+	m_menu.m_editar.m_incluir.enabled = True
+	m_incluir = True
 	
 end if
 
@@ -90,8 +92,10 @@ gravar = dw_1.Update(True, True)
 		dw_1.reset()
 		dw_1.retrieve()
 		m_menu.m_editar.m_confirmar.enabled = False
+		m_menu.m_editar.m_incluir.enabled = True
+		m_incluir = True
 		m_confirmar = False
-		prossegue = false
+		prossegue = true
 	
 	Else
 		
@@ -113,18 +117,11 @@ destroy(this.dw_1)
 destroy(this.gb_1)
 end on
 
-event open;m_menu.m_editar.m_fechar.enabled = true
-m_fechar = True
-m_menu.m_editar.m_incluir.enabled = true
+event open;m_fechar = True
 m_incluir = True
-m_menu.m_editar.m_gerar.enabled = false
 m_gerar = False
-m_menu.m_editar.m_confirmar.enabled = false
 m_confirmar = False
-m_menu.m_editar.m_excluir.enabled = false
 m_excluir = False
-
-
 
 
 Integer recuperar
