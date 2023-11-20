@@ -36,6 +36,20 @@ event ue_excluir();
 integer ll
 ll = dw_1.GetRow()
 
+Integer id, existe_categoria
+
+id =	dw_1.GetItemNumber(ll,"id")
+Select count(*)
+Into :existe_categoria
+From produto
+Where id_categoria = :id;
+
+if (existe_categoria > 0) then
+			Messagebox("Atenção", "Não é possível excluir a Categoria: " + "[ " +String(dw_1.GetItemString(ll,"descricao")) +" ]" &
+	+" - Existem produtos que estão (cadastrados) vinculados a ela!", StopSign!)
+	return 
+end if
+
 
 dw_1.Modify("descricao.Protect='0'")
 
@@ -48,12 +62,16 @@ if dw_1.RowCount() = 1 then
 else
 	prossegue = true
 	dw_1.DeleteRow(ll)
-
+	m_menu.m_editar.m_incluir.enabled = True
+	m_incluir = True
 	m_menu.m_editar.m_confirmar.enabled = true
 	m_confirmar = true
 	
 	
 end if
+
+
+
 
 end event
 
@@ -64,6 +82,8 @@ if prossegue then
 	dw_1.ScrolltoRow(linha)
 	m_menu.m_editar.m_excluir.enabled = true
 	m_excluir = True
+	m_menu.m_editar.m_incluir.enabled = False
+	m_incluir = False
 	m_menu.m_editar.m_confirmar.enabled = false
 	m_confirmar = false
 	dw_1.Modify("descricao.Protect='1~tIf(getrow() = rowcount(), 0, 1)'")
@@ -82,6 +102,7 @@ event ue_salvar();Integer gravar
 dw_1.settransobject(SQLCA)
 gravar = dw_1.Update(True, True)
 
+
 	If gravar = 1 Then
 	
 		Commit;
@@ -89,14 +110,20 @@ gravar = dw_1.Update(True, True)
 		dw_1.retrieve()
 		m_menu.m_editar.m_confirmar.enabled = False
 		m_confirmar = False
-		prossegue = false
+		m_menu.m_editar.m_incluir.enabled = True
+		m_incluir = True
+		prossegue = true
 	
 	Else
 		
 		MessageBox("Erro ao gravar tipo de item",SQLCA.SQLErrText)
+		
 		RollBack;
 	
 End If
+
+
+	
 end event
 
 on w_cad_categoria.create
@@ -167,12 +194,28 @@ end event
 
 event itemchanged;String descricao
 
-		
-
-
 Choose case this.GetColumnName()
 		
 	Case	'descricao'
+		////////// não deixa renomear se possui dados vinculados
+		integer ll
+		ll = dw_1.GetRow()
+
+		Integer id, existe_categoria
+
+		id =	dw_1.GetItemNumber(ll,"id")
+		Select count(*)
+			Into :existe_categoria
+		From produto
+			Where id_categoria = :id;
+
+		if (existe_categoria > 0) then
+			Messagebox("Atenção", "Não é possível modificar o nome da Categoria: " + "[ " +String(dw_1.GetItemString(ll,"descricao")) +" ]" &
+			+" - Já existem produtos (que foram cadastrados) vinculados a ela!", StopSign!)
+			return 2
+		end if
+		
+		///////////////////////////
 		
 		descricao = this.GetText()
 		
