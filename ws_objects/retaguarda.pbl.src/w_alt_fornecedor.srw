@@ -32,11 +32,15 @@ global w_alt_fornecedor w_alt_fornecedor
 
 type variables
 Boolean m_confirmar, m_incluir, m_excluir, m_gerar, m_fechar, m_imprimir
+String fornecedor_nome
+
+
 end variables
 
 event ue_excluir();Integer gravar, wk_ret, ll
 ll = dw_1.GetRow()
-
+fornecedor_nome = String(dw_1.GetItemString(ll,"nome"))
+/*
 // --------------------------------------
 // não deixa excluir se tiver dados vinculados
 Integer id, existe_fornecedor
@@ -53,18 +57,19 @@ if (existe_fornecedor > 0) then
 	return 
 end if
 // --------------------------------------
-
+*/
 if ll > 0 then
 	wk_ret = MessageBox("Atenção", & 
-					"Deseja Realmente Excluir o Fornecedor: " + "[" +String(dw_1.GetItemString(ll,"nome")) +"]", &
+					"Deseja Realmente Excluir o Fornecedor: " + "[" + fornecedor_nome +"]", &
 		    		 Exclamation!,YesNo!,1)
 
 end if
 
 IF wk_ret = 1 Then
-
-	dw_1.DeleteRow(dw_1.GetRow())
+	
 	dw_1.settransobject(SQLCA)
+	dw_1.DeleteRow(dw_1.GetRow())
+
 	
 	gravar = dw_1.Update(True, True)
 
@@ -73,11 +78,17 @@ IF wk_ret = 1 Then
 			dw_1.reset()
 			this.Post Event open()
 		Else
-			MessageBox("Erro",SQLCA.SQLErrText)
+			//MessageBox("Erro SQL",SQLCA.SQLErrText)
 			RollBack;
+			dw_1.reset()
+			dw_1.retrieve()
+			dw_1.ScrollToRow(ll)
+					
 		End If
 		
+		
 End if
+
 end event
 
 event ue_postopen();close(this)
@@ -156,12 +167,12 @@ end type
 event doubleclicked;Open(w_alt_fornecedor_dados)
 end event
 
-event dberror;
-
+event dberror;// SQLCODE is deprecated ... new applications are strongly encouraged to use SQLSTATE.
+/*
 CHOOSE CASE sqldbcode
 		
 		// não vai funcionar
-	   // no postgresql, só extraindo o codigo do erro, atraves do texto completo do sqlErrText
+	   // no postgresql nao retorna o código sozinho, só extraindo o codigo do erro, atraves do texto completo do sqlErrText
 		
        CASE 23503
 			//sybase anywhere
@@ -170,9 +181,40 @@ CHOOSE CASE sqldbcode
 
 
 END CHOOSE
+*/
 
 
 
+integer ll
+ll = dw_1.GetRow()
+
+constant string SQLSTATE_LABEL = "SQLSTATE = "
+constant int    SQLSTATE_LIMIT = 5
+
+long ll_start
+string ls_sqlState
+ls_sqlState = SQLErrtext
+
+
+// Check whether text contains SQLSTATE value
+if not Match(  ls_sqlState, (SQLSTATE_LABEL + Fill(".", SQLSTATE_LIMIT))) then
+   SetNull(  ls_sqlState)
+  // return ls_sqlState // No SQLSTATE => ABORT
+end if
+
+ 
+// Extract SQLSTATE value from text
+ll_start = Pos(SQLErrtext, SQLSTATE_LABEL) + Len(SQLSTATE_LABEL)
+ls_sqlState = Mid(SQLErrtext, ll_start, SQLSTATE_LIMIT)
+
+if(ls_sqlState ='23503') then
+	Messagebox("Atenção", "Não é possível excluir o Fonecedor: " + "[ " +fornecedor_nome +" ]" &
+	+" - Existem produto que estão (cadastrados) vinculados a ele!", StopSign!)
+else
+	MessageBox("Erro SQL","Código erro: "+ls_sqlState +" : "+ SQLCA.SQLErrText)
+end if
+
+Return 1
 end event
 
 type gb_1 from groupbox within w_alt_fornecedor
