@@ -70,6 +70,8 @@ dw_1.retrieve(id)
 
 id_cep =	String(dw_1.GetItemString(1,"cep"))
 
+dw_1.SetTabOrder (2, 0)	//não deixa alterar o campo 'nome'
+
 dw_2.settransobject(SQLCA)
 dw_2.Retrieve(id_cep)
 
