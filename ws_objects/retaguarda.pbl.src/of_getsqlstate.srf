@@ -1,0 +1,31 @@
+﻿$PBExportHeader$of_getsqlstate.srf
+global type of_GetSQLState from function_object
+end type
+
+forward prototypes
+global function string of_getsqlstate (string as_sqlerrtext)
+end prototypes
+
+global function string of_getsqlstate (string as_sqlerrtext);// ** Funçao para extrair erro SQLSTATE de retorno do postgreSQL **
+// **************************************
+
+// Extracts SQLSTATE's value from the text.
+// Returns NULL if text doesn't refer to SQLSTATE.
+constant string SQLSTATE_LABEL = "SQLSTATE = "
+constant int    SQLSTATE_LIMIT = 5
+
+long ll_start
+string ls_sqlState
+
+// Check whether text contains SQLSTATE value
+if not Match(as_sqlErrText, (SQLSTATE_LABEL + Fill(".", SQLSTATE_LIMIT))) then
+   SetNull(ls_sqlState)
+   return ls_sqlState // No SQLSTATE => ABORT
+end if
+
+// Extract SQLSTATE value from text
+ll_start = Pos(as_sqlErrText, SQLSTATE_LABEL) + Len(SQLSTATE_LABEL)
+ls_sqlState = Mid(as_sqlErrText, ll_start, SQLSTATE_LIMIT)
+return ls_sqlState // DONE
+end function
+
