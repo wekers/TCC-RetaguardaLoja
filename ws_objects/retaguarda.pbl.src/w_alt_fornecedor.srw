@@ -40,6 +40,8 @@ end variables
 event ue_excluir();Integer gravar, wk_ret, ll
 ll = dw_1.GetRow()
 fornecedor_nome = String(dw_1.GetItemString(ll,"nome"))
+
+// comentado, mas o codigo vai servir de exemplo para futuras referencias
 /*
 // --------------------------------------
 // não deixa excluir se tiver dados vinculados
@@ -58,6 +60,8 @@ if (existe_fornecedor > 0) then
 end if
 // --------------------------------------
 */
+
+
 if ll > 0 then
 	wk_ret = MessageBox("Atenção", & 
 					"Deseja Realmente Excluir o Fornecedor: " + "[" + fornecedor_nome +"]", &
@@ -80,8 +84,9 @@ IF wk_ret = 1 Then
 		Else
 			//MessageBox("Erro SQL",SQLCA.SQLErrText)
 			RollBack;
-			dw_1.reset()
-			dw_1.retrieve()
+			//dw_1.reset()
+			//dw_1.retrieve()
+			dw_1.RowsMove(1, dw_1.DeletedCount(), Delete!, dw_1, ll, Primary!) //move a linha deletada do 'buffer delete' para o 'buffer primario', como estava
 			dw_1.ScrollToRow(ll)
 					
 		End If
@@ -168,50 +173,27 @@ event doubleclicked;Open(w_alt_fornecedor_dados)
 end event
 
 event dberror;// SQLCODE is deprecated ... new applications are strongly encouraged to use SQLSTATE.
+
 /*
 CHOOSE CASE sqldbcode
-		
 		// não vai funcionar
-	   // no postgresql nao retorna o código sozinho, só extraindo o codigo do erro, atraves do texto completo do sqlErrText
+	    // no postgresql nao retorna o código sozinho, só extraindo o codigo do erro, atraves do texto completo do sqlErrText
 		
        CASE 23503
-			//sybase anywhere
-			//-198
-	   MessageBox("Erro na Exclusão", "Não é possivel excluir o fornecedor, pois existe dados vinculados ao mesmo. Duvidas contate o Analista do Sistema")
-
+	  //sybase sql anywhere
+	  //CASE -198
+	  		 MessageBox("Erro na Exclusão", "Não é possivel excluir o fornecedor, pois existe dados vinculados ao mesmo. Duvidas contate o Analista do Sistema")
 
 END CHOOSE
 */
 
 
-
-integer ll
-ll = dw_1.GetRow()
-
-constant string SQLSTATE_LABEL = "SQLSTATE = "
-constant int    SQLSTATE_LIMIT = 5
-
-long ll_start
-string ls_sqlState
-ls_sqlState = SQLErrtext
-
-
-// Check whether text contains SQLSTATE value
-if not Match(  ls_sqlState, (SQLSTATE_LABEL + Fill(".", SQLSTATE_LIMIT))) then
-   SetNull(  ls_sqlState)
-  // return ls_sqlState // No SQLSTATE => ABORT
-end if
-
- 
-// Extract SQLSTATE value from text
-ll_start = Pos(SQLErrtext, SQLSTATE_LABEL) + Len(SQLSTATE_LABEL)
-ls_sqlState = Mid(SQLErrtext, ll_start, SQLSTATE_LIMIT)
-
-if(ls_sqlState ='23503') then
+// 23503 	foreign_key_violation
+if(of_GetSQLState(SQLErrtext) ='23503') then
 	Messagebox("Atenção", "Não é possível excluir o Fonecedor: " + "[ " +fornecedor_nome +" ]" &
 	+" - Existem produto que estão (cadastrados) vinculados a ele!", StopSign!)
 else
-	MessageBox("Erro SQL","Código erro: "+ls_sqlState +" : "+ SQLCA.SQLErrText)
+	MessageBox("Erro SQL","Código erro: "+ of_GetSQLState(SQLErrtext) +" : "+ SQLErrText)
 end if
 
 Return 1
