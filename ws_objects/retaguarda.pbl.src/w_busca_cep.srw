@@ -204,11 +204,11 @@ cep = string( dw_1.GetItemString(ll,"endereco_cep"))
 	
 				string c_bairro, c_logradouro, c_cidade, c_uf, cmun			
 	
-				SELECT	"bairro"."bairro_nome",   
-					         "endereco"."endereco_nome",   
-         					"cidade"."cidade_nome",   
-         					"estado"."id_uf",  
-							"cidade"."codigo_municipio"
+				SELECT	UPPER("bairro"."bairro_nome"),   
+					         UPPER("endereco"."endereco_nome"),   
+         					UPPER("cidade"."cidade_nome"),   
+         					UPPER("estado"."id_uf"),  
+							UPPER("cidade"."codigo_municipio")
 				
 				INTO :c_bairro, :c_logradouro, :c_cidade, :c_uf, :cmun
 			
@@ -290,7 +290,7 @@ ddlb_2.Reset()
 int i_err2
 String cidade
 
-DECLARE dyn_cursor2 CURSOR FOR SELECT cidade_nome from cidade where id_uf in (:uf_codigo_var);
+DECLARE dyn_cursor2 CURSOR FOR SELECT UPPER (cidade_nome) from cidade where id_uf in (:uf_codigo_var);
 OPEN dyn_cursor2;
 DO
      FETCH dyn_cursor2 into :cidade;
@@ -479,6 +479,7 @@ fontfamily fontfamily = swiss!
 string facename = "Arial"
 long textcolor = 12639424
 long backcolor = 32768
+textcase textcase = upper!
 borderstyle borderstyle = stylelowered!
 end type
 

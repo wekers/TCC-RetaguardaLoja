@@ -11,12 +11,12 @@ table(column=(type=char(8) updatewhereclause=yes name=endereco_cep dbname="ender
  column=(type=char(100) updatewhereclause=yes name=endereco_complemento dbname="endereco.complemento" dbalias=".complemento" )
  column=(type=char(2) updatewhereclause=yes name=estado_id_uf dbname="estado.id_uf" dbalias=".id_uf" )
  column=(type=char(60) updatewhereclause=yes name=cidade_cidade_nome dbname="cidade.cidade_nome" dbalias=".cidade_nome" )
- retrieve="  SELECT endereco.cep,   
-         bairro.bairro_nome,   
-         endereco.endereco_nome,   
-         endereco.complemento,   
-         estado.id_uf,   
-         cidade.cidade_nome  
+ retrieve="  SELECT  UPPER(endereco.cep),   
+          UPPER(bairro.bairro_nome),   
+         UPPER(endereco.endereco_nome),   
+          UPPER(endereco.complemento),   
+          UPPER(estado.id_uf),   
+          UPPER(cidade.cidade_nome)  
     FROM endereco,   
          bairro,   
          estado,   
@@ -46,4 +46,3 @@ export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
 import.xml()
 export.pdf(method=0 distill.custompostscript="0" nativepdf.customsize=0 nativepdf.customorientation=0 nativepdf.pdfstandard=0 nativepdf.useprintspec=no )
 export.xhtml()
- 

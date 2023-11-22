@@ -399,11 +399,11 @@ choose case this.GetColumnName()
 			
 				string bairro, logradouro, cidade, uf, cmun	
 	
-				SELECT	"bairro"."bairro_nome",   
-					         "endereco"."endereco_nome",   
-         					"cidade"."cidade_nome",   
-         					"estado"."id_uf"  ,
-							"cidade"."codigo_municipio"
+				SELECT	UPPER("bairro"."bairro_nome"),   
+					         UPPER("endereco"."endereco_nome"),   
+         					UPPER("cidade"."cidade_nome"),   
+         					UPPER("estado"."id_uf") ,
+							UPPER("cidade"."codigo_municipio")
 				
 				INTO :bairro, :logradouro, : cidade, :uf, :cmun
 			
@@ -714,10 +714,10 @@ choose case this.GetColumnName()
 			
 				string d_bairro, d_logradouro, d_cidade, d_uf	
 	
-				SELECT	"bairro"."bairro_nome",   
-					         "endereco"."endereco_nome",   
-         					"cidade"."cidade_nome",   
-         					"estado"."id_uf" 
+				SELECT	UPPER("bairro"."bairro_nome"),   
+					         UPPER("endereco"."endereco_nome"),   
+         					UPPER("cidade"."cidade_nome"),   
+         					UPPER("estado"."id_uf") 
 				
 				INTO :d_bairro, :d_logradouro, :d_cidade, :d_uf
 			
