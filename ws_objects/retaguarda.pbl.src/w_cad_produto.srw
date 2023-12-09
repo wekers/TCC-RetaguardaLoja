@@ -57,10 +57,9 @@ Boolean m_confirmar, m_incluir, m_excluir, m_gerar, m_fechar, m_imprimir, prosse
 end variables
 
 event ue_incluir();long linha
-linha = dw_1.InsertRow(0)
 
 If prossegue Then
-		
+		linha = dw_1.InsertRow(0)
 		dw_1.ScrollToRow(linha)
 		dw_1.SetColumn(1)
 		dw_1.object.desconto[linha] = 0
@@ -73,23 +72,21 @@ If prossegue Then
 		dw_1.Modify("codigo_barras.Protect='1~tIf(getrow() = rowcount(), 0, 1)'")
 		dw_1.Modify("ncm.Protect='1~tIf(getrow() = rowcount(), 0, 1)'")
 		dw_1.Modify("descricao.Protect='1~tIf(getrow() = rowcount(), 0, 1)'")
+		dw_1.Modify("und.Protect='1~tIf(getrow() = rowcount(), 0, 1)'")
 		dw_1.Modify("peso.Protect='1~tIf(getrow() = rowcount(), 0, 1)'")
-		dw_1.Modify("local.Protect='1~tIf(getrow() = rowcount(), 0, 1)'")
-		dw_1.Modify("ref.Protect='1~tIf(getrow() = rowcount(), 0, 1)'")
+		dw_1.Modify("id_categoria.Protect='1~tIf(getrow() = rowcount(), 0, 1)'")
+		dw_1.Modify("estacao.Protect='1~tIf(getrow() = rowcount(), 0, 1)'")
 		dw_1.Modify("preco_custo.Protect='1~tIf(getrow() = rowcount(), 0, 1)'")
 		dw_1.Modify("preco_venda.Protect='1~tIf(getrow() = rowcount(), 0, 1)'")
 		dw_1.Modify("desconto.Protect='1~tIf(getrow() = rowcount(), 0, 1)'")
 		dw_1.Modify("preco_final_venda.Protect='1~tIf(getrow() = rowcount(), 0, 1)'")
-		dw_1.Modify("garantia.Protect='1~tIf(getrow() = rowcount(), 0, 1)'")
-		
 
 		
-		m_menu.m_editar.m_excluir.enabled = true
 		m_excluir = True
-		m_menu.m_editar.m_confirmar.enabled = false
 		m_confirmar = false
-
-	
+		m_incluir = false
+		of_menu_activated( m_confirmar, m_incluir, m_excluir, m_gerar, m_imprimir, m_fechar)
+		
 	End If
 
 
@@ -104,15 +101,18 @@ dw_1.Modify("codigo.Protect='0'")
 dw_1.Modify("codigo_barras.Protect='0'")
 dw_1.Modify("ncm.Protect='0'")
 dw_1.Modify("descricao.Protect='0'")
-dw_1.Modify("ref.Protect='0'")
+dw_1.Modify("und.Protect='0'")
 dw_1.Modify("peso.Protect='0'")
-dw_1.Modify("local.Protect='0'")
+dw_1.Modify("id_categoria.Protect='0'")
+dw_1.Modify("estacao.Protect='0'")
 dw_1.Modify("preco_custo.Protect='0'")
 dw_1.Modify("preco_venda.Protect='0'")
 dw_1.Modify("desconto.Protect='0'")
 dw_1.Modify("preco_final_venda.Protect='0'")
-m_menu.m_editar.m_confirmar.enabled = True
+
+
 m_confirmar = True
+m_incluir = True
 
 
 
@@ -121,18 +121,15 @@ dw_1.DeleteRow(row)
 
 
 if dw_1.RowCount() = 0 then
-	m_menu.m_editar.m_confirmar.enabled = False
 	m_confirmar = False
-	m_menu.m_editar.m_excluir.enabled = False
 	m_excluir = False
 end if
+
+of_menu_activated( m_confirmar, m_incluir, m_excluir, m_gerar, m_imprimir, m_fechar)
 end event
 
-event ue_salvar();integer gravar
-
-
-
-
+event ue_salvar();integer gravar, id_for
+String nome_forn
 
 If ddlb_fornecedor.text = "" then
 	Messagebox("Atenção!","Selecione um fornecedor.")
@@ -141,7 +138,6 @@ else
 dw_1.settransobject(SQLCA)
 
 
-String nome_forn, id_for
 nome_forn =  string(ddlb_fornecedor.text)
 			select  id
 			into 	:id_for
@@ -201,12 +197,11 @@ if gravar = 1  then
 		
 		
 		
-		m_menu.m_editar.m_confirmar.enabled = False
+		
 		m_confirmar = False
-		m_menu.m_editar.m_excluir.enabled = False
 		m_excluir = False
-		m_menu.m_editar.m_incluir.enabled = False
 		m_incluir = False
+		of_menu_activated( m_confirmar, m_incluir, m_excluir, m_gerar, m_imprimir, m_fechar)
 
 		
 		
@@ -247,26 +242,19 @@ destroy(this.gb_2)
 destroy(this.gb_1)
 end on
 
-event open;m_menu.m_editar.m_fechar.enabled = true
-m_fechar = True
-m_menu.m_editar.m_incluir.enabled = true
-m_incluir = True
-m_menu.m_editar.m_gerar.enabled = false
+event open;m_fechar = True
+m_incluir = False
 m_gerar = False
-m_menu.m_editar.m_confirmar.enabled = false
 m_confirmar = False
-m_menu.m_editar.m_excluir.enabled = false
 m_excluir = False
-
-
-
-
 
 
 gb_3.visible = false
 st_1.visible = false
 st_2.visible = false
 st_maior_codigo.visible = false
+
+
 
 		
 		
@@ -399,8 +387,6 @@ dw_1.InsertRow(0)
 dw_1.object.desconto[1] = 0
 
 
-
-
 dw_1.SetFocus()
 
 
@@ -450,7 +436,7 @@ event enter;w_cad_produto.GetActiveSheet().TriggerEvent("ue_incluir")
 end event
 
 event itemchanged;Integer ll
-decimal preco_venda, valor_preco_final, desconto, preco_final_venda, preco_custo, v_tributos ,porcentagem
+decimal preco_venda, valor_preco_final, desconto, preco_final_venda, preco_custo, porcentagem
 String codigo, cod_produto, cod_barras, t_item_descricao
 ll = dw_1.GetRow()
 
@@ -570,18 +556,20 @@ Choose case this.GetColumnName()
 				dw_1.Modify("codigo_barras.Protect='0'")
 				dw_1.Modify("ncm.Protect='0'")
 				dw_1.Modify("descricao.Protect='0'")
-				dw_1.Modify("ref.Protect='0'")
+				dw_1.Modify("und.Protect='0'")
 				dw_1.Modify("peso.Protect='0'")
-				dw_1.Modify("local.Protect='0'")
+				dw_1.Modify("id_categoria.Protect='0'")
+				dw_1.Modify("estacao.Protect='0'")
 				dw_1.Modify("preco_custo.Protect='0'")
 				dw_1.Modify("preco_venda.Protect='0'")
 				dw_1.Modify("desconto.Protect='0'")
 				dw_1.Modify("preco_final_venda.Protect='0'")
-
-		
+	
 				
 				m_menu.m_editar.m_confirmar.enabled = True
 				m_confirmar = True
+				m_menu.m_editar.m_incluir.enabled = True
+				m_incluir = True
 				
 			end if
 
