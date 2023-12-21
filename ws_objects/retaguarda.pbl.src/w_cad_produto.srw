@@ -488,7 +488,7 @@ Choose case this.GetColumnName()
 			preco_venda =  dw_1.GetItemdecimal(ll,"preco_venda")
 			valor_preco_final = preco_venda * (1 - (desconto*0.01) )
 			this.object.preco_final_venda[ll] = valor_preco_final
-			
+
 			
 			
 		End if
@@ -506,8 +506,11 @@ Choose case this.GetColumnName()
 					return 1
 				end if
 				
-		
-
+				if ( preco_final_venda > preco_venda ) then
+					MessageBox("Atenção","O 'preço final de venda' não pode ser maior que o 'preço de venda'")
+					this.object.desconto[ll] = 0
+					return 1
+				end if
 
 			
 	Case 'preco_custo'			
@@ -533,6 +536,7 @@ Choose case this.GetColumnName()
 					MessageBox("Atenção","O 'preço de venda' não pode ser menor que o 'preço de custo'")
 					return 1
 				end if
+				
 				
 				
 		
