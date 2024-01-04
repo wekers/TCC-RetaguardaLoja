@@ -184,7 +184,7 @@ msg_del = MessageBox("Atenção", &
 				dw_1.Modify("email_alt.Protect='1'")
 				dw_1.Modify("endereco_ent_dif.Protect='1'")
 		Else
-				MessageBox("Erro ao gravar IPI",SQLCA.SQLErrText)
+				MessageBox("Erro ao gravar Cliente",SQLCA.SQLErrText)
 				RollBack;
 		End If
 		
@@ -281,15 +281,11 @@ event close;of_menu_in_close()
 end event
 
 event open;dw_1.InsertRow(0)
-//m_menu.m_editar.m_fechar.enabled = true
+
 m_fechar = True
-//m_menu.m_editar.m_incluir.enabled = false
 m_incluir = False
-//m_menu.m_editar.m_gerar.enabled = false
 m_gerar = False
-//m_menu.m_editar.m_confirmar.enabled = false
 m_confirmar = False
-//m_menu.m_editar.m_excluir.enabled = false
 m_excluir = False
 m_imprimir = False
 
@@ -317,26 +313,6 @@ dw_1.Modify("endereco_ent_dif.Protect='1'")
 
 
 
-
-/*dw_1.object.rr_end_diferente.visible = 0
-dw_1.object.rr_d_cep.visible = 0
-
-dw_1.object.t_d_nome.visible = 0
-dw_1.object.d_nome.visible = 0
-dw_1.object.t_d_cep.visible = 0
-dw_1.object.d_cep.visible = 0
-dw_1.object.t_d_logradouro.visible = 0
-dw_1.object.d_logradouro.visible = 0
-dw_1.object.t_d_n_endereco.visible = 0
-dw_1.object.d_n_endereco.visible = 0
-dw_1.object.t_d_bairro.visible = 0
-dw_1.object.d_bairro.visible = 0
-dw_1.object.t_d_logradouro_cpl.visible = 0
-dw_1.object.d_logradouro_cpl.visible = 0
-dw_1.object.t_d_cidade.visible = 0
-dw_1.object.d_cidade.visible = 0
-dw_1.object.t_d_uf.visible = 0
-dw_1.object.d_uf.visible = 0*/
 
 dw_1.height = 1750
 gb_forn.height= 1948
