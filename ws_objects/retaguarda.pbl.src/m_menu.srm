@@ -4,10 +4,16 @@ global type m_menu from menu
 end type
 type m_usuarios from menu within m_menu
 end type
-type m_cadastrar from menu within m_usuarios
+type m_cadastro_usuario from menu within m_usuarios
+end type
+type m_trocarusuario from menu within m_usuarios
+end type
+type m_alterarsenha from menu within m_usuarios
 end type
 type m_usuarios from menu within m_menu
-m_cadastrar m_cadastrar
+m_cadastro_usuario m_cadastro_usuario
+m_trocarusuario m_trocarusuario
+m_alterarsenha m_alterarsenha
 end type
 type m_editar from menu within m_menu
 end type
@@ -124,7 +130,9 @@ event clicked;OpenSheet(w_cad_fornecedor, ParentWindow, 2, Layered!)
 end event
 
 type m_usuarios from menu within m_menu
-m_cadastrar m_cadastrar
+m_cadastro_usuario m_cadastro_usuario
+m_trocarusuario m_trocarusuario
+m_alterarsenha m_alterarsenha
 end type
 
 on m_usuarios.create
@@ -147,24 +155,31 @@ this.toolbarbackcolor = 67108864
 this.toolbarhighlightcolor = 134217741
 this.toolbargradient = true
 this.bitmapgradient = true
-this.m_cadastrar=create m_cadastrar
-this.Item[UpperBound(this.Item)+1]=this.m_cadastrar
+this.m_cadastro_usuario=create m_cadastro_usuario
+this.m_trocarusuario=create m_trocarusuario
+this.m_alterarsenha=create m_alterarsenha
+this.Item[UpperBound(this.Item)+1]=this.m_cadastro_usuario
+this.Item[UpperBound(this.Item)+1]=this.m_trocarusuario
+this.Item[UpperBound(this.Item)+1]=this.m_alterarsenha
 end on
 
 on m_usuarios.destroy
 call super::destroy
-destroy(this.m_cadastrar)
+destroy(this.m_cadastro_usuario)
+destroy(this.m_trocarusuario)
+destroy(this.m_alterarsenha)
 end on
 
-type m_cadastrar from menu within m_usuarios
+type m_cadastro_usuario from menu within m_usuarios
 end type
 
-event clicked;//OpenSheet(w_cad_usuarios, ParentWindow, 2, Layered!)
+event clicked;OpenSheet(w_cad_usuarios, ParentWindow, 2, Layered!)
 end event
 
-on m_cadastrar.create
+on m_cadastro_usuario.create
 call super::create
 this.text = "&Cadastrar"
+this.menuimage = "UserObject1!"
 this.menustyle = contemporarymenu!
 this.menutextcolor = 134217735
 this.menubackcolor = 15780518
@@ -175,6 +190,7 @@ this.facename = "Tahoma"
 this.titlebackcolor = 134217730
 this.bitmapbackcolor = 16711680
 this.menubitmaps = true
+this.menuanimation = true
 this.titlegradient = true
 this.toolbarstyle = contemporarytoolbar!
 this.toolbartextcolor = 16711680
@@ -184,7 +200,97 @@ this.toolbargradient = true
 this.bitmapgradient = true
 end on
 
-on m_cadastrar.destroy
+on m_cadastro_usuario.destroy
+call super::destroy
+end on
+
+type m_trocarusuario from menu within m_usuarios
+end type
+
+on m_trocarusuario.create
+call super::create
+this.text = "&Trocar Usuário"
+this.menuimage = "Synchronizer!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_trocarusuario.destroy
+call super::destroy
+end on
+
+event clicked;window activesheet
+activesheet = GetActiveSheet(ParentWindow)
+
+IF IsValid(activesheet) THEN
+
+    Messagebox("Atenção!","Todas janelas devem estar fechadas para efetuar a troca de usuário.",Information!)
+
+ELSE
+	
+	Open(w_logoff)
+
+END IF
+end event
+
+type m_alterarsenha from menu within m_usuarios
+end type
+
+event clicked;window activesheet
+activesheet = GetActiveSheet(ParentWindow)
+
+IF IsValid(activesheet) THEN
+
+    Messagebox("Atenção!","Todas janelas devem estar fechadas para efetuar a troca de senha.",Information!)
+
+ELSE
+	
+	Open(w_troca_senha)
+
+END IF
+end event
+
+on m_alterarsenha.create
+call super::create
+this.text = "&Alterar Senha"
+this.menuimage = "CreateForeignKey!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_alterarsenha.destroy
 call super::destroy
 end on
 
