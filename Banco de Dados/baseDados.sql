@@ -336,7 +336,7 @@ CREATE TABLE IF NOT EXISTS movimento_entrada
     id_fornecedor integer,
     n_nota text COLLATE pg_catalog."default",
     data_entrada date,
-    id integer NOT NULL,
+    id serial PRIMARY KEY,
     valor_total numeric(7,2),
     usuario character varying(10) COLLATE pg_catalog."default",
     FOREIGN KEY ("id_fornecedor") REFERENCES fornecedor ("id")
@@ -345,4 +345,25 @@ CREATE TABLE IF NOT EXISTS movimento_entrada
 TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS movimento_entrada
+    OWNER to unicesumar;
+
+-- -----------------------------------------------------------
+
+-- Table: entrada_produtos
+
+-- DROP TABLE IF EXISTS entrada_produtos;
+
+CREATE TABLE IF NOT EXISTS entrada_produtos
+(
+    codigo character varying(12) COLLATE pg_catalog."default" NOT NULL,
+    quantidade double precision,
+    codigo_movimento integer,
+    id serial PRIMARY KEY,
+    preco_custo numeric(7,2),
+    FOREIGN KEY ("codigo_movimento") REFERENCES movimento_entrada ("id")
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS entrada_produtos
     OWNER to unicesumar;
