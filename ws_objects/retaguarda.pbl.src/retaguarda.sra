@@ -30,7 +30,7 @@ long richtexteditx64type = 5
 long richtexteditversion = 3
 string richtexteditkey = ""
 string appicon = ""
-string appruntimeversion = "22.1.0.2819"
+string appruntimeversion = "22.2.0.3289"
 boolean manualsession = false
 boolean unsupportedapierror = false
 boolean ultrafast = false
@@ -88,7 +88,15 @@ If sqlca.sqlcode < 0 Then
 		HALT
 End IF
 
-Open(w_index)
+//Open(w_index)
+
+Open(w_logo)
+
+sleep(2)
+
+Open(w_login)
+
+Close(w_logo)
 
 end event
 
