@@ -88,16 +88,16 @@ If sqlca.sqlcode < 0 Then
 		HALT
 End IF
 
-//Open(w_index)
+Open(w_index)
 
-Open(w_logo)
+/*Open(w_logo)
 
 sleep(2)
 
 Open(w_login)
 
 Close(w_logo)
-
+*/
 end event
 
 event close;disconnect using sqlca;
