@@ -203,6 +203,9 @@ recuperar = tab_1.tabpage_1.dw_1.retrieve()
 if (recuperar > 0) then
 m_menu.m_editar.m_excluir.enabled = true
 m_excluir = True
+tab_1.tabpage_1.dw_1.setfocus()
+tab_1.tabpage_1.dw_1.ScrollToRow(1)
+tab_1.tabpage_1.dw_1.SetColumn(1)
 end if
 	
 end event
