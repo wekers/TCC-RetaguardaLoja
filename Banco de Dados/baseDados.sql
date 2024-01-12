@@ -323,3 +323,26 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS produto
     OWNER to unicesumar;
+
+-- -----------------------------------------------------------
+
+
+-- Table: movimento_entrada
+
+-- DROP TABLE IF EXISTS movimento_entrada;
+
+CREATE TABLE IF NOT EXISTS movimento_entrada
+(
+    id_fornecedor integer,
+    n_nota text COLLATE pg_catalog."default",
+    data_entrada date,
+    id integer NOT NULL,
+    valor_total numeric(7,2),
+    usuario character varying(10) COLLATE pg_catalog."default",
+    FOREIGN KEY ("id_fornecedor") REFERENCES fornecedor ("id")
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS movimento_entrada
+    OWNER to unicesumar;
