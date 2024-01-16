@@ -76,10 +76,18 @@ m_unidadedoproduto m_unidadedoproduto
 m_3 m_3
 m_alterar m_alterar
 end type
+type m_estoque from menu within m_menu
+end type
+type m_entradadeprodutos from menu within m_estoque
+end type
+type m_estoque from menu within m_menu
+m_entradadeprodutos m_entradadeprodutos
+end type
 global type m_menu from menu
 m_usuarios m_usuarios
 m_editar m_editar
 m_cadastro m_cadastro
+m_estoque m_estoque
 end type
 end forward
 
@@ -87,6 +95,7 @@ global type m_menu from menu
 m_usuarios m_usuarios
 m_editar m_editar
 m_cadastro m_cadastro
+m_estoque m_estoque
 end type
 global m_menu m_menu
 
@@ -114,9 +123,11 @@ this.bitmapgradient = true
 this.m_usuarios=create m_usuarios
 this.m_editar=create m_editar
 this.m_cadastro=create m_cadastro
+this.m_estoque=create m_estoque
 this.Item[UpperBound(this.Item)+1]=this.m_usuarios
 this.Item[UpperBound(this.Item)+1]=this.m_editar
 this.Item[UpperBound(this.Item)+1]=this.m_cadastro
+this.Item[UpperBound(this.Item)+1]=this.m_estoque
 end on
 
 on m_menu.destroy
@@ -124,6 +135,7 @@ call super::destroy
 destroy(this.m_usuarios)
 destroy(this.m_editar)
 destroy(this.m_cadastro)
+destroy(this.m_estoque)
 end on
 
 event clicked;OpenSheet(w_cad_fornecedor, ParentWindow, 2, Layered!)	
@@ -1020,4 +1032,71 @@ end on
 
 event clicked;OpenSheet(w_alt_produto, ParentWindow, 2, Layered!)
 end event
+
+type m_estoque from menu within m_menu
+m_entradadeprodutos m_entradadeprodutos
+end type
+
+on m_estoque.create
+call super::create
+this.text = "Es&toque"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_entradadeprodutos=create m_entradadeprodutos
+this.Item[UpperBound(this.Item)+1]=this.m_entradadeprodutos
+end on
+
+on m_estoque.destroy
+call super::destroy
+destroy(this.m_entradadeprodutos)
+end on
+
+type m_entradadeprodutos from menu within m_estoque
+end type
+
+event clicked;OpenSheet(w_entrada_produtos, ParentWindow, 2, Layered!)	
+end event
+
+on m_entradadeprodutos.create
+call super::create
+this.text = "E&ntrada de  Produtos"
+this.menuimage = "UnionReturn!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_entradadeprodutos.destroy
+call super::destroy
+end on
 
