@@ -8,7 +8,7 @@ end forward
 
 global type w_logo from window
 integer width = 2281
-integer height = 1376
+integer height = 1380
 boolean border = false
 windowtype windowtype = popup!
 long backcolor = 67108864
@@ -30,9 +30,7 @@ end on
 type p_1 from picture within w_logo
 integer width = 2281
 integer height = 1376
-boolean originalsize = true
 string picturename = "logo.png"
-boolean border = true
 boolean focusrectangle = false
 end type
 
