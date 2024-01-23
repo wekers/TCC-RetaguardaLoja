@@ -323,3 +323,97 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS produto
     OWNER to unicesumar;
+
+-- -----------------------------------------------------------
+
+
+-- Table: movimento_entrada
+
+-- DROP TABLE IF EXISTS movimento_entrada;
+
+CREATE TABLE IF NOT EXISTS movimento_entrada
+(
+    id_fornecedor integer,
+    n_nota text COLLATE pg_catalog."default",
+    data_entrada date,
+    id serial PRIMARY KEY,
+    valor_total numeric(7,2),
+    usuario character varying(10) COLLATE pg_catalog."default",
+    FOREIGN KEY ("id_fornecedor") REFERENCES fornecedor ("id")
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS movimento_entrada
+    OWNER to unicesumar;
+
+-- -----------------------------------------------------------
+
+-- Table: entrada_produtos
+
+-- DROP TABLE IF EXISTS entrada_produtos;
+
+CREATE TABLE IF NOT EXISTS entrada_produtos
+(
+    codigo character varying(12) COLLATE pg_catalog."default" NOT NULL,
+    quantidade double precision,
+    codigo_movimento integer,
+    id serial PRIMARY KEY,
+    preco_custo numeric(7,2),
+    FOREIGN KEY ("codigo_movimento") REFERENCES movimento_entrada ("id")
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS entrada_produtos
+    OWNER to unicesumar;
+
+-- -----------------------------------------------------------
+
+-- Table: movimento_saida
+
+-- DROP TABLE IF EXISTS movimento_saida;
+
+CREATE TABLE IF NOT EXISTS movimento_saida
+(
+    id serial PRIMARY KEY,
+    data_saida date,
+    hora_saida time without time zone,
+    cod_operador character varying(10) COLLATE pg_catalog."default",
+    cod_vendedor character varying(10) COLLATE pg_catalog."default",
+    valor_total numeric(7,2),
+    operacao character varying(255) COLLATE pg_catalog."default",
+    id_cliente character varying(255) COLLATE pg_catalog."default",
+    frete character varying(70) COLLATE pg_catalog."default",
+    valor_frete numeric(7,2)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS movimento_saida
+    OWNER to unicesumar;
+
+-- -----------------------------------------------------------
+
+-- Table: saida_produtos
+
+-- DROP TABLE IF EXISTS saida_produtos;
+
+CREATE TABLE IF NOT EXISTS saida_produtos
+(
+    codigo character varying(12) COLLATE pg_catalog."default" NOT NULL,
+    quantidade double precision,
+    codigo_movimento integer,
+    id serial NOT NULL,
+    preco numeric(7,2),
+    desconto integer,
+    preco_total numeric(7,2),
+    preco_custo numeric(7,2),
+    FOREIGN KEY ("codigo_movimento") REFERENCES movimento_saida ("id")
+
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS saida_produtos
+    OWNER to unicesumar;
