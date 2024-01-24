@@ -33,9 +33,9 @@ Integer ll
 String descricao
 end variables
 
-event ue_salvar();integer gravar, gravar_top
+event ue_salvar();integer gravar, gravar_top, id_movimento
 String ls_mod, ls_err, id_fornecedor
-long id_movimento
+
 
 
 id_fornecedor = String(dw_1.GetItemnumber(1,"id_fornecedor"))
@@ -54,18 +54,20 @@ dw_1.settransobject(SQLCA)
 gravar_top = dw_1.Update(True, True)
 
 	if gravar_top = 1 then
-	
+		
 	Commit;
+	
 	
 			If sqlca.sqlcode <> 0 Then
 				Messagebox("Error on Commit",Sqlca.sqlerrtext)
 			End If
 			
+	
+	id_movimento = dw_1.GetItemnumber(1,"id")
+	
+	
 	dw_2.settransobject(SQLCA)
-
-	id_movimento = long(dw_1.GetItemnumber(1,"id"))
-
-long ll_n
+	long ll_n
 
 	FOR ll_n = 1 to dw_2.RowCount()
    	    dw_2.object.entrada_produtos_codigo_movimento[ll_n]  =  id_movimento
@@ -110,13 +112,14 @@ gravar = dw_2.Update(True, True)
 	
 		prossegue = false
 			
+
 		messagebox("Operação efetuada com sucesso!","O cadastro de entrada dos produtos foi efetuado com exito!")
 		m_menu.m_editar.m_confirmar.enabled = False
 		m_confirmar = False
 		m_menu.m_editar.m_excluir.enabled = False
 		m_excluir = False
 		
-		Else
+		else // gravar <> 1
 			
 			Messagebox("Gravação de entrada falhou","Rolling back changes to " +&
 			"d_entrada_child")
@@ -124,16 +127,18 @@ gravar = dw_2.Update(True, True)
 			
 		End If
 			
-		else //if gravar_top
+		else // if gravar_top <> 1
 			
 			Messagebox("Gravação de entrada falhou","Rolling back changes to " +&
 									"d_entrada_top")
 			RollBack;
-			
+		
 		End If
 
+
+End If // fecha if isNull(id_fornecedor)
+
 	
-End If
 end event
 
 event ue_incluir();If prossegue Then
