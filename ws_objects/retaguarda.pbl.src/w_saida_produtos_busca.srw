@@ -148,11 +148,11 @@ if ll_row > 0 then
 	saldo = dw_1.GetItemNumber(ll_row,"saldo")
 	
 	
-	
-if saldo <= 0 and not descricao = "" then
+/* não deixar adicionar produtos com saldo <= 0 */	
+/*if saldo <= 0 and not descricao = "" then
 	MessageBox ("Atenção!", "O produto: "+ '~r~n' +string(descricao)+ '~r~n' +"possui saldo "+string(saldo), Information!) 
 	return 1
-end if
+end if*/
 	
 	FOR ll_n = 1 to w_saida_produtos.dw_1.RowCount()
    	    if (w_saida_produtos.dw_1.object.saida_produtos_codigo[ll_n]  =  cod_prod) then
