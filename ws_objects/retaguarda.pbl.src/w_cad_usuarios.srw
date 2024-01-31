@@ -38,6 +38,9 @@ global w_cad_usuarios w_cad_usuarios
 type variables
 Boolean m_confirmar, m_incluir, m_excluir, m_gerar, m_fechar, m_imprimir, incluir
 Integer recuperar
+String nome 
+
+
 end variables
 
 event ue_incluir();long linha
@@ -113,7 +116,7 @@ end event
 
 event ue_excluir();Integer wk_ret, gravar, ll, cod_user
 ll = tab_1.tabpage_1.dw_1.GetRow()
-String nome 
+
 
 nome = tab_1.tabpage_1.dw_1.GetItemString(ll,"nome")
 
@@ -156,8 +159,11 @@ IF tab_1.tabpage_1.dw_1.GetRow() > 0 THEN
 						messagebox("Cadastro Usuários!","O Usuário(a): " + "[ " +nome +" ] foi excluido!")
 					Else
 						
-						MessageBox("Erro",SQLCA.SQLErrText)
+						//MessageBox("Erro",SQLCA.SQLErrText)
 						RollBack;
+						
+						tab_1.tabpage_1.dw_1.RowsMove(1, tab_1.tabpage_1.dw_1.DeletedCount(), Delete!, tab_1.tabpage_1.dw_1, ll, Primary!) //move a linha deletada do 'buffer delete' para o 'buffer primario', como estava
+						tab_1.tabpage_1.dw_1.ScrollToRow(ll)
 						
 					End If
 							
@@ -323,5 +329,18 @@ End Choose
 end event
 
 event itemerror;return 1
+end event
+
+event dberror;
+
+// 23503 	foreign_key_violation
+if(of_GetSQLState(SQLErrtext) ='23503') then
+	Messagebox("Atenção", "Não é possível excluir o Usuário(a): " + "[ " +nome +" ]" &
+	+" - Existem vendas que estão (cadastrados) vinculados a ele!", StopSign!)
+else
+	MessageBox("Erro SQL","Código erro: "+ of_GetSQLState(SQLErrtext) +" : "+ SQLErrText)
+end if
+
+Return 1
 end event
 
