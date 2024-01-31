@@ -395,7 +395,7 @@ CREATE TABLE IF NOT EXISTS movimento_saida
     data_saida date,
     hora_saida time without time zone DEFAULT now(),
     cod_operador character varying(10),
-    cod_vendedor character varying(10),
+    cod_vendedor integer,
     valor_total numeric(7,2),
     operacao character varying(255),
     frete character varying(70),
@@ -403,6 +403,7 @@ CREATE TABLE IF NOT EXISTS movimento_saida
     id_cliente integer NOT NULL,
     tipo_venda estilo_venda, -- ENUM
     CONSTRAINT movimento_saida_pkey PRIMARY KEY (id),
+    CONSTRAINT fk_usuario_vendedor FOREIGN KEY (cod_vendedor) REFERENCES (cod),
     FOREIGN KEY ("id_cliente") REFERENCES clientes ("id")
 )
 
