@@ -15,6 +15,14 @@ string nome_usuario, senha_usuario
 long codigo_usuario = 99999
 
 Boolean de_alt_fornecedor, de_fornecedor, de_clientes
+
+
+
+String t_5 = "Empresa X!"
+String t_6 = "Rua nome de x, 0 - Centro - Joinville - SC"
+String t_7 = "email@empresa.com.br - Tel (47) 0000-0000"
+String t_8 =  "um texto de slogan!"
+String t_9 = "Acesse nosso site empresa.com.br"
 end variables
 
 global type retaguarda from application
@@ -88,16 +96,16 @@ If sqlca.sqlcode < 0 Then
 		HALT
 End IF
 
-Open(w_index)
+//Open(w_index)
 
-/*Open(w_logo)
+Open(w_logo)
 
 sleep(2)
 
 Open(w_login)
 
 Close(w_logo)
-*/
+
 end event
 
 event close;disconnect using sqlca;
