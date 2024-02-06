@@ -82,9 +82,12 @@ type m_entradadeprodutos from menu within m_estoque
 end type
 type m_vendas from menu within m_estoque
 end type
+type m_devolucao from menu within m_estoque
+end type
 type m_estoque from menu within m_menu
 m_entradadeprodutos m_entradadeprodutos
 m_vendas m_vendas
+m_devolucao m_devolucao
 end type
 global type m_menu from menu
 m_usuarios m_usuarios
@@ -1039,6 +1042,7 @@ end event
 type m_estoque from menu within m_menu
 m_entradadeprodutos m_entradadeprodutos
 m_vendas m_vendas
+m_devolucao m_devolucao
 end type
 
 on m_estoque.create
@@ -1063,14 +1067,17 @@ this.toolbargradient = true
 this.bitmapgradient = true
 this.m_entradadeprodutos=create m_entradadeprodutos
 this.m_vendas=create m_vendas
+this.m_devolucao=create m_devolucao
 this.Item[UpperBound(this.Item)+1]=this.m_entradadeprodutos
 this.Item[UpperBound(this.Item)+1]=this.m_vendas
+this.Item[UpperBound(this.Item)+1]=this.m_devolucao
 end on
 
 on m_estoque.destroy
 call super::destroy
 destroy(this.m_entradadeprodutos)
 destroy(this.m_vendas)
+destroy(this.m_devolucao)
 end on
 
 type m_entradadeprodutos from menu within m_estoque
@@ -1138,6 +1145,40 @@ this.bitmapgradient = true
 end on
 
 on m_vendas.destroy
+call super::destroy
+end on
+
+type m_devolucao from menu within m_estoque
+end type
+
+event clicked;OpenSheet(w_estoque_devolucao, ParentWindow, 2, Layered!)
+end event
+
+on m_devolucao.create
+call super::create
+this.text = "&Devolução"
+this.menuimage = "Prior!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_devolucao.destroy
 call super::destroy
 end on
 
