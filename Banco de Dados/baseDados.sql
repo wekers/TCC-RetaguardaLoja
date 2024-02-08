@@ -439,4 +439,44 @@ ALTER TABLE IF EXISTS saida_produtos
 
 -- -----------------------------------------------------------
 
+-- Table: movimento_devolucao
+
+-- DROP TABLE IF EXISTS movimento_devolucao;
+
+CREATE TABLE IF NOT EXISTS movimento_devolucao
+(
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ) PRIMARY KEY,
+    data date DEFAULT now(),
+    cod_operador character varying(10),
+    n_doc_venda character varying(12)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS movimento_devolucao
+    OWNER to unicesumar;
+
+-- -----------------------------------------------------------
+
+-- Table: devolucao_produtos
+
+-- DROP TABLE IF EXISTS devolucao_produtos;
+
+CREATE TABLE IF NOT EXISTS devolucao_produtos
+(
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ) PRIMARY KEY,
+    codigo integer NOT NULL,
+    quantidade double precision,
+    codigo_movimento integer,
+    preco numeric(7,2),
+    FOREIGN KEY ("codigo_movimento") REFERENCES movimento_devolucao ("id")
+    
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS devolucao_produtos
+    OWNER to unicesumar;
+
+-- -----------------------------------------------------------
 
