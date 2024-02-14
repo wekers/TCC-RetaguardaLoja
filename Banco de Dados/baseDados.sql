@@ -487,7 +487,7 @@ ALTER TABLE IF EXISTS devolucao_produtos
 CREATE TABLE IF NOT EXISTS movimento_ajuste
 (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ) PRIMARY KEY,
-    data date,
+    data date DEFAULT now(),
     cod_operador character varying(10),
     tipo character varying(255)
 )
