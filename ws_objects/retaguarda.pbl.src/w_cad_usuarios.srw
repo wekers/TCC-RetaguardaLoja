@@ -114,18 +114,41 @@ end if
 
 end event
 
-event ue_excluir();Integer wk_ret, gravar, ll, cod_user
+event ue_excluir();Integer wk_ret, gravar, ll, cod_user, existe_venda, existe_entrada
+String usuario
 ll = tab_1.tabpage_1.dw_1.GetRow()
 
 
 nome = tab_1.tabpage_1.dw_1.GetItemString(ll,"nome")
+cod_user = tab_1.tabpage_1.dw_1.GetItemNumber(ll,"cod")
+usuario = string(cod_user)
 
-dwitemstatus    rowstatus
+Select count(id)
+Into :existe_venda
+From movimento_saida
+Where cod_vendedor = :cod_user;
 
-IF tab_1.tabpage_1.dw_1.GetRow() > 0 THEN
-	rowstatus = tab_1.tabpage_1.dw_1.GetItemStatus( tab_1.tabpage_1.dw_1.GetRow(), 0, Primary! )
+Select count(id)
+Into :existe_entrada
+From movimento_entrada
+Where usuario = :usuario;
+
+If (existe_venda > 0) then
+	Messagebox("Atenção", "Não é possível excluir: " + "[ " +String(tab_1.tabpage_1.dw_1.GetItemString(ll,"nome")) +" ]" &
+	+" - Existem dados (vendas) vinculados a este Usuário(a)!", StopSign!)
+elseIf (existe_entrada > 0) then
+	Messagebox("Atenção", "Não é possível excluir: " + "[ " +String(tab_1.tabpage_1.dw_1.GetItemString(ll,"nome")) +" ]" &
+	+" - Existem dados (entradas) vinculados a este Usuário(a)!", StopSign!)
 	
-	IF rowstatus = New! OR rowstatus = NewModified! THEN
+
+else
+
+	dwitemstatus    rowstatus
+
+	IF tab_1.tabpage_1.dw_1.GetRow() > 0 THEN
+		rowstatus = tab_1.tabpage_1.dw_1.GetItemStatus( tab_1.tabpage_1.dw_1.GetRow(), 0, Primary! )
+	
+		IF rowstatus = New! OR rowstatus = NewModified! THEN
 	
 			tab_1.tabpage_1.dw_1.DeleteRow(tab_1.tabpage_1.dw_1.GetRow())
 			tab_1.tabpage_1.dw_1.Modify("cod.Protect='1'")
@@ -137,7 +160,7 @@ IF tab_1.tabpage_1.dw_1.GetRow() > 0 THEN
 			m_confirmar = false
 
 	
-	else
+		else
 
 
 			wk_ret = MessageBox("Atenção", & 
@@ -171,9 +194,7 @@ IF tab_1.tabpage_1.dw_1.GetRow() > 0 THEN
 				
 								m_menu.m_editar.m_excluir.enabled = false
 								m_excluir = false
-								
-								
-								
+														
 							End If
 							
 					
@@ -183,7 +204,7 @@ IF tab_1.tabpage_1.dw_1.GetRow() > 0 THEN
 
 	End If //fecha if getrow
 
-
+End If //fecha if existe venda
 end event
 
 on w_cad_usuarios.create
@@ -336,7 +357,7 @@ event dberror;
 // 23503 	foreign_key_violation
 if(of_GetSQLState(SQLErrtext) ='23503') then
 	Messagebox("Atenção", "Não é possível excluir o Usuário(a): " + "[ " +nome +" ]" &
-	+" - Existem vendas que estão (cadastrados) vinculados a ele!", StopSign!)
+	+" - Existem vendas ou entradas que estão (cadastrados) vinculados a ele!", StopSign!)
 else
 	MessageBox("Erro SQL","Código erro: "+ of_GetSQLState(SQLErrtext) +" : "+ SQLErrText)
 end if
