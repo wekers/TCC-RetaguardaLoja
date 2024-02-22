@@ -41,15 +41,34 @@ Boolean m_confirmar, m_incluir, m_excluir, m_gerar, m_fechar, m_imprimir
 
 end variables
 
-event ue_excluir();Integer gravar, wk_ret, ll
+event ue_excluir();Integer gravar, wk_ret, ll, existe_venda, existe_entrada
 
 String cod_prod
 ll = dw_1.GetRow()
-
-
 cod_prod =	dw_1.GetItemString(ll,"codigo")
 
-wk_ret = MessageBox("Atenção", & 
+Select count(id)
+Into :existe_venda
+From saida_produtos
+Where codigo = :cod_prod;
+
+Select count(id)
+Into :existe_entrada
+From entrada_produtos
+Where codigo = :cod_prod;
+
+
+If (existe_venda > 0) then
+	Messagebox("Atenção", "Não é possível excluir o Código: " + "[ " +String(dw_1.GetItemString(ll,"codigo")) +" ]" &
+	+" - Existem dados (vendas) vinculados a este Item!", StopSign!)
+elseIf (existe_entrada > 0) then
+	Messagebox("Atenção", "Não é possível excluir o Código: " + "[ " +String(dw_1.GetItemString(ll,"codigo")) +" ]" &
+	+" - Existem dados (entradas) vinculados a este Item!", StopSign!)
+	
+
+else
+
+	wk_ret = MessageBox("Atenção", & 
 					"Deseja Realmente Excluir o Produto: " + "[" +String(dw_1.GetItemString(ll,"codigo")) +"]", &
 		    		 Exclamation!,YesNo!,1)
 
@@ -76,6 +95,8 @@ wk_ret = MessageBox("Atenção", &
 			End if //fim gravar
 
 	End if //wk_ret = 1
+	
+End IF //fim existe venda
 
 
 end event
