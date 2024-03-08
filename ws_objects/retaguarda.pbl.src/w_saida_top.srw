@@ -144,6 +144,7 @@ codigo_vendedor = string(dw_1.GetItemString(1,"cod_vendedor"))
 			
 			RollBack;
 			MessageBox("Erro ao gravar saida produtos top",SQLCA.SQLErrText)
+			return 1
 			
 		End If
 	
@@ -337,6 +338,22 @@ this.SetColumn(1)
 
 	
 END CHOOSE 
+
+
+// evita keydow or scroll para proxima row (linha)
+long ll_row
+
+IF (KeyDown(KeyDownArrow!)) OR (KeyDown(KeyUpArrow!)) OR &
+(KeyDown(KeyPageDown!)) OR (KeyDown(KeyPageUp!)) THEN
+
+	ll_row = this.GetRow()
+
+	this.SetRedraw(FALSE)
+	this.Post SetRow(ll_row)
+	this.Post ScrollToRow(ll_row)
+	this.Post SetRedraw(TRUE)
+	
+END IF
 end event
 
 event itemchanged;long codigo_vendedor, codigo_cliente
@@ -378,7 +395,10 @@ Choose case this.GetColumnName()
 				where cod = :codigo_vendedor;
 				
 					if SQLCA.SQLCode = 100 then 
+						cb_ok.enabled = false
 						MessageBox ("Atenção!", "Código de vendedor inválido ou inexistente!", Information!) 
+						this.object.cod_vendedor[1] = ""
+						this.object.t_nome.text = ""
 						return 1
 					end if
 				
@@ -434,7 +454,17 @@ event itemfocuschanged;Choose case this.GetColumnName()
 		IF dw_1.GetItemString(1,"id_cliente") = "" or dw_1.GetItemString(1,"id_cliente") = "1" and dw_1.GetItemString(1,"tipo_venda") =  "ecommerce" THEN
 				dw_1.SetColumn("id_cliente")
 			end if
+			
 		
+End Choose
+end event
+
+event editchanged;Choose case this.GetColumnName()
+
+	Case 'cod_vendedor'
+
+		cb_ok.enabled = false
+				
 End Choose
 end event
 

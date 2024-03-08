@@ -69,10 +69,13 @@ gravar_top = dw_1.Update(True, True)
 	dw_2.settransobject(SQLCA)
 	long ll_n
 
+
 	FOR ll_n = 1 to dw_2.RowCount()
    	    dw_2.object.entrada_produtos_codigo_movimento[ll_n]  =  id_movimento
 		dw_2.object.entrada_produtos_preco_custo[ll_n] = dw_2.GetItemDecimal(ll_n, "produto_preco_custo")
-
+		
+		
+		
 	NEXT
 
 
@@ -87,6 +90,14 @@ gravar = dw_2.Update(True, True)
 			FOR ll_nn = 1 to dw_2.RowCount()
 				codigo_update = dw_2.GetitemString(ll_nn,"entrada_produtos_codigo")
 				saldo_final = dw_2.GetitemNumber(ll_nn,"entrada_produtos_quantidade")
+				
+				if saldo_final <= 0  or isNull(saldo_final) then
+      				messagebox("Atenção!","A Quantidade tem que ser maior que 0, setando para 1")
+					dw_2.SetColumn(2)
+					dw_2.object.entrada_produtos_quantidade[ll_nn] = 1
+					saldo_final = 1
+					return 
+				end if
 				
 				UPDATE produto 
 		      		SET saldo = saldo + :saldo_final  
@@ -124,6 +135,7 @@ gravar = dw_2.Update(True, True)
 			Messagebox("Gravação de entrada falhou","Rolling back changes to " +&
 			"d_entrada_child")
 			RollBack;
+			 
 			
 		End If
 			
@@ -286,6 +298,7 @@ Choose case this.GetColumnName()
 						
 					end if
 					
+		
 			
 End Choose
 	
