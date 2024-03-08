@@ -29,6 +29,10 @@ gb_1 gb_1
 end type
 global w_saida_top w_saida_top
 
+type variables
+
+end variables
+
 on w_saida_top.create
 this.cb_cancelar=create cb_cancelar
 this.cb_ok=create cb_ok
@@ -466,6 +470,19 @@ event editchanged;Choose case this.GetColumnName()
 		cb_ok.enabled = false
 				
 End Choose
+end event
+
+event rowfocuschanging;IF newrow > 1 THEN
+
+    RETURN  +1
+
+else
+
+    RETURN 0
+
+END IF
+
+
 end event
 
 type gb_1 from groupbox within w_saida_top
