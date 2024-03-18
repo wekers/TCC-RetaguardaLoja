@@ -136,9 +136,9 @@ codigo_vendedor = string(dw_1.GetItemString(1,"cod_vendedor"))
 	  
 	else	
 	
-	dw_1.object.cod_operador[1] = 	String(codigo_usuario)
-	dw_1.settransobject(SQLCA)
-	gravar_top = dw_1.Update(True, True)
+		dw_1.object.cod_operador[1] = 	String(codigo_usuario)
+		dw_1.settransobject(SQLCA)
+		gravar_top = dw_1.Update(True, True)
 
 		if gravar_top = 1 then
 	
@@ -165,34 +165,33 @@ codigo_vendedor = string(dw_1.GetItemString(1,"cod_vendedor"))
 	
 	gravar_produtos = w_saida_produtos.dw_1.Update(True,True)
 	
-		if	gravar_produtos = 1 then
+	if gravar_produtos = 1 then
 			
-			long ll_nn 
-			double saldo_final
-			String codigo_update
+		long ll_nn 
+		double saldo_final
+		String codigo_update
 			
-			FOR ll_nn = 1 to w_saida_produtos.dw_1.RowCount()
-				codigo_update = w_saida_produtos.dw_1.GetitemString(ll_nn,"saida_produtos_codigo")
-				saldo_final = w_saida_produtos.dw_1.GetitemNumber(ll_nn,"saida_produtos_quantidade")
-					UPDATE produto 
-			      		SET saldo = saldo - :saldo_final  
-		   		    WHERE codigo  = :codigo_update
-		       		USING SQLCA ;
-			NEXT
+		FOR ll_nn = 1 to w_saida_produtos.dw_1.RowCount()
+			codigo_update = w_saida_produtos.dw_1.GetitemString(ll_nn,"saida_produtos_codigo")
+			saldo_final = w_saida_produtos.dw_1.GetitemNumber(ll_nn,"saida_produtos_quantidade")
+				UPDATE produto 
+		      		SET saldo = saldo - :saldo_final  
+	   		    WHERE codigo  = :codigo_update
+	       		USING SQLCA ;
+		NEXT
 
 			
+		Commit;
+	
+	
+		/** Impressão foi marcada no checkbox **/			
+	
+		////parte impressao parte1
 			
-			Commit;
-	
-	
-	/*Impressão foi marcada no checkbox*/			
-	
-			////parte impressao parte1
-			
-			integer imprimir
-			Integer id, codigo_movimento
-			id = id_movimento
-			codigo_movimento = id_movimento
+		integer imprimir
+		Integer id, codigo_movimento
+		id = id_movimento
+		codigo_movimento = id_movimento
 			
 		IF (w_saida_top.dw_1.object.imprimir[1] = 1) THEN
 
@@ -209,13 +208,12 @@ codigo_vendedor = string(dw_1.GetItemString(1,"cod_vendedor"))
 			lds_aux.object.dw_1.object.operacao[1] = ""
 			lds_aux.object.dw_1.object.t_operacao.Text = ""
 
-		//cabeçalho
-		lds_aux.Object.dw_1.object.t_5.Text = t_5
-		lds_aux.Object.dw_1.object.t_6.Text = t_6
-		lds_aux.Object.dw_1.object.t_7.Text = t_7
-		lds_aux.Object.dw_1.object.t_8.Text = t_8
-		lds_aux.Object.dw_1.object.t_9.Text = t_9
-
+			//cabeçalho
+			lds_aux.Object.dw_1.object.t_5.Text = t_5
+			lds_aux.Object.dw_1.object.t_6.Text = t_6
+			lds_aux.Object.dw_1.object.t_7.Text = t_7
+			lds_aux.Object.dw_1.object.t_8.Text = t_8
+			lds_aux.Object.dw_1.object.t_9.Text = t_9
 
 			
 			DataWindowChild dwc_2
@@ -224,7 +222,6 @@ codigo_vendedor = string(dw_1.GetItemString(1,"cod_vendedor"))
 			dwc_2.Retrieve(codigo_movimento)
 
 			//configura pagina p/ formulario razao
-
 			lds_aux.Object.DataWindow.Print.Paper.Size = 256
 			lds_aux.Object.DataWindow.Print.CustomPage.Length = 140 // 10 inches
 			lds_aux.Object.DataWindow.Print.CustomPage.Width = 215 // 7 inches
@@ -239,34 +236,30 @@ codigo_vendedor = string(dw_1.GetItemString(1,"cod_vendedor"))
 			
 			destroy lds_aux
 			
-		end if 
+		
+			//termina parte1 impressao
 
-///termina parte1 impressao
+		
+		
+			////parte impressao parte2 igual com os valores
 
-	////parte impressao parte2
-			
-
-
-		IF (w_saida_top.dw_1.object.imprimir[1] = 1) THEN
-
-			
+					
 			datastore lds_aux2
-			int li_return2
+			int li_return_folha2
 			lds_aux2 = create datastore
-			lds_aux2.dataobject = 'd_saida_print2'
+			lds_aux2.dataobject = 'd_saida_print_c_valores'
 
 			DataWindowChild dwc_1p2
 			lds_aux2.GetChild("dw_1", dwc_1p2)
 			dwc_1p2.SetTransObject(SQLCA)
 			dwc_1p2.Retrieve(id)
 
-		//cabeçalho
-		lds_aux.Object.dw_1.object.t_5.Text = t_5
-		lds_aux.Object.dw_1.object.t_6.Text = t_6
-		lds_aux.Object.dw_1.object.t_7.Text = t_7
-		lds_aux.Object.dw_1.object.t_8.Text = t_8
-		lds_aux.Object.dw_1.object.t_9.Text = t_9
-
+			//cabeçalho
+			lds_aux2.Object.dw_1.object.t_5.Text = t_5
+			lds_aux2.Object.dw_1.object.t_6.Text = t_6
+			lds_aux2.Object.dw_1.object.t_7.Text = t_7
+			lds_aux2.Object.dw_1.object.t_8.Text = t_8
+			lds_aux2.Object.dw_1.object.t_9.Text = t_9
 
 
 			DataWindowChild dwc_2p2
@@ -275,49 +268,49 @@ codigo_vendedor = string(dw_1.GetItemString(1,"cod_vendedor"))
 			dwc_2p2.Retrieve(codigo_movimento)
 
 			//configura pagina p/ formulario razao
-			
 			lds_aux2.Object.DataWindow.Print.Paper.Size = 256
 			lds_aux2.Object.DataWindow.Print.CustomPage.Length = 140 // 10 inches
 			lds_aux2.Object.DataWindow.Print.CustomPage.Width = 215 // 7 inches
 
 			//termina form razao
 
-			li_return2 = lds_aux2.Print(false,false)
-			li_return2 = lds_aux2.Print(false,false)
-				if isnull(li_return2) or li_return2 = -1 then
-					messagebox('','Não foi possível imprimir a 2 folha ou a impressão foi cancelada')
-				end if
+			//li_return2 = lds_aux2.Print(false,false)
+			li_return_folha2 = lds_aux2.Print(false,false)
+			
+			if isnull(li_return_folha2) or li_return_folha2 = -1 then
+				messagebox('','Não foi possível imprimir a 2 folha ou a impressão foi cancelada')
+			end if
 			
 			destroy lds_aux2
 			
-		end if
+		end if //fecha IF (w_saida_top.dw_1.object.imprimir[1] = 1)
 
-///termina parte2 impressao
+		//termina parte2 impressao
 			
 				
-			w_saida_produtos.dw_1.reset()
-			dw_1.reset()
-			w_saida_produtos.dw_1.insertrow(0)
-			long linha
-			w_saida_produtos.dw_1.SetTabOrder (6, 10)	
-			w_saida_produtos.dw_1.SetColumn(6)
-			w_saida_produtos.dw_1.ScrollToRow(linha)
-			w_saida_produtos.prossegue = false
-			w_saida_produtos.adicao = false
-			m_menu.m_editar.m_excluir.enabled = false
-			w_saida_produtos.m_excluir = False
-			close(parent)
+		 w_saida_produtos.dw_1.reset()
+		 dw_1.reset()
+		 w_saida_produtos.dw_1.insertrow(0)
+		 long linha
+		 w_saida_produtos.dw_1.SetTabOrder (6, 10)	
+		 w_saida_produtos.dw_1.SetColumn(6)
+		 w_saida_produtos.dw_1.ScrollToRow(linha)
+		 w_saida_produtos.prossegue = false
+		 w_saida_produtos.adicao = false
+		 m_menu.m_editar.m_excluir.enabled = false
+		 w_saida_produtos.m_excluir = False
+		 close(parent)
 
 		
-		else
-			
-			MessageBox("Erro ao gravar produtos saida",SQLCA.SQLErrText)		
-			RollBack;
+	 else
+	
+		 MessageBox("Erro ao gravar produtos saida",SQLCA.SQLErrText)		
+		 RollBack;
 				
-		end if
+	 end if //fecha IF gravar_produtos = 1
 		
 	
-	End if
+ End if //fecha IF isNull(codigo_vendedor) or (codigo_vendedor = "")
 end event
 
 type dw_1 from datawindow within w_saida_top
@@ -416,6 +409,7 @@ Choose case this.GetColumnName()
 					this.object.id_cliente[1] = ""
 					this.object.t_nome_cliente.text = ""
 					dw_1.object.frete[1] = "SEDEX"
+					dw_1.object.imprimir[1] = 1
 					dw_1.SetColumn("frete")
 					cb_ok.enabled = false
 					dw_1.SetTabOrder ("frete", 20)	
@@ -424,6 +418,7 @@ Choose case this.GetColumnName()
 					codigo_cliente = 1 //venda local
 					dw_1.object.id_cliente[1] = string(codigo_cliente)
 					dw_1.object.t_nome_cliente.text ="VENDA LOCAL"
+					dw_1.object.imprimir[1] = 0
 					dw_1.object.frete[1] = "VENDA LOCAL"
 					dw_1.object.valor_frete[1] = 0
 					
