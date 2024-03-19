@@ -80,8 +80,17 @@ type m_consulta from menu within m_menu
 end type
 type m_consulta_estoque from menu within m_consulta
 end type
+type m_consulta_vendas from menu within m_consulta
+end type
+type m_consulta_vendasdetalhado from menu within m_consulta
+end type
+type m_movimentaçãodeestoque from menu within m_consulta
+end type
 type m_consulta from menu within m_menu
 m_consulta_estoque m_consulta_estoque
+m_consulta_vendas m_consulta_vendas
+m_consulta_vendasdetalhado m_consulta_vendasdetalhado
+m_movimentaçãodeestoque m_movimentaçãodeestoque
 end type
 type m_estoque from menu within m_menu
 end type
@@ -159,7 +168,7 @@ destroy(this.m_consulta)
 destroy(this.m_estoque)
 end on
 
-event clicked;OpenSheet(w_cad_fornecedor, ParentWindow, 2, Layered!)	
+event clicked;	OpenSheet(w_cad_fornecedor, ParentWindow, 2, Layered!)	
 end event
 
 type m_usuarios from menu within m_menu
@@ -1056,6 +1065,9 @@ end event
 
 type m_consulta from menu within m_menu
 m_consulta_estoque m_consulta_estoque
+m_consulta_vendas m_consulta_vendas
+m_consulta_vendasdetalhado m_consulta_vendasdetalhado
+m_movimentaçãodeestoque m_movimentaçãodeestoque
 end type
 
 on m_consulta.create
@@ -1080,12 +1092,21 @@ this.toolbarhighlightcolor = 134217741
 this.toolbargradient = true
 this.bitmapgradient = true
 this.m_consulta_estoque=create m_consulta_estoque
+this.m_consulta_vendas=create m_consulta_vendas
+this.m_consulta_vendasdetalhado=create m_consulta_vendasdetalhado
+this.m_movimentaçãodeestoque=create m_movimentaçãodeestoque
 this.Item[UpperBound(this.Item)+1]=this.m_consulta_estoque
+this.Item[UpperBound(this.Item)+1]=this.m_consulta_vendas
+this.Item[UpperBound(this.Item)+1]=this.m_consulta_vendasdetalhado
+this.Item[UpperBound(this.Item)+1]=this.m_movimentaçãodeestoque
 end on
 
 on m_consulta.destroy
 call super::destroy
 destroy(this.m_consulta_estoque)
+destroy(this.m_consulta_vendas)
+destroy(this.m_consulta_vendasdetalhado)
+destroy(this.m_movimentaçãodeestoque)
 end on
 
 type m_consulta_estoque from menu within m_consulta
@@ -1121,6 +1142,108 @@ end on
 
 event clicked;OpenSheet(w_consulta_estoque, ParentWindow, 2, Layered!)
 end event
+
+type m_consulta_vendas from menu within m_consulta
+end type
+
+event clicked;OpenSheet(w_consulta_vendas, ParentWindow,2,Layered!)
+end event
+
+on m_consulta_vendas.create
+call super::create
+this.text = "&Vendas"
+this.menuimage = "RunToCursor!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_consulta_vendas.destroy
+call super::destroy
+end on
+
+type m_consulta_vendasdetalhado from menu within m_consulta
+end type
+
+event clicked;OpenSheet(w_consulta_vendas_dia, ParentWindow, 2, Layered!)
+end event
+
+on m_consulta_vendasdetalhado.create
+call super::create
+this.text = "Vendas &Detalhado"
+this.menuimage = "Menu!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_consulta_vendasdetalhado.destroy
+call super::destroy
+end on
+
+type m_movimentaçãodeestoque from menu within m_consulta
+end type
+
+event clicked;OpenSheet(w_consulta_movimento, ParentWindow, 2, Layered!)
+end event
+
+on m_movimentaçãodeestoque.create
+call super::create
+this.text = "&Movimentação de Estoque"
+this.menuimage = "Move!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_movimentaçãodeestoque.destroy
+call super::destroy
+end on
 
 type m_estoque from menu within m_menu
 m_entradadeprodutos m_entradadeprodutos
