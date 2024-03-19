@@ -5,9 +5,9 @@ header(height=72 color="536870912" transparency="0" gradient.color="0" gradient.
 summary(height=100 color="536870912" transparency="0" gradient.color="0" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="0" gradient.focus="0" gradient.scale="100" gradient.spread="100" height.autosize=yes )
 footer(height=0 color="536870912" transparency="0" gradient.color="0" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="0" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
 detail(height=100 color="536870912" transparency="0" gradient.color="0" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="0" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
-table(column=(type=long updatewhereclause=yes name=cod_vendedor dbname="movimento_saida.cod_vendedor" dbalias=".cod_vendedor" )
+table(column=(type=long updatewhereclause=yes name=cod_vendedor dbname="movimento_saida.cod_vendedor" )
  column=(type=decimal(6) updatewhereclause=yes name=valor_total dbname="valor_total" )
- column=(type=char(255) updatewhereclause=yes name=usuarios_nome dbname="usuarios.nome" dbalias=".nome" )
+ column=(type=char(255) updatewhereclause=yes name=usuarios_nome dbname="usuarios.nome" )
  column=(type=decimal(0) updatewhereclause=yes name=nr_clientes dbname="nr_clientes" )
  retrieve="  SELECT movimento_saida.cod_vendedor,   
          sum(~"movimento_saida~".~"valor_total~") as valor_total,   
@@ -43,6 +43,6 @@ xsltgen()
 jsgen()
 export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
 import.xml()
-export.pdf(method=0 distill.custompostscript="0" nativepdf.customsize=0 nativepdf.customorientation=0 nativepdf.pdfstandard=0 nativepdf.useprintspec=no )
+export.pdf(method=2 distill.custompostscript="0" nativepdf.customsize=0 nativepdf.customorientation=0 nativepdf.pdfstandard=0 nativepdf.useprintspec=no )
 export.xhtml()
  
