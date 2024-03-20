@@ -15,7 +15,7 @@ end type
 end forward
 
 global type w_saida_produtos_busca from window
-integer width = 2606
+integer width = 2976
 integer height = 1872
 boolean titlebar = true
 string title = "Busca de produtos"
@@ -195,7 +195,7 @@ type dw_1 from datawindow within w_saida_produtos_busca
 event enter pbm_dwnprocessenter
 integer x = 114
 integer y = 188
-integer width = 2336
+integer width = 2779
 integer height = 1288
 integer taborder = 10
 string title = "none"
@@ -217,7 +217,7 @@ end event
 type gb_1 from groupbox within w_saida_produtos_busca
 integer x = 69
 integer y = 84
-integer width = 2455
+integer width = 2853
 integer height = 1432
 integer textsize = -10
 integer weight = 400

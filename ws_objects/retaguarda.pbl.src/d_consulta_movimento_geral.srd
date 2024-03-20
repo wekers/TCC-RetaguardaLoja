@@ -1,0 +1,106 @@
+﻿$PBExportHeader$d_consulta_movimento_geral.srd
+release 22;
+datawindow(units=0 data.export.format=1 timer_interval=0 color=67108864 brushmode=0 transparency=0 gradient.angle=0 gradient.color=0 gradient.focus=0 gradient.repetition.count=0 gradient.repetition.length=100 gradient.repetition.mode=0 gradient.scale=100 gradient.spread=100 gradient.transparency=0 picture.blur=0 picture.clip.bottom=0 picture.clip.left=0 picture.clip.right=0 picture.clip.top=0 picture.mode=0 picture.scale.x=100 picture.scale.y=100 picture.transparency=0 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes print.background=no print.preview.background=no print.preview.outline=yes hidegrayline=no showbackcoloronxp=no picture.file="" )
+header(height=68 color="536870912" transparency="0" gradient.color="0" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="0" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+summary(height=0 color="536870912" transparency="0" gradient.color="0" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="0" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+footer(height=0 color="536870912" transparency="0" gradient.color="0" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="0" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+detail(height=84 color="536870912" transparency="0" gradient.color="0" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="0" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+table(column=(type=date updatewhereclause=yes name=movimento_entrada_data_entrada dbname="movimento_entrada.data_entrada" )
+ column=(type=long updatewhereclause=yes name=movimento_entrada_id dbname="movimento_entrada.id" )
+ column=(type=number updatewhereclause=yes name=entrada_produtos_quantidade dbname="entrada_produtos.quantidade" )
+ column=(type=char(8190) updatewhereclause=yes name=compute_operacao dbname="compute_0004" )
+ retrieve="Select 
+movimento_entrada.data_entrada, 
+movimento_entrada.id,
+entrada_produtos.quantidade,
+'Entrada'
+From 
+movimento_entrada, 
+entrada_produtos 
+where
+movimento_entrada.id = entrada_produtos.codigo_movimento and
+entrada_produtos.codigo = :codigo 
+and movimento_entrada.data_entrada between :inicio and :final
+
+UNION ALL
+
+Select 
+movimento_saida.data_saida, 
+movimento_saida.id,
+saida_produtos.quantidade,
+'Saida'
+From 
+movimento_saida, 
+saida_produtos 
+where
+movimento_saida.id = saida_produtos.codigo_movimento and
+saida_produtos.codigo = :codigo
+and movimento_saida.data_saida between :inicio and :final
+
+UNION ALL
+
+Select
+movimento_ajuste.data,
+movimento_ajuste.id,
+ajuste_produtos.quantidade,
+movimento_ajuste.tipo
+From
+movimento_ajuste,
+ajuste_produtos
+where
+movimento_ajuste.id = ajuste_produtos.codigo_movimento and
+ajuste_produtos.codigo = :codigo
+and movimento_ajuste.data between :inicio and :final
+
+UNION ALL
+
+Select
+movimento_devolucao.data,
+movimento_devolucao.id,
+devolucao_produtos.quantidade,
+'Devolução'
+From
+movimento_devolucao,
+devolucao_produtos
+Where
+movimento_devolucao.id = devolucao_produtos.codigo_movimento and
+devolucao_produtos.codigo = :codigo
+and movimento_devolucao.data between :inicio and :final
+
+UNION ALL
+
+Select 
+movimento_saida.data_saida,
+cast(movimento_devolucao.n_doc_venda as integer),
+devolucao_produtos.quantidade,
+'Saida'
+From
+movimento_saida,
+movimento_devolucao,
+devolucao_produtos
+Where
+cast(movimento_devolucao.n_doc_venda as integer) = movimento_saida.id and
+movimento_devolucao.id = devolucao_produtos.codigo_movimento and
+devolucao_produtos.codigo = :codigo
+and movimento_saida.data_saida between :inicio and :final" arguments=(("codigo", string),("inicio", date),("final", date))  sort="movimento_entrada_data_entrada A movimento_entrada_id A " )
+roundrectangle(band=header ellipseheight="36" ellipsewidth="41"x="9" y="4" height="64" width="1678"  name=rr_2 visible="1" brush.hatch="6" brush.color="15780518" pen.style="0" pen.width="5" pen.color="10789024"  background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="0" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="0" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="16777215" tooltip.delay.initial="0" tooltip.delay.visible="10000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="0" tooltip.transparency="0" )
+text(band=header alignment="2" text="Data:" border="0" color="33554432" x="119" y="16" height="52" width="192" html.valueishtml="0"  name=t_1 visible="1"  font.face="MS Sans Serif" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="0" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="0" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="16777215" tooltip.delay.initial="0" tooltip.delay.visible="10000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="0" tooltip.transparency="0" transparency="0" )
+text(band=header alignment="2" text="Nº Doc:" border="0" color="33554432" x="407" y="12" height="52" width="466" html.valueishtml="0"  name=movimento_entrada_n_nota_t visible="1"  font.face="MS Sans Serif" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="0" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="0" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="16777215" tooltip.delay.initial="0" tooltip.delay.visible="10000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="0" tooltip.transparency="0" transparency="0" )
+text(band=header alignment="2" text="Quant:" border="0" color="33554432" x="891" y="16" height="52" width="201" html.valueishtml="0"  name=t_2 visible="1"  font.face="MS Sans Serif" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="0" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="0" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="16777215" tooltip.delay.initial="0" tooltip.delay.visible="10000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="0" tooltip.transparency="0" transparency="0" )
+text(band=header alignment="2" text="Operação:" border="0" color="33554432" x="1239" y="16" height="52" width="311" html.valueishtml="0"  name=t_3 visible="1"  font.face="MS Sans Serif" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="0" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="0" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="16777215" tooltip.delay.initial="0" tooltip.delay.visible="10000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="0" tooltip.transparency="0" transparency="0" )
+roundrectangle(band=detail ellipseheight="36" ellipsewidth="41"x="9" y="0" height="76" width="1678"  name=rr_1 visible="1" brush.hatch="6" brush.color="15780518" pen.style="0" pen.width="5" pen.color="10789024"  background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="0" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="0" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="16777215" tooltip.delay.initial="0" tooltip.delay.visible="10000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="0" tooltip.transparency="0" )
+column(band=detail id=1 alignment="2" tabsequence=32766 border="0" color="33554432" x="23" y="8" height="60" width="366" format="[general]" html.valueishtml="0"  name=movimento_entrada_data_entrada visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Microsoft Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="0" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="0" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="16777215" tooltip.delay.initial="0" tooltip.delay.visible="10000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="0" tooltip.transparency="0" transparency="0" )
+column(band=detail id=3 alignment="2" tabsequence=32766 border="0" color="33554432" x="878" y="8" height="60" width="219" format="[General]" html.valueishtml="0"  name=entrada_produtos_quantidade visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Microsoft Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="0" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="0" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="16777215" tooltip.delay.initial="0" tooltip.delay.visible="10000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="0" tooltip.transparency="0" transparency="0" )
+column(band=detail id=4 alignment="2" tabsequence=32766 border="0" color="33554432" x="1106" y="8" height="60" width="567" format="[general]" html.valueishtml="0"  name=compute_operacao visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Microsoft Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="0" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="0" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="16777215" tooltip.delay.initial="0" tooltip.delay.visible="10000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="0" tooltip.transparency="0" transparency="0" )
+column(band=detail id=2 alignment="2" tabsequence=10 border="0" color="33554432" x="398" y="8" height="60" width="471" format="[General]" html.valueishtml="0"  name=movimento_entrada_id visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.displayonly=yes  font.face="Microsoft Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(getrow() = currentRow(),15793151, 16777215)" background.transparency="0" background.gradient.color="0" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="0" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="16777215" tooltip.delay.initial="0" tooltip.delay.visible="10000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="0" tooltip.transparency="0" transparency="0" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" pagingmethod=0 generatedddwframes="1" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" nativepdf.customsize=0 nativepdf.customorientation=0 nativepdf.pdfstandard=0 nativepdf.useprintspec=no )
+export.xhtml()
+ 
