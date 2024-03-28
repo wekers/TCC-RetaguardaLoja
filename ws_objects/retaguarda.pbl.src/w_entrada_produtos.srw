@@ -47,6 +47,9 @@ if isNull(id_fornecedor) or (id_fornecedor = "") then
 	  
 else	
 	
+GetActiveSheet().TriggerEvent("ue_incluir")
+GetActiveSheet().TriggerEvent("ue_excluir")
+
 dw_1.settransobject(SQLCA)
 
 gravar_top = dw_1.Update(True, True)
@@ -156,6 +159,7 @@ event ue_incluir();If prossegue Then
 		m_excluir = True
 		m_menu.m_editar.m_confirmar.enabled = false
 		m_confirmar = false
+		
 
 	
 	End If
@@ -316,7 +320,7 @@ event editchanged;Choose case this.GetColumnName()
 					dw_2.SetColumn(2)
 					m_confirmar = False
 					m_menu.m_editar.m_confirmar.enabled = False
-					return 1
+					//return 1
 				else
 					m_confirmar = true
 					m_menu.m_editar.m_confirmar.enabled = True
