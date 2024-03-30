@@ -308,7 +308,7 @@ CREATE TABLE IF NOT EXISTS produto
     preco_custo numeric(7,2) NOT NULL,
     preco_venda numeric(7,2),
     desconto integer DEFAULT 0,
-    saldo double precision DEFAULT 0,
+    saldo integer DEFAULT 0,
     id_fornecedor integer,
     preco_final_venda numeric(7,2),
     id_categoria int NOT NULL,
@@ -338,7 +338,7 @@ CREATE TABLE IF NOT EXISTS movimento_entrada
 (
     id Integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ) PRIMARY KEY,
     id_fornecedor integer,
-    n_nota text,
+    n_nota integer,
     data_entrada date,
     valor_total numeric(7,2),
     usuario character varying(10),
@@ -360,7 +360,7 @@ CREATE TABLE IF NOT EXISTS entrada_produtos
 (
     id Integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ) PRIMARY KEY,
     codigo character varying(12)  NOT NULL,
-    quantidade double precision,
+    quantidade integer,
     codigo_movimento integer,
     preco_custo numeric(7,2),
     FOREIGN KEY ("codigo_movimento") REFERENCES movimento_entrada ("id")
@@ -422,7 +422,7 @@ CREATE TABLE IF NOT EXISTS saida_produtos
 (
     id Integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ) PRIMARY KEY,
     codigo character varying(12)  NOT NULL,
-    quantidade double precision,
+    quantidade integer,
     codigo_movimento integer,
     preco numeric(7,2),
     desconto integer,
@@ -466,7 +466,7 @@ CREATE TABLE IF NOT EXISTS devolucao_produtos
 (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ) PRIMARY KEY,
     codigo integer NOT NULL,
-    quantidade double precision,
+    quantidade integer,
     codigo_movimento integer,
     preco numeric(7,2),
     FOREIGN KEY ("codigo_movimento") REFERENCES movimento_devolucao ("id")
@@ -507,7 +507,7 @@ CREATE TABLE IF NOT EXISTS ajuste_produtos
 (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ) PRIMARY KEY,
     codigo character varying(12) NOT NULL,
-    quantidade double precision,
+    quantidade integer,
     codigo_movimento integer,
     preco_custo numeric(7,2),
     motivo text,
