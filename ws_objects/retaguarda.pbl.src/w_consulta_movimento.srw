@@ -2,6 +2,8 @@
 forward
 global type w_consulta_movimento from window
 end type
+type st_2 from statictext within w_consulta_movimento
+end type
 type dw_2 from datawindow within w_consulta_movimento
 end type
 type dw_1 from datawindow within w_consulta_movimento
@@ -38,6 +40,7 @@ boolean clientedge = true
 boolean center = true
 event ue_gerar ( )
 event ue_imprimir ( )
+st_2 st_2
 dw_2 dw_2
 dw_1 dw_1
 sle_text sle_text
@@ -154,6 +157,7 @@ destroy lds_aux
 end event
 
 on w_consulta_movimento.create
+this.st_2=create st_2
 this.dw_2=create dw_2
 this.dw_1=create dw_1
 this.sle_text=create sle_text
@@ -164,7 +168,8 @@ this.st_1=create st_1
 this.gb_2=create gb_2
 this.gb_1=create gb_1
 this.gb_3=create gb_3
-this.Control[]={this.dw_2,&
+this.Control[]={this.st_2,&
+this.dw_2,&
 this.dw_1,&
 this.sle_text,&
 this.st_3,&
@@ -177,6 +182,7 @@ this.gb_3}
 end on
 
 on w_consulta_movimento.destroy
+destroy(this.st_2)
 destroy(this.dw_2)
 destroy(this.dw_1)
 destroy(this.sle_text)
@@ -209,6 +215,24 @@ end event
 event close;of_menu_in_close()
 end event
 
+type st_2 from statictext within w_consulta_movimento
+integer x = 562
+integer y = 2420
+integer width = 1874
+integer height = 68
+integer textsize = -9
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Tahoma"
+boolean underline = true
+long textcolor = 255
+long backcolor = 67108864
+string text = "*Para abrir o documento e visualizar -> Duplo click no n° do DOC"
+boolean focusrectangle = false
+end type
+
 type dw_2 from datawindow within w_consulta_movimento
 integer x = 608
 integer y = 888
@@ -222,6 +246,79 @@ boolean border = false
 boolean livescroll = true
 borderstyle borderstyle = stylelowered!
 end type
+
+event doubleclicked;Integer ll
+
+ll = dw_2.GetRow()
+
+Choose Case this.GetColumnName()
+		
+	Case 'movimento_entrada_id'
+
+		String operacao
+		integer doc
+				
+		operacao =	dw_2.GetItemString(ll,"compute_operacao")
+		
+				
+		
+		if operacao = "Devolução" then
+			
+			Open(w_consulta_doc_devolucao, w_consulta_movimento)
+			
+			doc =	dw_2.GetItemnumber(ll,"movimento_entrada_id")			
+			w_consulta_doc_devolucao.sle_1.text = string(doc)
+			w_consulta_doc_devolucao.sle_1.displayonly = true
+
+			w_consulta_doc_devolucao.sle_1.event modified() 
+			w_consulta_doc_devolucao.sle_1.text = string(doc)
+			
+		elseif operacao = "Saida" then
+			
+			Open (w_consulta_doc_venda, w_consulta_movimento)
+			
+			doc =	dw_2.GetItemNumber(ll,"movimento_entrada_id")			
+			w_consulta_doc_venda.sle_1.text = string(doc)
+			w_consulta_doc_venda.sle_1.displayonly = true
+
+			w_consulta_doc_venda.sle_1.event modified() 
+			w_consulta_doc_venda.sle_1.text = string(doc)
+		
+		elseif operacao = "Entrada" then
+			
+			Open (w_consulta_doc_entrada, w_consulta_movimento)
+			
+			doc =	dw_2.GetItemNumber(ll,"movimento_entrada_id")			
+			w_consulta_doc_entrada.sle_1.text = string(doc)
+			w_consulta_doc_entrada.sle_1.displayonly = true
+			w_consulta_doc_entrada.sle_2.displayonly = true
+
+			w_consulta_doc_entrada.sle_1.event modified() 
+			w_consulta_doc_entrada.sle_1.text = string(doc)
+			
+		elseif operacao = "Ajuste Entrada" or operacao = "Ajuste Saida" then
+		
+			Open (w_consulta_doc_ajuste, w_consulta_movimento)
+			
+			doc =	dw_2.GetItemNumber(ll,"movimento_entrada_id")			
+			w_consulta_doc_ajuste.sle_1.text = string(doc)
+			w_consulta_doc_ajuste.sle_1.displayonly = true
+
+			w_consulta_doc_ajuste.sle_1.event modified() 
+			w_consulta_doc_ajuste.sle_1.text = string(doc)
+			
+		end if
+	
+
+End Choose
+
+
+if SQLCA.SQLCode = -1 then
+	
+	MessageBox ('Error', SQLCA.SQLErrText)
+	
+end if
+end event
 
 type dw_1 from datawindow within w_consulta_movimento
 integer x = 87
