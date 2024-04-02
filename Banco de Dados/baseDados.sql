@@ -402,15 +402,14 @@ CREATE TABLE IF NOT EXISTS movimento_saida
     valor_frete numeric(7,2),
     id_cliente integer NOT NULL,
     tipo_venda estilo_venda, -- ENUM
-    CONSTRAINT movimento_saida_pkey PRIMARY KEY (id),
-    CONSTRAINT fk_usuario_vendedor FOREIGN KEY (cod_vendedor) REFERENCES (cod),
+    CONSTRAINT fk_usuario_vendedor FOREIGN KEY (cod_vendedor) REFERENCES usuarios (cod),
     FOREIGN KEY ("id_cliente") REFERENCES clientes ("id")
 )
 
 TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS movimento_saida
-    OWNER to unicesumar
+    OWNER to unicesumar;
 
 -- -----------------------------------------------------------
 
