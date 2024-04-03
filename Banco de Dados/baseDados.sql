@@ -67,17 +67,17 @@ INSERT INTO usuarios(cod, nome, senha)
 CREATE TABLE IF NOT EXISTS clientes
 (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
-    nome character varying(255)  NOT NULL,
+    nome character varying(100)  NOT NULL,
     apelido_ml character varying(255),
     fone character varying(15),
-    email character varying(255),
+    email character varying(100),
     cep character varying(10),
-    n_endereco character varying(255),
-    logradouro character varying(255),
-    bairro character varying(255),
-    cidade character varying(255),
+    n_endereco character varying(6),
+    logradouro character varying(120),
+    bairro character varying(100),
+    cidade character varying(80),
     uf character varying(2),
-    email_alt character varying(255),
+    email_alt character varying(100),
     celular character varying(15),
     cnpj_cpf character varying(14) unique,
     cmun character varying(7),
@@ -113,15 +113,15 @@ INSERT INTO clientes(nome)
 CREATE TABLE IF NOT EXISTS fornecedor
 (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
-    nome character varying(255),
+    nome character varying(120),
     cep character varying(10),
     fone character varying(15),
     fax character varying(15),
     cnpj_cpf character varying(15) unique,
     inscr_estadual character varying(15),
-    email character varying(255),
-    contato character varying(255),
-    n_endereco character varying(255),
+    email character varying(80),
+    contato character varying(60),
+    n_endereco character varying(6),
     tipo_c character(1),
     CONSTRAINT fornecedor_pkey PRIMARY KEY (id)
 )
@@ -167,11 +167,11 @@ CREATE TABLE IF NOT EXISTS estado
     faixa_cep2_fim character varying(8),
     pac numeric(10,2),
     sedex numeric(10,2),
-    capital character varying(255),
-    prazo_capital_pac character varying(255),
-    prazo_capital_sedex character varying(255),
-    prazo_noc_pac character varying(255),
-    prazo_noc_sedex character varying(255) 
+    capital character varying(70),
+    prazo_capital_pac character varying(40),
+    prazo_capital_sedex character varying(40),
+    prazo_noc_pac character varying(40),
+    prazo_noc_sedex character varying(40) 
 )
 
 TABLESPACE pg_default;
@@ -249,7 +249,7 @@ ALTER TABLE IF EXISTS endereco
 
 CREATE TABLE IF NOT EXISTS forma_pagamento
 (
-    descricao character varying(255)  NOT NULL,
+    descricao character varying(80)  NOT NULL,
     ativo integer
 )
 
@@ -286,7 +286,7 @@ ALTER TABLE IF EXISTS unidade
 CREATE TABLE IF NOT EXISTS categoria
 (
     id Integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ) PRIMARY KEY,
-    descricao character varying(255) NOT NULL
+    descricao character varying(80) NOT NULL
 )
 
 TABLESPACE pg_default;
@@ -397,8 +397,8 @@ CREATE TABLE IF NOT EXISTS movimento_saida
     cod_operador character varying(10),
     cod_vendedor integer,
     valor_total numeric(7,2),
-    operacao character varying(255),
-    frete character varying(70),
+    operacao character varying(150),
+    frete character varying(50),
     valor_frete numeric(7,2),
     id_cliente integer NOT NULL,
     tipo_venda estilo_venda, -- ENUM
@@ -488,7 +488,7 @@ CREATE TABLE IF NOT EXISTS movimento_ajuste
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ) PRIMARY KEY,
     data date DEFAULT now(),
     cod_operador character varying(10),
-    tipo character varying(255)
+    tipo character varying(150)
 )
 
 TABLESPACE pg_default;
