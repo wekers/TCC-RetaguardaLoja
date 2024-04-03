@@ -36,19 +36,20 @@ end variables
 event ue_salvar();integer gravar, gravar_top, id_movimento
 String ls_mod, ls_err, id_fornecedor
 
-
-
 id_fornecedor = String(dw_1.GetItemnumber(1,"id_fornecedor"))
 dw_1.object.usuario[1] = String(codigo_usuario)
 
 
-
 if isNull(id_fornecedor) or (id_fornecedor = "") then
       messagebox("Atenção!","É obrigatório selecionar o fornecedor")
-	  return 
+		
+
 	  
 else	
 	
+GetActiveSheet().TriggerEvent("ue_incluir")
+GetActiveSheet().TriggerEvent("ue_excluir")
+
 dw_1.settransobject(SQLCA)
 
 gravar_top = dw_1.Update(True, True)
@@ -90,15 +91,7 @@ gravar = dw_2.Update(True, True)
 			FOR ll_nn = 1 to dw_2.RowCount()
 				codigo_update = dw_2.GetitemString(ll_nn,"entrada_produtos_codigo")
 				saldo_final = dw_2.GetitemNumber(ll_nn,"entrada_produtos_quantidade")
-				
-				if saldo_final <= 0  or isNull(saldo_final) then
-      				messagebox("Atenção!","A Quantidade tem que ser maior que 0, setando para 1")
-					dw_2.SetColumn(2)
-					dw_2.object.entrada_produtos_quantidade[ll_nn] = 1
-					saldo_final = 1
-					return 
-				end if
-				
+						
 				UPDATE produto 
 		      		SET saldo = saldo + :saldo_final  
 		      			 WHERE codigo  = :codigo_update
@@ -166,6 +159,7 @@ event ue_incluir();If prossegue Then
 		m_excluir = True
 		m_menu.m_editar.m_confirmar.enabled = false
 		m_confirmar = false
+		
 
 	
 	End If
@@ -214,6 +208,7 @@ event activate;of_menu_activated( m_confirmar, m_incluir, m_excluir, m_gerar, m_
 end event
 
 event close;of_menu_in_close()
+
 end event
 
 type dw_2 from datawindow within w_entrada_produtos
@@ -249,18 +244,18 @@ Choose case this.GetColumnName()
 				FROM produto
 				WHERE codigo = :codigo_prod or codigo_barras = :codigo_prod;
 
-					if SQLCA.SQLCode = -1 then
-						MessageBox ('Error', SQLCA.SQLErrText)
-					end if
+				if SQLCA.SQLCode = -1 then
+					MessageBox ('Error', SQLCA.SQLErrText)
+				end if
 
-	long ll_n
+				long ll_n
 
-	FOR ll_n = 1 to dw_2.RowCount()
-   	    if (dw_2.object.entrada_produtos_codigo[ll_n]  =  codigo_prod or dw_2.object.produto_codigo_barras[ll_n] = codigo_prod) then
-				dw_2.object.entrada_produtos_quantidade[ll_n] = 	dw_2.object.entrada_produtos_quantidade[ll_n] + 1
-				adicao = true
-		end if
-	NEXT
+				FOR ll_n = 1 to dw_2.RowCount()
+   	  				  if (dw_2.object.entrada_produtos_codigo[ll_n]  =  codigo_prod or dw_2.object.produto_codigo_barras[ll_n] = codigo_prod) then
+						dw_2.object.entrada_produtos_quantidade[ll_n] = 	dw_2.object.entrada_produtos_quantidade[ll_n] + 1
+						adicao = true
+					  end if
+				NEXT
 
 
 					if SQLCA.SQLCode = 100 then //100 vazio
@@ -314,6 +309,25 @@ event losefocus;dw_1.object.valor_total[1] =					dw_2.object.compute_2[1]
 end event
 
 event clicked;this.scrolltorow(row)
+end event
+
+event editchanged;Choose case this.GetColumnName()
+		
+			Case 'entrada_produtos_quantidade'
+
+			if ( integer(this.GetText()) <= 0 ) then
+      				//messagebox("Atenção!","A Quantidade tem que ser maior que 0, setando para 1")
+					dw_2.SetColumn(2)
+					m_confirmar = False
+					m_menu.m_editar.m_confirmar.enabled = False
+					//return 1
+				else
+					m_confirmar = true
+					m_menu.m_editar.m_confirmar.enabled = True
+				end if
+				
+		End choose
+				
 end event
 
 type dw_1 from datawindow within w_entrada_produtos

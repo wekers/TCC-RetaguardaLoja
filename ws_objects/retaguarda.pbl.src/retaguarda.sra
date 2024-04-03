@@ -85,7 +85,7 @@ pwdb = string(lblb_data, EncodingANSI!)
 
 //PostgreSQL
 sqlca.dbparm =	"ConnectString='DSN=TCCRetaguarda;Database=TccRetaguarda;UID=unicesumar;Port=5432;PWD="+pwdb+";'"+ &
-"ConnectOption='SQLDRIVER_CONNECT,SQL_DRIVER_NOPROMPT',StripParmNames='Yes'"
+"ConnectOption='SQLDRIVER_CONNECT,SQL_DRIVER_NOPROMPT',StripParmNames='Yes',DecimalSeparator=','"
 SQLCA.Lock="RC"
 
 Connect;

@@ -169,7 +169,7 @@ if not(travar) then
 			/* Faz update na tabela movimento_saida setando agora o seu valor_total */
 			UPDATE movimento_saida
 				SET valor_total = (valor_total - :novo_preco_total)
-			WHERE n_doc = :n_doc
+			WHERE id = :n_doc
 			USING SQLCA;
 
 			/* Não existe mais esse produto da venda relacionado a seu n_doc, 
@@ -473,7 +473,7 @@ else
 
 /* número digitado, então segue */
 dw_1.settransobject(SQLCA)
-recuperar_dw1 = dw_1.retrieve(n_doc)
+recuperar_dw1 = dw_1.retrieve(integer(n_doc))
 
 	if(recuperar_dw1 = 0) then
 	
