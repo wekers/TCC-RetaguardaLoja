@@ -44,9 +44,9 @@ INSERT INTO fornecedor(nome,cep,fone,fax,cnpj_cpf,inscr_estadual,email,contato,n
 
 -- categoria
 -- ----------------------------------------------------------
-INSERT INTO categoria(id,descricao) VALUES (1, 'PIJAMA / CAMISOLA');
-INSERT INTO categoria(id,descricao) VALUES (2, 'BEBÊ');
-INSERT INTO categoria(id,descricao) VALUES (3, 'MODA ÍNTIMA');
+INSERT INTO categoria(descricao) VALUES ('PIJAMA / CAMISOLA');
+INSERT INTO categoria(descricao) VALUES ('BEBÊ');
+INSERT INTO categoria(descricao) VALUES ('MODA ÍNTIMA');
 
 -- clientes
 -- ----------------------------------------------------------
