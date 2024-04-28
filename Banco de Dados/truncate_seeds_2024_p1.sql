@@ -1014,4 +1014,9 @@ INSERT INTO ajuste_produtos (codigo,quantidade,codigo_movimento,preco_custo,moti
 -- update saldo quantidade conforme ajuste, entrada ou saida
 UPDATE produto SET saldo = saldo + 1 WHERE codigo  = '66';
 UPDATE produto SET saldo = saldo - 3 WHERE codigo  = '232';
-				     
+
+-- inserindo algumas unidades
+INSERT INTO unidade(unidade) VALUES 
+('KIT'), 
+('PÇ'),
+('UND');				     
