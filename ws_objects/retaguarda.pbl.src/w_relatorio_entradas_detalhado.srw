@@ -183,7 +183,7 @@ fontpitch fontpitch = variable!
 fontfamily fontfamily = swiss!
 string facename = "Tahoma"
 boolean enabled = false
-string text = "E&xportar para PDF"
+string text = "Exportar para &PDF"
 end type
 
 event clicked;string periodo, inicio_s, final_s
