@@ -133,10 +133,13 @@ type m_entradasdetalhado from menu within m_relatorio
 end type
 type m_relatorio_inventario from menu within m_relatorio
 end type
+type m_relatorio_produtosnegativos from menu within m_relatorio
+end type
 type m_relatorio from menu within m_menu
 m_relatorio_produtosvendidos m_relatorio_produtosvendidos
 m_entradasdetalhado m_entradasdetalhado
 m_relatorio_inventario m_relatorio_inventario
+m_relatorio_produtosnegativos m_relatorio_produtosnegativos
 end type
 global type m_menu from menu
 m_usuarios m_usuarios
@@ -1650,6 +1653,7 @@ type m_relatorio from menu within m_menu
 m_relatorio_produtosvendidos m_relatorio_produtosvendidos
 m_entradasdetalhado m_entradasdetalhado
 m_relatorio_inventario m_relatorio_inventario
+m_relatorio_produtosnegativos m_relatorio_produtosnegativos
 end type
 
 on m_relatorio.create
@@ -1676,9 +1680,11 @@ this.bitmapgradient = true
 this.m_relatorio_produtosvendidos=create m_relatorio_produtosvendidos
 this.m_entradasdetalhado=create m_entradasdetalhado
 this.m_relatorio_inventario=create m_relatorio_inventario
+this.m_relatorio_produtosnegativos=create m_relatorio_produtosnegativos
 this.Item[UpperBound(this.Item)+1]=this.m_relatorio_produtosvendidos
 this.Item[UpperBound(this.Item)+1]=this.m_entradasdetalhado
 this.Item[UpperBound(this.Item)+1]=this.m_relatorio_inventario
+this.Item[UpperBound(this.Item)+1]=this.m_relatorio_produtosnegativos
 end on
 
 on m_relatorio.destroy
@@ -1686,6 +1692,7 @@ call super::destroy
 destroy(this.m_relatorio_produtosvendidos)
 destroy(this.m_entradasdetalhado)
 destroy(this.m_relatorio_inventario)
+destroy(this.m_relatorio_produtosnegativos)
 end on
 
 type m_relatorio_produtosvendidos from menu within m_relatorio
@@ -1787,6 +1794,40 @@ this.bitmapgradient = true
 end on
 
 on m_relatorio_inventario.destroy
+call super::destroy
+end on
+
+type m_relatorio_produtosnegativos from menu within m_relatorio
+end type
+
+event clicked;OpenSheet(w_relatorio_produtos_negativos, ParentWindow, 2, Layered!)	
+end event
+
+on m_relatorio_produtosnegativos.create
+call super::create
+this.text = "Produtos Saldo &Negativo"
+this.menuimage = "Custom037!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_relatorio_produtosnegativos.destroy
 call super::destroy
 end on
 
