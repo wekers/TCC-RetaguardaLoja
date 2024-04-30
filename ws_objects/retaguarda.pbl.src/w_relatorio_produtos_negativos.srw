@@ -67,7 +67,7 @@ lds_aux.Object.t_9.Text = t_9
 
 li_return = lds_aux.Print(false,true)
 	if isnull(li_return) or li_return = -1 then
-		messagebox('','Erro print em d_consulta_vendas_print. Chame analista!')
+		messagebox('','Erro print em d_relatorio_produtos_negativos. Reporte ao desenvolvedor!')
 	end if
 destroy lds_aux
 
