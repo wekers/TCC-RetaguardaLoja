@@ -51,6 +51,9 @@ string webview2url = "https://developer.microsoft.com/en-us/microsoft-edge/webvi
 end type
 global retaguarda retaguarda
 
+type prototypes
+subroutine keybd_event(uint bVk,uint bScan,long dwFlags,long dwExtraInfo ) library 'user32.dll'
+end prototypes
 type variables
 string pwdb = "JFRDQ3VuaWNlc3VtYXIyMDIz"
 end variables
