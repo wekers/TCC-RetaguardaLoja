@@ -53,7 +53,7 @@ type m_categoria from menu within m_cadastro
 end type
 type m_unidadedoproduto from menu within m_cadastro
 end type
-type m_3 from menu within m_cadastro
+type m_1 from menu within m_cadastro
 end type
 type m_alterar from menu within m_cadastro
 end type
@@ -73,7 +73,7 @@ m_0 m_0
 m_formadepagamento m_formadepagamento
 m_categoria m_categoria
 m_unidadedoproduto m_unidadedoproduto
-m_3 m_3
+m_1 m_1
 m_alterar m_alterar
 end type
 type m_estoque from menu within m_menu
@@ -92,11 +92,25 @@ m_vendas m_vendas
 m_devolucao m_devolucao
 m_ajustedeestoque m_ajustedeestoque
 end type
+type m_sistema from menu within m_menu
+end type
+type m_sobre from menu within m_sistema
+end type
+type m_sair from menu within m_sistema
+end type
+type m_criarmenudb from menu within m_sistema
+end type
+type m_sistema from menu within m_menu
+m_sobre m_sobre
+m_sair m_sair
+m_criarmenudb m_criarmenudb
+end type
 global type m_menu from menu
 m_usuarios m_usuarios
 m_editar m_editar
 m_cadastro m_cadastro
 m_estoque m_estoque
+m_sistema m_sistema
 end type
 end forward
 
@@ -105,6 +119,7 @@ m_usuarios m_usuarios
 m_editar m_editar
 m_cadastro m_cadastro
 m_estoque m_estoque
+m_sistema m_sistema
 end type
 global m_menu m_menu
 
@@ -133,10 +148,12 @@ this.m_usuarios=create m_usuarios
 this.m_editar=create m_editar
 this.m_cadastro=create m_cadastro
 this.m_estoque=create m_estoque
+this.m_sistema=create m_sistema
 this.Item[UpperBound(this.Item)+1]=this.m_usuarios
 this.Item[UpperBound(this.Item)+1]=this.m_editar
 this.Item[UpperBound(this.Item)+1]=this.m_cadastro
 this.Item[UpperBound(this.Item)+1]=this.m_estoque
+this.Item[UpperBound(this.Item)+1]=this.m_sistema
 end on
 
 on m_menu.destroy
@@ -145,6 +162,7 @@ destroy(this.m_usuarios)
 destroy(this.m_editar)
 destroy(this.m_cadastro)
 destroy(this.m_estoque)
+destroy(this.m_sistema)
 end on
 
 event clicked;OpenSheet(w_cad_fornecedor, ParentWindow, 2, Layered!)	
@@ -614,7 +632,7 @@ m_0 m_0
 m_formadepagamento m_formadepagamento
 m_categoria m_categoria
 m_unidadedoproduto m_unidadedoproduto
-m_3 m_3
+m_1 m_1
 m_alterar m_alterar
 end type
 
@@ -646,7 +664,7 @@ this.m_0=create m_0
 this.m_formadepagamento=create m_formadepagamento
 this.m_categoria=create m_categoria
 this.m_unidadedoproduto=create m_unidadedoproduto
-this.m_3=create m_3
+this.m_1=create m_1
 this.m_alterar=create m_alterar
 this.Item[UpperBound(this.Item)+1]=this.m_clientes
 this.Item[UpperBound(this.Item)+1]=this.m_fornecodor
@@ -655,7 +673,7 @@ this.Item[UpperBound(this.Item)+1]=this.m_0
 this.Item[UpperBound(this.Item)+1]=this.m_formadepagamento
 this.Item[UpperBound(this.Item)+1]=this.m_categoria
 this.Item[UpperBound(this.Item)+1]=this.m_unidadedoproduto
-this.Item[UpperBound(this.Item)+1]=this.m_3
+this.Item[UpperBound(this.Item)+1]=this.m_1
 this.Item[UpperBound(this.Item)+1]=this.m_alterar
 end on
 
@@ -668,7 +686,7 @@ destroy(this.m_0)
 destroy(this.m_formadepagamento)
 destroy(this.m_categoria)
 destroy(this.m_unidadedoproduto)
-destroy(this.m_3)
+destroy(this.m_1)
 destroy(this.m_alterar)
 end on
 
@@ -907,10 +925,10 @@ end on
 event clicked;OpenSheet(w_cad_unidade, ParentWindow, 2, Layered!)
 end event
 
-type m_3 from menu within m_cadastro
+type m_1 from menu within m_cadastro
 end type
 
-on m_3.create
+on m_1.create
 call super::create
 this.text = "-"
 this.menustyle = contemporarymenu!
@@ -932,7 +950,7 @@ this.toolbargradient = true
 this.bitmapgradient = true
 end on
 
-on m_3.destroy
+on m_1.destroy
 call super::destroy
 end on
 
@@ -1222,4 +1240,152 @@ end on
 on m_ajustedeestoque.destroy
 call super::destroy
 end on
+
+type m_sistema from menu within m_menu
+m_sobre m_sobre
+m_sair m_sair
+m_criarmenudb m_criarmenudb
+end type
+
+on m_sistema.create
+call super::create
+this.text = "&Sistema"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_sobre=create m_sobre
+this.m_sair=create m_sair
+this.m_criarmenudb=create m_criarmenudb
+this.Item[UpperBound(this.Item)+1]=this.m_sobre
+this.Item[UpperBound(this.Item)+1]=this.m_sair
+this.Item[UpperBound(this.Item)+1]=this.m_criarmenudb
+end on
+
+on m_sistema.destroy
+call super::destroy
+destroy(this.m_sobre)
+destroy(this.m_sair)
+destroy(this.m_criarmenudb)
+end on
+
+type m_sobre from menu within m_sistema
+end type
+
+on m_sobre.create
+call super::create
+this.text = "So&bre"
+this.menuimage = "Where!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_sobre.destroy
+call super::destroy
+end on
+
+event clicked;Open(w_sobre)
+end event
+
+type m_sair from menu within m_sistema
+end type
+
+event clicked;window lw_win
+lw_win = ParentWindow.GetActiveSheet( )
+if isvalid(lw_win) then  
+	lw_win = parentwindow(lw_win)
+else  
+	lw_win = parentwindow
+end if
+Close(lw_win)
+end event
+
+on m_sair.create
+call super::create
+this.text = "&Sair"
+this.menuimage = "Exit!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_sair.destroy
+call super::destroy
+end on
+
+type m_criarmenudb from menu within m_sistema
+end type
+
+on m_criarmenudb.create
+call super::create
+this.text = "Acesso Restrito - Criar Menu db"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_criarmenudb.destroy
+call super::destroy
+end on
+
+event clicked;OpenSheet(w_criar_bd_menu, ParentWindow, 2, Layered!)
+end event
 
