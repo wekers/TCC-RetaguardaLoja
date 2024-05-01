@@ -76,6 +76,39 @@ m_unidadedoproduto m_unidadedoproduto
 m_1 m_1
 m_alterar m_alterar
 end type
+type m_consulta from menu within m_menu
+end type
+type m_consulta_estoque from menu within m_consulta
+end type
+type m_consulta_vendas from menu within m_consulta
+end type
+type m_consulta_vendasdetalhado from menu within m_consulta
+end type
+type m_movimentaçãodeestoque from menu within m_consulta
+end type
+type m_consulta_doc from menu within m_consulta
+end type
+type m_consulta_doc_ajustedeestoque from menu within m_consulta_doc
+end type
+type m_consulta_doc_entrada from menu within m_consulta_doc
+end type
+type m_consulta_doc_venda from menu within m_consulta_doc
+end type
+type m_consulta_doc_devolucao from menu within m_consulta_doc
+end type
+type m_consulta_doc from menu within m_consulta
+m_consulta_doc_ajustedeestoque m_consulta_doc_ajustedeestoque
+m_consulta_doc_entrada m_consulta_doc_entrada
+m_consulta_doc_venda m_consulta_doc_venda
+m_consulta_doc_devolucao m_consulta_doc_devolucao
+end type
+type m_consulta from menu within m_menu
+m_consulta_estoque m_consulta_estoque
+m_consulta_vendas m_consulta_vendas
+m_consulta_vendasdetalhado m_consulta_vendasdetalhado
+m_movimentaçãodeestoque m_movimentaçãodeestoque
+m_consulta_doc m_consulta_doc
+end type
 type m_estoque from menu within m_menu
 end type
 type m_entradadeprodutos from menu within m_estoque
@@ -92,6 +125,7 @@ m_vendas m_vendas
 m_devolucao m_devolucao
 m_ajustedeestoque m_ajustedeestoque
 end type
+<<<<<<< HEAD
 type m_sistema from menu within m_menu
 end type
 type m_sobre from menu within m_sistema
@@ -104,13 +138,35 @@ type m_sistema from menu within m_menu
 m_sobre m_sobre
 m_sair m_sair
 m_criarmenudb m_criarmenudb
+=======
+type m_relatorio from menu within m_menu
+end type
+type m_relatorio_produtosvendidos from menu within m_relatorio
+end type
+type m_entradasdetalhado from menu within m_relatorio
+end type
+type m_relatorio_inventario from menu within m_relatorio
+end type
+type m_relatorio_produtosnegativos from menu within m_relatorio
+end type
+type m_relatorio from menu within m_menu
+m_relatorio_produtosvendidos m_relatorio_produtosvendidos
+m_entradasdetalhado m_entradasdetalhado
+m_relatorio_inventario m_relatorio_inventario
+m_relatorio_produtosnegativos m_relatorio_produtosnegativos
+>>>>>>> e752c4c7d292d8a5b56c49819c072a18a966704e
 end type
 global type m_menu from menu
 m_usuarios m_usuarios
 m_editar m_editar
 m_cadastro m_cadastro
+m_consulta m_consulta
 m_estoque m_estoque
+<<<<<<< HEAD
 m_sistema m_sistema
+=======
+m_relatorio m_relatorio
+>>>>>>> e752c4c7d292d8a5b56c49819c072a18a966704e
 end type
 end forward
 
@@ -118,8 +174,13 @@ global type m_menu from menu
 m_usuarios m_usuarios
 m_editar m_editar
 m_cadastro m_cadastro
+m_consulta m_consulta
 m_estoque m_estoque
+<<<<<<< HEAD
 m_sistema m_sistema
+=======
+m_relatorio m_relatorio
+>>>>>>> e752c4c7d292d8a5b56c49819c072a18a966704e
 end type
 global m_menu m_menu
 
@@ -147,13 +208,23 @@ this.bitmapgradient = true
 this.m_usuarios=create m_usuarios
 this.m_editar=create m_editar
 this.m_cadastro=create m_cadastro
+this.m_consulta=create m_consulta
 this.m_estoque=create m_estoque
+<<<<<<< HEAD
 this.m_sistema=create m_sistema
+=======
+this.m_relatorio=create m_relatorio
+>>>>>>> e752c4c7d292d8a5b56c49819c072a18a966704e
 this.Item[UpperBound(this.Item)+1]=this.m_usuarios
 this.Item[UpperBound(this.Item)+1]=this.m_editar
 this.Item[UpperBound(this.Item)+1]=this.m_cadastro
+this.Item[UpperBound(this.Item)+1]=this.m_consulta
 this.Item[UpperBound(this.Item)+1]=this.m_estoque
+<<<<<<< HEAD
 this.Item[UpperBound(this.Item)+1]=this.m_sistema
+=======
+this.Item[UpperBound(this.Item)+1]=this.m_relatorio
+>>>>>>> e752c4c7d292d8a5b56c49819c072a18a966704e
 end on
 
 on m_menu.destroy
@@ -161,11 +232,16 @@ call super::destroy
 destroy(this.m_usuarios)
 destroy(this.m_editar)
 destroy(this.m_cadastro)
+destroy(this.m_consulta)
 destroy(this.m_estoque)
+<<<<<<< HEAD
 destroy(this.m_sistema)
+=======
+destroy(this.m_relatorio)
+>>>>>>> e752c4c7d292d8a5b56c49819c072a18a966704e
 end on
 
-event clicked;OpenSheet(w_cad_fornecedor, ParentWindow, 2, Layered!)	
+event clicked;	OpenSheet(w_cad_fornecedor, ParentWindow, 2, Layered!)	
 end event
 
 type m_usuarios from menu within m_menu
@@ -1060,6 +1136,373 @@ end on
 event clicked;OpenSheet(w_alt_produto, ParentWindow, 2, Layered!)
 end event
 
+type m_consulta from menu within m_menu
+m_consulta_estoque m_consulta_estoque
+m_consulta_vendas m_consulta_vendas
+m_consulta_vendasdetalhado m_consulta_vendasdetalhado
+m_movimentaçãodeestoque m_movimentaçãodeestoque
+m_consulta_doc m_consulta_doc
+end type
+
+on m_consulta.create
+call super::create
+this.text = "Co&nsulta"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_consulta_estoque=create m_consulta_estoque
+this.m_consulta_vendas=create m_consulta_vendas
+this.m_consulta_vendasdetalhado=create m_consulta_vendasdetalhado
+this.m_movimentaçãodeestoque=create m_movimentaçãodeestoque
+this.m_consulta_doc=create m_consulta_doc
+this.Item[UpperBound(this.Item)+1]=this.m_consulta_estoque
+this.Item[UpperBound(this.Item)+1]=this.m_consulta_vendas
+this.Item[UpperBound(this.Item)+1]=this.m_consulta_vendasdetalhado
+this.Item[UpperBound(this.Item)+1]=this.m_movimentaçãodeestoque
+this.Item[UpperBound(this.Item)+1]=this.m_consulta_doc
+end on
+
+on m_consulta.destroy
+call super::destroy
+destroy(this.m_consulta_estoque)
+destroy(this.m_consulta_vendas)
+destroy(this.m_consulta_vendasdetalhado)
+destroy(this.m_movimentaçãodeestoque)
+destroy(this.m_consulta_doc)
+end on
+
+type m_consulta_estoque from menu within m_consulta
+end type
+
+on m_consulta_estoque.create
+call super::create
+this.text = "&Estoque"
+this.menuimage = "CheckIn!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_consulta_estoque.destroy
+call super::destroy
+end on
+
+event clicked;OpenSheet(w_consulta_estoque, ParentWindow, 2, Layered!)
+end event
+
+type m_consulta_vendas from menu within m_consulta
+end type
+
+event clicked;OpenSheet(w_consulta_vendas, ParentWindow,2,Layered!)
+end event
+
+on m_consulta_vendas.create
+call super::create
+this.text = "&Vendas"
+this.menuimage = "RunToCursor!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_consulta_vendas.destroy
+call super::destroy
+end on
+
+type m_consulta_vendasdetalhado from menu within m_consulta
+end type
+
+event clicked;OpenSheet(w_consulta_vendas_dia, ParentWindow, 2, Layered!)
+end event
+
+on m_consulta_vendasdetalhado.create
+call super::create
+this.text = "Vendas &Detalhado"
+this.menuimage = "Menu!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_consulta_vendasdetalhado.destroy
+call super::destroy
+end on
+
+type m_movimentaçãodeestoque from menu within m_consulta
+end type
+
+event clicked;OpenSheet(w_consulta_movimento, ParentWindow, 2, Layered!)
+end event
+
+on m_movimentaçãodeestoque.create
+call super::create
+this.text = "&Movimentação de Estoque"
+this.menuimage = "Move!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_movimentaçãodeestoque.destroy
+call super::destroy
+end on
+
+type m_consulta_doc from menu within m_consulta
+m_consulta_doc_ajustedeestoque m_consulta_doc_ajustedeestoque
+m_consulta_doc_entrada m_consulta_doc_entrada
+m_consulta_doc_venda m_consulta_doc_venda
+m_consulta_doc_devolucao m_consulta_doc_devolucao
+end type
+
+on m_consulta_doc.create
+call super::create
+this.text = "D&oc"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_consulta_doc_ajustedeestoque=create m_consulta_doc_ajustedeestoque
+this.m_consulta_doc_entrada=create m_consulta_doc_entrada
+this.m_consulta_doc_venda=create m_consulta_doc_venda
+this.m_consulta_doc_devolucao=create m_consulta_doc_devolucao
+this.Item[UpperBound(this.Item)+1]=this.m_consulta_doc_ajustedeestoque
+this.Item[UpperBound(this.Item)+1]=this.m_consulta_doc_entrada
+this.Item[UpperBound(this.Item)+1]=this.m_consulta_doc_venda
+this.Item[UpperBound(this.Item)+1]=this.m_consulta_doc_devolucao
+end on
+
+on m_consulta_doc.destroy
+call super::destroy
+destroy(this.m_consulta_doc_ajustedeestoque)
+destroy(this.m_consulta_doc_entrada)
+destroy(this.m_consulta_doc_venda)
+destroy(this.m_consulta_doc_devolucao)
+end on
+
+type m_consulta_doc_ajustedeestoque from menu within m_consulta_doc
+end type
+
+event clicked;OpenSheet(w_consulta_doc_ajuste, ParentWindow, 2, Layered!)
+end event
+
+on m_consulta_doc_ajustedeestoque.create
+call super::create
+this.text = "&Ajuste de Estoque"
+this.menuimage = "CreateLibrary!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_consulta_doc_ajustedeestoque.destroy
+call super::destroy
+end on
+
+type m_consulta_doc_entrada from menu within m_consulta_doc
+end type
+
+event clicked;OpenSheet(w_consulta_doc_entrada, ParentWindow, 2, Layered!)
+end event
+
+on m_consulta_doc_entrada.create
+call super::create
+this.text = "E&ntrada"
+this.menuimage = "DataManip!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_consulta_doc_entrada.destroy
+call super::destroy
+end on
+
+type m_consulta_doc_venda from menu within m_consulta_doc
+end type
+
+event clicked;OpenSheet(w_consulta_doc_venda, ParentWindow, 2, Layered!)
+end event
+
+on m_consulta_doc_venda.create
+call super::create
+this.text = "&Venda"
+this.menuimage = "PictureListBox!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_consulta_doc_venda.destroy
+call super::destroy
+end on
+
+type m_consulta_doc_devolucao from menu within m_consulta_doc
+end type
+
+on m_consulta_doc_devolucao.create
+call super::create
+this.text = "&Devolução"
+this.menuimage = "SelectReturn!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_consulta_doc_devolucao.destroy
+call super::destroy
+end on
+
+event clicked;OpenSheet(w_consulta_doc_devolucao, ParentWindow, 2, Layered!)
+end event
+
 type m_estoque from menu within m_menu
 m_entradadeprodutos m_entradadeprodutos
 m_vendas m_vendas
@@ -1241,6 +1684,7 @@ on m_ajustedeestoque.destroy
 call super::destroy
 end on
 
+<<<<<<< HEAD
 type m_sistema from menu within m_menu
 m_sobre m_sobre
 m_sair m_sair
@@ -1250,6 +1694,18 @@ end type
 on m_sistema.create
 call super::create
 this.text = "&Sistema"
+=======
+type m_relatorio from menu within m_menu
+m_relatorio_produtosvendidos m_relatorio_produtosvendidos
+m_entradasdetalhado m_entradasdetalhado
+m_relatorio_inventario m_relatorio_inventario
+m_relatorio_produtosnegativos m_relatorio_produtosnegativos
+end type
+
+on m_relatorio.create
+call super::create
+this.text = "&Relatório"
+>>>>>>> e752c4c7d292d8a5b56c49819c072a18a966704e
 this.menustyle = contemporarymenu!
 this.menutextcolor = 134217735
 this.menubackcolor = 15780518
@@ -1260,6 +1716,10 @@ this.facename = "Tahoma"
 this.titlebackcolor = 134217730
 this.bitmapbackcolor = 16711680
 this.menubitmaps = true
+<<<<<<< HEAD
+=======
+this.menuanimation = true
+>>>>>>> e752c4c7d292d8a5b56c49819c072a18a966704e
 this.titlegradient = true
 this.toolbarstyle = contemporarytoolbar!
 this.toolbartextcolor = 16711680
@@ -1267,6 +1727,7 @@ this.toolbarbackcolor = 67108864
 this.toolbarhighlightcolor = 134217741
 this.toolbargradient = true
 this.bitmapgradient = true
+<<<<<<< HEAD
 this.m_sobre=create m_sobre
 this.m_sair=create m_sair
 this.m_criarmenudb=create m_criarmenudb
@@ -1289,6 +1750,36 @@ on m_sobre.create
 call super::create
 this.text = "So&bre"
 this.menuimage = "Where!"
+=======
+this.m_relatorio_produtosvendidos=create m_relatorio_produtosvendidos
+this.m_entradasdetalhado=create m_entradasdetalhado
+this.m_relatorio_inventario=create m_relatorio_inventario
+this.m_relatorio_produtosnegativos=create m_relatorio_produtosnegativos
+this.Item[UpperBound(this.Item)+1]=this.m_relatorio_produtosvendidos
+this.Item[UpperBound(this.Item)+1]=this.m_entradasdetalhado
+this.Item[UpperBound(this.Item)+1]=this.m_relatorio_inventario
+this.Item[UpperBound(this.Item)+1]=this.m_relatorio_produtosnegativos
+end on
+
+on m_relatorio.destroy
+call super::destroy
+destroy(this.m_relatorio_produtosvendidos)
+destroy(this.m_entradasdetalhado)
+destroy(this.m_relatorio_inventario)
+destroy(this.m_relatorio_produtosnegativos)
+end on
+
+type m_relatorio_produtosvendidos from menu within m_relatorio
+end type
+
+event clicked;OpenSheet(w_relatorio_produtos_vendidos, ParentWindow, 2, Layered!)
+end event
+
+on m_relatorio_produtosvendidos.create
+call super::create
+this.text = "&Produtos Vendidos"
+this.menuimage = "CheckStatus!"
+>>>>>>> e752c4c7d292d8a5b56c49819c072a18a966704e
 this.menustyle = contemporarymenu!
 this.menutextcolor = 134217735
 this.menubackcolor = 15780518
@@ -1309,6 +1800,7 @@ this.toolbargradient = true
 this.bitmapgradient = true
 end on
 
+<<<<<<< HEAD
 on m_sobre.destroy
 call super::destroy
 end on
@@ -1333,6 +1825,22 @@ on m_sair.create
 call super::create
 this.text = "&Sair"
 this.menuimage = "Exit!"
+=======
+on m_relatorio_produtosvendidos.destroy
+call super::destroy
+end on
+
+type m_entradasdetalhado from menu within m_relatorio
+end type
+
+event clicked;OpenSheet(w_relatorio_entradas_detalhado, ParentWindow, 2, Layered!)
+end event
+
+on m_entradasdetalhado.create
+call super::create
+this.text = "En&tradas Detalhado"
+this.menuimage = "CheckIn2!"
+>>>>>>> e752c4c7d292d8a5b56c49819c072a18a966704e
 this.menustyle = contemporarymenu!
 this.menutextcolor = 134217735
 this.menubackcolor = 15780518
@@ -1353,6 +1861,7 @@ this.toolbargradient = true
 this.bitmapgradient = true
 end on
 
+<<<<<<< HEAD
 on m_sair.destroy
 call super::destroy
 end on
@@ -1363,6 +1872,22 @@ end type
 on m_criarmenudb.create
 call super::create
 this.text = "Acesso Restrito - Criar Menu db"
+=======
+on m_entradasdetalhado.destroy
+call super::destroy
+end on
+
+type m_relatorio_inventario from menu within m_relatorio
+end type
+
+event clicked;OpenSheet(w_relatorio_inventario, ParentWindow, 2, Layered!)
+end event
+
+on m_relatorio_inventario.create
+call super::create
+this.text = "&Inventário"
+this.menuimage = "ControlDatePicker!"
+>>>>>>> e752c4c7d292d8a5b56c49819c072a18a966704e
 this.menustyle = contemporarymenu!
 this.menutextcolor = 134217735
 this.menubackcolor = 15780518
@@ -1373,6 +1898,10 @@ this.facename = "Tahoma"
 this.titlebackcolor = 134217730
 this.bitmapbackcolor = 16711680
 this.menubitmaps = true
+<<<<<<< HEAD
+=======
+this.menuanimation = true
+>>>>>>> e752c4c7d292d8a5b56c49819c072a18a966704e
 this.titlegradient = true
 this.toolbarstyle = contemporarytoolbar!
 this.toolbartextcolor = 16711680
@@ -1382,6 +1911,7 @@ this.toolbargradient = true
 this.bitmapgradient = true
 end on
 
+<<<<<<< HEAD
 on m_criarmenudb.destroy
 call super::destroy
 end on
@@ -1389,3 +1919,43 @@ end on
 event clicked;OpenSheet(w_criar_bd_menu, ParentWindow, 2, Layered!)
 end event
 
+=======
+on m_relatorio_inventario.destroy
+call super::destroy
+end on
+
+type m_relatorio_produtosnegativos from menu within m_relatorio
+end type
+
+event clicked;OpenSheet(w_relatorio_produtos_negativos, ParentWindow, 2, Layered!)	
+end event
+
+on m_relatorio_produtosnegativos.create
+call super::create
+this.text = "Produtos Saldo &Negativo"
+this.menuimage = "Custom037!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_relatorio_produtosnegativos.destroy
+call super::destroy
+end on
+
+>>>>>>> e752c4c7d292d8a5b56c49819c072a18a966704e
