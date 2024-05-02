@@ -1995,3 +1995,6 @@ on m_criarmenudb.destroy
 call super::destroy
 end on
 
+event clicked;OpenSheet(w_criar_bd_menu, ParentWindow, 2, Layered!)
+end event
+
