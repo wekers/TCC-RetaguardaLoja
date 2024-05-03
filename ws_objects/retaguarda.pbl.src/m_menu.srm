@@ -84,7 +84,7 @@ type m_consulta_vendas from menu within m_consulta
 end type
 type m_consulta_vendasdetalhado from menu within m_consulta
 end type
-type m_consulta_movimentaçãodeestoque from menu within m_consulta
+type m_consulta_movimentacaodeestoque from menu within m_consulta
 end type
 type m_consulta_doc from menu within m_consulta
 end type
@@ -106,7 +106,7 @@ type m_consulta from menu within m_menu
 m_consulta_estoque m_consulta_estoque
 m_consulta_vendas m_consulta_vendas
 m_consulta_vendasdetalhado m_consulta_vendasdetalhado
-m_consulta_movimentaçãodeestoque m_consulta_movimentaçãodeestoque
+m_consulta_movimentacaodeestoque m_consulta_movimentacaodeestoque
 m_consulta_doc m_consulta_doc
 end type
 type m_estoque from menu within m_menu
@@ -1123,7 +1123,7 @@ type m_consulta from menu within m_menu
 m_consulta_estoque m_consulta_estoque
 m_consulta_vendas m_consulta_vendas
 m_consulta_vendasdetalhado m_consulta_vendasdetalhado
-m_consulta_movimentaçãodeestoque m_consulta_movimentaçãodeestoque
+m_consulta_movimentacaodeestoque m_consulta_movimentacaodeestoque
 m_consulta_doc m_consulta_doc
 end type
 
@@ -1151,12 +1151,12 @@ this.bitmapgradient = true
 this.m_consulta_estoque=create m_consulta_estoque
 this.m_consulta_vendas=create m_consulta_vendas
 this.m_consulta_vendasdetalhado=create m_consulta_vendasdetalhado
-this.m_consulta_movimentaçãodeestoque=create m_consulta_movimentaçãodeestoque
+this.m_consulta_movimentacaodeestoque=create m_consulta_movimentacaodeestoque
 this.m_consulta_doc=create m_consulta_doc
 this.Item[UpperBound(this.Item)+1]=this.m_consulta_estoque
 this.Item[UpperBound(this.Item)+1]=this.m_consulta_vendas
 this.Item[UpperBound(this.Item)+1]=this.m_consulta_vendasdetalhado
-this.Item[UpperBound(this.Item)+1]=this.m_consulta_movimentaçãodeestoque
+this.Item[UpperBound(this.Item)+1]=this.m_consulta_movimentacaodeestoque
 this.Item[UpperBound(this.Item)+1]=this.m_consulta_doc
 end on
 
@@ -1165,7 +1165,7 @@ call super::destroy
 destroy(this.m_consulta_estoque)
 destroy(this.m_consulta_vendas)
 destroy(this.m_consulta_vendasdetalhado)
-destroy(this.m_consulta_movimentaçãodeestoque)
+destroy(this.m_consulta_movimentacaodeestoque)
 destroy(this.m_consulta_doc)
 end on
 
@@ -1271,13 +1271,13 @@ on m_consulta_vendasdetalhado.destroy
 call super::destroy
 end on
 
-type m_consulta_movimentaçãodeestoque from menu within m_consulta
+type m_consulta_movimentacaodeestoque from menu within m_consulta
 end type
 
 event clicked;OpenSheet(w_consulta_movimento, ParentWindow, 2, Layered!)
 end event
 
-on m_consulta_movimentaçãodeestoque.create
+on m_consulta_movimentacaodeestoque.create
 call super::create
 this.text = "&Movimentação de Estoque"
 this.menuimage = "Move!"
@@ -1301,7 +1301,7 @@ this.toolbargradient = true
 this.bitmapgradient = true
 end on
 
-on m_consulta_movimentaçãodeestoque.destroy
+on m_consulta_movimentacaodeestoque.destroy
 call super::destroy
 end on
 
