@@ -13,5 +13,8 @@ m_menu.m_editar.m_gerar.toolbaritemvisible = false
 m_menu.m_editar.m_confirmar.toolbaritemvisible = false
 m_menu.m_editar.m_excluir.toolbaritemvisible = false
 m_menu.m_editar.m_imprimir.toolbaritemvisible = false
+w_index.SetMicroHelp("LOGADO: "+string(codigo_usuario)+" - "+nome_usuario)
+
+
 end subroutine
 
