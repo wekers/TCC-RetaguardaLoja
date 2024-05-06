@@ -1020,3 +1020,12 @@ INSERT INTO unidade(unidade) VALUES
 ('KIT'), 
 ('PÇ'),
 ('UND');				     
+
+-- ----------------------------------------------------------
+-- inserindo db menus de usuários já cadastrados
+
+INSERT INTO m_cadastro(cod) VALUES (10), (11), (12), (13);
+INSERT INTO m_consulta(cod) VALUES (10), (11), (12), (13);
+INSERT INTO m_estoque(cod) VALUES (10), (11), (12), (13);
+INSERT INTO m_relatorio(cod) VALUES (10), (11), (12), (13);
+INSERT INTO m_usuarios(cod) VALUES (10), (11), (12), (13);
