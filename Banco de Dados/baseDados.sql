@@ -520,3 +520,134 @@ ALTER TABLE IF EXISTS ajuste_produtos
 
 -- -----------------------------------------------------------
 
+-- Table: m_cadastro
+
+-- DROP TABLE IF EXISTS m_cadastro;
+
+CREATE TABLE IF NOT EXISTS m_cadastro
+(
+    cod integer NOT NULL,
+    m_clientes smallint NOT NULL DEFAULT 0,
+    m_fornecedor smallint NOT NULL DEFAULT 0,
+    m_produto smallint NOT NULL DEFAULT 0,
+    m_formadepagamento smallint NOT NULL DEFAULT 0,
+    m_categoria smallint NOT NULL DEFAULT 0,
+    m_unidadedoproduto smallint NOT NULL DEFAULT 0,
+    m_alterar smallint NOT NULL DEFAULT 0,
+    m_alterar_fornecedor smallint NOT NULL DEFAULT 0,
+    m_alterar_produto smallint NOT NULL DEFAULT 0,
+    CONSTRAINT m_cadastro_pkey PRIMARY KEY (cod),
+    CONSTRAINT m_cadastro_cod_fkey FOREIGN KEY (cod)
+        REFERENCES usuarios (cod) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS m_cadastro
+    OWNER to unicesumar;
+
+-- -----------------------------------------------------------
+
+-- Table: m_consulta
+
+-- DROP TABLE IF EXISTS m_consulta;
+
+CREATE TABLE IF NOT EXISTS public.m_consulta
+(
+    cod integer NOT NULL,
+    m_consulta_estoque smallint NOT NULL DEFAULT 0,
+    m_consulta_vendas smallint NOT NULL DEFAULT 0,
+    m_consulta_vendasdetalhado smallint NOT NULL DEFAULT 0,
+    m_consulta_movimentacaodeestoque smallint NOT NULL DEFAULT 0,
+    m_consulta_doc smallint NOT NULL DEFAULT 0,
+    m_doc_ajustedeestoque smallint NOT NULL DEFAULT 0,
+    m_doc_entrada smallint NOT NULL DEFAULT 0,
+    m_doc_venda smallint NOT NULL DEFAULT 0,
+    m_doc_devolucao smallint NOT NULL DEFAULT 0,
+    CONSTRAINT m_consulta_pkey PRIMARY KEY (cod),
+    CONSTRAINT m_consulta_cod_fkey FOREIGN KEY (cod)
+        REFERENCES usuarios (cod) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS m_consulta
+    OWNER to unicesumar;
+
+-- -----------------------------------------------------------
+
+-- Table: m_estoque
+
+-- DROP TABLE IF EXISTS m_estoque;
+
+CREATE TABLE IF NOT EXISTS m_estoque
+(
+    cod integer NOT NULL,
+    m_entradadeprodutos smallint NOT NULL DEFAULT 0,
+    m_vendas smallint NOT NULL DEFAULT 0,
+    m_devolucao smallint NOT NULL DEFAULT 0,
+    m_ajustedeestoque smallint NOT NULL DEFAULT 0,
+    CONSTRAINT m_estoque_pkey PRIMARY KEY (cod),
+    CONSTRAINT m_estoque_cod_fkey FOREIGN KEY (cod)
+        REFERENCES usuarios (cod) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS m_estoque
+    OWNER to unicesumar;
+
+-- -----------------------------------------------------------
+
+-- Table: m_relatorio
+
+-- DROP TABLE IF EXISTS m_relatorio;
+
+CREATE TABLE IF NOT EXISTS m_relatorio
+(
+    cod integer NOT NULL,
+    m_produtosvendidos smallint NOT NULL DEFAULT 0,
+    m_entradasdetalhado smallint NOT NULL DEFAULT 0,
+    m_inventario smallint NOT NULL DEFAULT 0,
+    m_produtosnegativos smallint NOT NULL DEFAULT 0,
+    CONSTRAINT m_relatorio_pkey PRIMARY KEY (cod),
+    CONSTRAINT m_relatorio_cod_fkey FOREIGN KEY (cod)
+        REFERENCES usuarios (cod) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS m_relatorio
+    OWNER to unicesumar;
+
+-- -----------------------------------------------------------
+
+-- Table: m_usuarios
+
+-- DROP TABLE IF EXISTS m_usuarios;
+
+CREATE TABLE IF NOT EXISTS m_usuarios
+(
+    cod integer NOT NULL,
+    m_cadastro_usuario smallint NOT NULL DEFAULT 0,
+    m_trocarusuario smallint NOT NULL DEFAULT 1,
+    m_alterarsenha smallint NOT NULL DEFAULT 1,
+    CONSTRAINT m_usuarios_pkey PRIMARY KEY (cod),
+    CONSTRAINT m_usuarios_cod_fkey FOREIGN KEY (cod)
+        REFERENCES usuarios (cod) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS m_usuarios
+    OWNER to unicesumar;

@@ -41,7 +41,7 @@ type m_cadastro from menu within m_menu
 end type
 type m_clientes from menu within m_cadastro
 end type
-type m_fornecodor from menu within m_cadastro
+type m_fornecedor from menu within m_cadastro
 end type
 type m_produto from menu within m_cadastro
 end type
@@ -53,7 +53,7 @@ type m_categoria from menu within m_cadastro
 end type
 type m_unidadedoproduto from menu within m_cadastro
 end type
-type m_3 from menu within m_cadastro
+type m_1 from menu within m_cadastro
 end type
 type m_alterar from menu within m_cadastro
 end type
@@ -67,13 +67,13 @@ m_alterar_produto m_alterar_produto
 end type
 type m_cadastro from menu within m_menu
 m_clientes m_clientes
-m_fornecodor m_fornecodor
+m_fornecedor m_fornecedor
 m_produto m_produto
 m_0 m_0
 m_formadepagamento m_formadepagamento
 m_categoria m_categoria
 m_unidadedoproduto m_unidadedoproduto
-m_3 m_3
+m_1 m_1
 m_alterar m_alterar
 end type
 type m_consulta from menu within m_menu
@@ -84,29 +84,29 @@ type m_consulta_vendas from menu within m_consulta
 end type
 type m_consulta_vendasdetalhado from menu within m_consulta
 end type
-type m_movimentaçãodeestoque from menu within m_consulta
+type m_consulta_movimentacaodeestoque from menu within m_consulta
 end type
 type m_consulta_doc from menu within m_consulta
 end type
-type m_consulta_doc_ajustedeestoque from menu within m_consulta_doc
+type m_doc_ajustedeestoque from menu within m_consulta_doc
 end type
-type m_consulta_doc_entrada from menu within m_consulta_doc
+type m_doc_entrada from menu within m_consulta_doc
 end type
-type m_consulta_doc_venda from menu within m_consulta_doc
+type m_doc_venda from menu within m_consulta_doc
 end type
-type m_consulta_doc_devolucao from menu within m_consulta_doc
+type m_doc_devolucao from menu within m_consulta_doc
 end type
 type m_consulta_doc from menu within m_consulta
-m_consulta_doc_ajustedeestoque m_consulta_doc_ajustedeestoque
-m_consulta_doc_entrada m_consulta_doc_entrada
-m_consulta_doc_venda m_consulta_doc_venda
-m_consulta_doc_devolucao m_consulta_doc_devolucao
+m_doc_ajustedeestoque m_doc_ajustedeestoque
+m_doc_entrada m_doc_entrada
+m_doc_venda m_doc_venda
+m_doc_devolucao m_doc_devolucao
 end type
 type m_consulta from menu within m_menu
 m_consulta_estoque m_consulta_estoque
 m_consulta_vendas m_consulta_vendas
 m_consulta_vendasdetalhado m_consulta_vendasdetalhado
-m_movimentaçãodeestoque m_movimentaçãodeestoque
+m_consulta_movimentacaodeestoque m_consulta_movimentacaodeestoque
 m_consulta_doc m_consulta_doc
 end type
 type m_estoque from menu within m_menu
@@ -127,19 +127,32 @@ m_ajustedeestoque m_ajustedeestoque
 end type
 type m_relatorio from menu within m_menu
 end type
-type m_relatorio_produtosvendidos from menu within m_relatorio
+type m_produtosvendidos from menu within m_relatorio
 end type
 type m_entradasdetalhado from menu within m_relatorio
 end type
-type m_relatorio_inventario from menu within m_relatorio
+type m_inventario from menu within m_relatorio
 end type
-type m_relatorio_produtosnegativos from menu within m_relatorio
+type m_produtosnegativos from menu within m_relatorio
 end type
 type m_relatorio from menu within m_menu
-m_relatorio_produtosvendidos m_relatorio_produtosvendidos
+m_produtosvendidos m_produtosvendidos
 m_entradasdetalhado m_entradasdetalhado
-m_relatorio_inventario m_relatorio_inventario
-m_relatorio_produtosnegativos m_relatorio_produtosnegativos
+m_inventario m_inventario
+m_produtosnegativos m_produtosnegativos
+end type
+type m_sistema from menu within m_menu
+end type
+type m_sair from menu within m_sistema
+end type
+type m_sobre from menu within m_sistema
+end type
+type m_criarmenudb from menu within m_sistema
+end type
+type m_sistema from menu within m_menu
+m_sair m_sair
+m_sobre m_sobre
+m_criarmenudb m_criarmenudb
 end type
 global type m_menu from menu
 m_usuarios m_usuarios
@@ -148,6 +161,7 @@ m_cadastro m_cadastro
 m_consulta m_consulta
 m_estoque m_estoque
 m_relatorio m_relatorio
+m_sistema m_sistema
 end type
 end forward
 
@@ -158,6 +172,7 @@ m_cadastro m_cadastro
 m_consulta m_consulta
 m_estoque m_estoque
 m_relatorio m_relatorio
+m_sistema m_sistema
 end type
 global m_menu m_menu
 
@@ -188,12 +203,14 @@ this.m_cadastro=create m_cadastro
 this.m_consulta=create m_consulta
 this.m_estoque=create m_estoque
 this.m_relatorio=create m_relatorio
+this.m_sistema=create m_sistema
 this.Item[UpperBound(this.Item)+1]=this.m_usuarios
 this.Item[UpperBound(this.Item)+1]=this.m_editar
 this.Item[UpperBound(this.Item)+1]=this.m_cadastro
 this.Item[UpperBound(this.Item)+1]=this.m_consulta
 this.Item[UpperBound(this.Item)+1]=this.m_estoque
 this.Item[UpperBound(this.Item)+1]=this.m_relatorio
+this.Item[UpperBound(this.Item)+1]=this.m_sistema
 end on
 
 on m_menu.destroy
@@ -204,6 +221,7 @@ destroy(this.m_cadastro)
 destroy(this.m_consulta)
 destroy(this.m_estoque)
 destroy(this.m_relatorio)
+destroy(this.m_sistema)
 end on
 
 event clicked;	OpenSheet(w_cad_fornecedor, ParentWindow, 2, Layered!)	
@@ -667,13 +685,13 @@ end event
 
 type m_cadastro from menu within m_menu
 m_clientes m_clientes
-m_fornecodor m_fornecodor
+m_fornecedor m_fornecedor
 m_produto m_produto
 m_0 m_0
 m_formadepagamento m_formadepagamento
 m_categoria m_categoria
 m_unidadedoproduto m_unidadedoproduto
-m_3 m_3
+m_1 m_1
 m_alterar m_alterar
 end type
 
@@ -699,35 +717,35 @@ this.toolbarhighlightcolor = 134217741
 this.toolbargradient = true
 this.bitmapgradient = true
 this.m_clientes=create m_clientes
-this.m_fornecodor=create m_fornecodor
+this.m_fornecedor=create m_fornecedor
 this.m_produto=create m_produto
 this.m_0=create m_0
 this.m_formadepagamento=create m_formadepagamento
 this.m_categoria=create m_categoria
 this.m_unidadedoproduto=create m_unidadedoproduto
-this.m_3=create m_3
+this.m_1=create m_1
 this.m_alterar=create m_alterar
 this.Item[UpperBound(this.Item)+1]=this.m_clientes
-this.Item[UpperBound(this.Item)+1]=this.m_fornecodor
+this.Item[UpperBound(this.Item)+1]=this.m_fornecedor
 this.Item[UpperBound(this.Item)+1]=this.m_produto
 this.Item[UpperBound(this.Item)+1]=this.m_0
 this.Item[UpperBound(this.Item)+1]=this.m_formadepagamento
 this.Item[UpperBound(this.Item)+1]=this.m_categoria
 this.Item[UpperBound(this.Item)+1]=this.m_unidadedoproduto
-this.Item[UpperBound(this.Item)+1]=this.m_3
+this.Item[UpperBound(this.Item)+1]=this.m_1
 this.Item[UpperBound(this.Item)+1]=this.m_alterar
 end on
 
 on m_cadastro.destroy
 call super::destroy
 destroy(this.m_clientes)
-destroy(this.m_fornecodor)
+destroy(this.m_fornecedor)
 destroy(this.m_produto)
 destroy(this.m_0)
 destroy(this.m_formadepagamento)
 destroy(this.m_categoria)
 destroy(this.m_unidadedoproduto)
-destroy(this.m_3)
+destroy(this.m_1)
 destroy(this.m_alterar)
 end on
 
@@ -766,10 +784,10 @@ end on
 event clicked;OpenSheet(w_cad_clientes, ParentWindow, 2, Layered!)
 end event
 
-type m_fornecodor from menu within m_cadastro
+type m_fornecedor from menu within m_cadastro
 end type
 
-on m_fornecodor.create
+on m_fornecedor.create
 call super::create
 this.text = "&Fornecedor"
 this.microhelp = "Cadastro de Fornecedor"
@@ -794,7 +812,7 @@ this.toolbargradient = true
 this.bitmapgradient = true
 end on
 
-on m_fornecodor.destroy
+on m_fornecedor.destroy
 call super::destroy
 end on
 
@@ -966,10 +984,10 @@ end on
 event clicked;OpenSheet(w_cad_unidade, ParentWindow, 2, Layered!)
 end event
 
-type m_3 from menu within m_cadastro
+type m_1 from menu within m_cadastro
 end type
 
-on m_3.create
+on m_1.create
 call super::create
 this.text = "-"
 this.menustyle = contemporarymenu!
@@ -991,7 +1009,7 @@ this.toolbargradient = true
 this.bitmapgradient = true
 end on
 
-on m_3.destroy
+on m_1.destroy
 call super::destroy
 end on
 
@@ -1105,7 +1123,7 @@ type m_consulta from menu within m_menu
 m_consulta_estoque m_consulta_estoque
 m_consulta_vendas m_consulta_vendas
 m_consulta_vendasdetalhado m_consulta_vendasdetalhado
-m_movimentaçãodeestoque m_movimentaçãodeestoque
+m_consulta_movimentacaodeestoque m_consulta_movimentacaodeestoque
 m_consulta_doc m_consulta_doc
 end type
 
@@ -1133,12 +1151,12 @@ this.bitmapgradient = true
 this.m_consulta_estoque=create m_consulta_estoque
 this.m_consulta_vendas=create m_consulta_vendas
 this.m_consulta_vendasdetalhado=create m_consulta_vendasdetalhado
-this.m_movimentaçãodeestoque=create m_movimentaçãodeestoque
+this.m_consulta_movimentacaodeestoque=create m_consulta_movimentacaodeestoque
 this.m_consulta_doc=create m_consulta_doc
 this.Item[UpperBound(this.Item)+1]=this.m_consulta_estoque
 this.Item[UpperBound(this.Item)+1]=this.m_consulta_vendas
 this.Item[UpperBound(this.Item)+1]=this.m_consulta_vendasdetalhado
-this.Item[UpperBound(this.Item)+1]=this.m_movimentaçãodeestoque
+this.Item[UpperBound(this.Item)+1]=this.m_consulta_movimentacaodeestoque
 this.Item[UpperBound(this.Item)+1]=this.m_consulta_doc
 end on
 
@@ -1147,7 +1165,7 @@ call super::destroy
 destroy(this.m_consulta_estoque)
 destroy(this.m_consulta_vendas)
 destroy(this.m_consulta_vendasdetalhado)
-destroy(this.m_movimentaçãodeestoque)
+destroy(this.m_consulta_movimentacaodeestoque)
 destroy(this.m_consulta_doc)
 end on
 
@@ -1253,13 +1271,13 @@ on m_consulta_vendasdetalhado.destroy
 call super::destroy
 end on
 
-type m_movimentaçãodeestoque from menu within m_consulta
+type m_consulta_movimentacaodeestoque from menu within m_consulta
 end type
 
 event clicked;OpenSheet(w_consulta_movimento, ParentWindow, 2, Layered!)
 end event
 
-on m_movimentaçãodeestoque.create
+on m_consulta_movimentacaodeestoque.create
 call super::create
 this.text = "&Movimentação de Estoque"
 this.menuimage = "Move!"
@@ -1283,15 +1301,15 @@ this.toolbargradient = true
 this.bitmapgradient = true
 end on
 
-on m_movimentaçãodeestoque.destroy
+on m_consulta_movimentacaodeestoque.destroy
 call super::destroy
 end on
 
 type m_consulta_doc from menu within m_consulta
-m_consulta_doc_ajustedeestoque m_consulta_doc_ajustedeestoque
-m_consulta_doc_entrada m_consulta_doc_entrada
-m_consulta_doc_venda m_consulta_doc_venda
-m_consulta_doc_devolucao m_consulta_doc_devolucao
+m_doc_ajustedeestoque m_doc_ajustedeestoque
+m_doc_entrada m_doc_entrada
+m_doc_venda m_doc_venda
+m_doc_devolucao m_doc_devolucao
 end type
 
 on m_consulta_doc.create
@@ -1314,31 +1332,31 @@ this.toolbarbackcolor = 67108864
 this.toolbarhighlightcolor = 134217741
 this.toolbargradient = true
 this.bitmapgradient = true
-this.m_consulta_doc_ajustedeestoque=create m_consulta_doc_ajustedeestoque
-this.m_consulta_doc_entrada=create m_consulta_doc_entrada
-this.m_consulta_doc_venda=create m_consulta_doc_venda
-this.m_consulta_doc_devolucao=create m_consulta_doc_devolucao
-this.Item[UpperBound(this.Item)+1]=this.m_consulta_doc_ajustedeestoque
-this.Item[UpperBound(this.Item)+1]=this.m_consulta_doc_entrada
-this.Item[UpperBound(this.Item)+1]=this.m_consulta_doc_venda
-this.Item[UpperBound(this.Item)+1]=this.m_consulta_doc_devolucao
+this.m_doc_ajustedeestoque=create m_doc_ajustedeestoque
+this.m_doc_entrada=create m_doc_entrada
+this.m_doc_venda=create m_doc_venda
+this.m_doc_devolucao=create m_doc_devolucao
+this.Item[UpperBound(this.Item)+1]=this.m_doc_ajustedeestoque
+this.Item[UpperBound(this.Item)+1]=this.m_doc_entrada
+this.Item[UpperBound(this.Item)+1]=this.m_doc_venda
+this.Item[UpperBound(this.Item)+1]=this.m_doc_devolucao
 end on
 
 on m_consulta_doc.destroy
 call super::destroy
-destroy(this.m_consulta_doc_ajustedeestoque)
-destroy(this.m_consulta_doc_entrada)
-destroy(this.m_consulta_doc_venda)
-destroy(this.m_consulta_doc_devolucao)
+destroy(this.m_doc_ajustedeestoque)
+destroy(this.m_doc_entrada)
+destroy(this.m_doc_venda)
+destroy(this.m_doc_devolucao)
 end on
 
-type m_consulta_doc_ajustedeestoque from menu within m_consulta_doc
+type m_doc_ajustedeestoque from menu within m_consulta_doc
 end type
 
 event clicked;OpenSheet(w_consulta_doc_ajuste, ParentWindow, 2, Layered!)
 end event
 
-on m_consulta_doc_ajustedeestoque.create
+on m_doc_ajustedeestoque.create
 call super::create
 this.text = "&Ajuste de Estoque"
 this.menuimage = "CreateLibrary!"
@@ -1362,17 +1380,17 @@ this.toolbargradient = true
 this.bitmapgradient = true
 end on
 
-on m_consulta_doc_ajustedeestoque.destroy
+on m_doc_ajustedeestoque.destroy
 call super::destroy
 end on
 
-type m_consulta_doc_entrada from menu within m_consulta_doc
+type m_doc_entrada from menu within m_consulta_doc
 end type
 
 event clicked;OpenSheet(w_consulta_doc_entrada, ParentWindow, 2, Layered!)
 end event
 
-on m_consulta_doc_entrada.create
+on m_doc_entrada.create
 call super::create
 this.text = "E&ntrada"
 this.menuimage = "DataManip!"
@@ -1396,17 +1414,17 @@ this.toolbargradient = true
 this.bitmapgradient = true
 end on
 
-on m_consulta_doc_entrada.destroy
+on m_doc_entrada.destroy
 call super::destroy
 end on
 
-type m_consulta_doc_venda from menu within m_consulta_doc
+type m_doc_venda from menu within m_consulta_doc
 end type
 
 event clicked;OpenSheet(w_consulta_doc_venda, ParentWindow, 2, Layered!)
 end event
 
-on m_consulta_doc_venda.create
+on m_doc_venda.create
 call super::create
 this.text = "&Venda"
 this.menuimage = "PictureListBox!"
@@ -1430,14 +1448,14 @@ this.toolbargradient = true
 this.bitmapgradient = true
 end on
 
-on m_consulta_doc_venda.destroy
+on m_doc_venda.destroy
 call super::destroy
 end on
 
-type m_consulta_doc_devolucao from menu within m_consulta_doc
+type m_doc_devolucao from menu within m_consulta_doc
 end type
 
-on m_consulta_doc_devolucao.create
+on m_doc_devolucao.create
 call super::create
 this.text = "&Devolução"
 this.menuimage = "SelectReturn!"
@@ -1461,7 +1479,7 @@ this.toolbargradient = true
 this.bitmapgradient = true
 end on
 
-on m_consulta_doc_devolucao.destroy
+on m_doc_devolucao.destroy
 call super::destroy
 end on
 
@@ -1650,10 +1668,10 @@ call super::destroy
 end on
 
 type m_relatorio from menu within m_menu
-m_relatorio_produtosvendidos m_relatorio_produtosvendidos
+m_produtosvendidos m_produtosvendidos
 m_entradasdetalhado m_entradasdetalhado
-m_relatorio_inventario m_relatorio_inventario
-m_relatorio_produtosnegativos m_relatorio_produtosnegativos
+m_inventario m_inventario
+m_produtosnegativos m_produtosnegativos
 end type
 
 on m_relatorio.create
@@ -1677,31 +1695,31 @@ this.toolbarbackcolor = 67108864
 this.toolbarhighlightcolor = 134217741
 this.toolbargradient = true
 this.bitmapgradient = true
-this.m_relatorio_produtosvendidos=create m_relatorio_produtosvendidos
+this.m_produtosvendidos=create m_produtosvendidos
 this.m_entradasdetalhado=create m_entradasdetalhado
-this.m_relatorio_inventario=create m_relatorio_inventario
-this.m_relatorio_produtosnegativos=create m_relatorio_produtosnegativos
-this.Item[UpperBound(this.Item)+1]=this.m_relatorio_produtosvendidos
+this.m_inventario=create m_inventario
+this.m_produtosnegativos=create m_produtosnegativos
+this.Item[UpperBound(this.Item)+1]=this.m_produtosvendidos
 this.Item[UpperBound(this.Item)+1]=this.m_entradasdetalhado
-this.Item[UpperBound(this.Item)+1]=this.m_relatorio_inventario
-this.Item[UpperBound(this.Item)+1]=this.m_relatorio_produtosnegativos
+this.Item[UpperBound(this.Item)+1]=this.m_inventario
+this.Item[UpperBound(this.Item)+1]=this.m_produtosnegativos
 end on
 
 on m_relatorio.destroy
 call super::destroy
-destroy(this.m_relatorio_produtosvendidos)
+destroy(this.m_produtosvendidos)
 destroy(this.m_entradasdetalhado)
-destroy(this.m_relatorio_inventario)
-destroy(this.m_relatorio_produtosnegativos)
+destroy(this.m_inventario)
+destroy(this.m_produtosnegativos)
 end on
 
-type m_relatorio_produtosvendidos from menu within m_relatorio
+type m_produtosvendidos from menu within m_relatorio
 end type
 
 event clicked;OpenSheet(w_relatorio_produtos_vendidos, ParentWindow, 2, Layered!)
 end event
 
-on m_relatorio_produtosvendidos.create
+on m_produtosvendidos.create
 call super::create
 this.text = "&Produtos Vendidos"
 this.menuimage = "CheckStatus!"
@@ -1725,7 +1743,7 @@ this.toolbargradient = true
 this.bitmapgradient = true
 end on
 
-on m_relatorio_produtosvendidos.destroy
+on m_produtosvendidos.destroy
 call super::destroy
 end on
 
@@ -1763,13 +1781,13 @@ on m_entradasdetalhado.destroy
 call super::destroy
 end on
 
-type m_relatorio_inventario from menu within m_relatorio
+type m_inventario from menu within m_relatorio
 end type
 
 event clicked;OpenSheet(w_relatorio_inventario, ParentWindow, 2, Layered!)
 end event
 
-on m_relatorio_inventario.create
+on m_inventario.create
 call super::create
 this.text = "&Inventário"
 this.menuimage = "ControlDatePicker!"
@@ -1793,17 +1811,17 @@ this.toolbargradient = true
 this.bitmapgradient = true
 end on
 
-on m_relatorio_inventario.destroy
+on m_inventario.destroy
 call super::destroy
 end on
 
-type m_relatorio_produtosnegativos from menu within m_relatorio
+type m_produtosnegativos from menu within m_relatorio
 end type
 
 event clicked;OpenSheet(w_relatorio_produtos_negativos, ParentWindow, 2, Layered!)	
 end event
 
-on m_relatorio_produtosnegativos.create
+on m_produtosnegativos.create
 call super::create
 this.text = "Produtos Saldo &Negativo"
 this.menuimage = "Custom037!"
@@ -1827,7 +1845,156 @@ this.toolbargradient = true
 this.bitmapgradient = true
 end on
 
-on m_relatorio_produtosnegativos.destroy
+on m_produtosnegativos.destroy
 call super::destroy
 end on
+
+type m_sistema from menu within m_menu
+m_sair m_sair
+m_sobre m_sobre
+m_criarmenudb m_criarmenudb
+end type
+
+on m_sistema.create
+call super::create
+this.text = "&Sistema"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_sair=create m_sair
+this.m_sobre=create m_sobre
+this.m_criarmenudb=create m_criarmenudb
+this.Item[UpperBound(this.Item)+1]=this.m_sair
+this.Item[UpperBound(this.Item)+1]=this.m_sobre
+this.Item[UpperBound(this.Item)+1]=this.m_criarmenudb
+end on
+
+on m_sistema.destroy
+call super::destroy
+destroy(this.m_sair)
+destroy(this.m_sobre)
+destroy(this.m_criarmenudb)
+end on
+
+type m_sair from menu within m_sistema
+end type
+
+event clicked;window lw_win
+lw_win = ParentWindow.GetActiveSheet( )
+if isvalid(lw_win) then  
+	lw_win = parentwindow(lw_win)
+else  
+	lw_win = parentwindow
+end if
+Close(lw_win)
+end event
+
+on m_sair.create
+call super::create
+this.text = "&Sair"
+this.menuimage = "Exit!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_sair.destroy
+call super::destroy
+end on
+
+type m_sobre from menu within m_sistema
+end type
+
+event clicked;Open(w_sobre)
+end event
+
+on m_sobre.create
+call super::create
+this.text = "So&bre"
+this.menuimage = "Where!"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_sobre.destroy
+call super::destroy
+end on
+
+type m_criarmenudb from menu within m_sistema
+end type
+
+on m_criarmenudb.create
+call super::create
+this.text = "Acesso Restrito - Criar Menu db"
+this.menustyle = contemporarymenu!
+this.menutextcolor = 134217735
+this.menubackcolor = 15780518
+this.menuhighlightcolor = 65280
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 16711680
+this.menubitmaps = true
+this.menuanimation = true
+this.titlegradient = true
+this.toolbarstyle = contemporarytoolbar!
+this.toolbartextcolor = 16711680
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_criarmenudb.destroy
+call super::destroy
+end on
+
+event clicked;OpenSheet(w_criar_bd_menu, ParentWindow, 2, Layered!)
+end event
 

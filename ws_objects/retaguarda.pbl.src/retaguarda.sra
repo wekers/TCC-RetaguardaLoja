@@ -30,7 +30,7 @@ string appname = "retaguarda"
 boolean toolbartext = true
 string themepath = "C:\Program Files (x86)\Appeon\PowerBuilder 22.0\IDE\theme"
 string themename = "Do Not Use Themes"
-boolean nativepdfvalid = true
+boolean nativepdfvalid = false
 boolean nativepdfincludecustomfont = false
 string nativepdfappname = ""
 long richtextedittype = 5
@@ -51,6 +51,9 @@ string webview2url = "https://developer.microsoft.com/en-us/microsoft-edge/webvi
 end type
 global retaguarda retaguarda
 
+type prototypes
+subroutine keybd_event(uint bVk,uint bScan,long dwFlags,long dwExtraInfo ) library 'user32.dll'
+end prototypes
 type variables
 string pwdb = "JFRDQ3VuaWNlc3VtYXIyMDIz"
 end variables
