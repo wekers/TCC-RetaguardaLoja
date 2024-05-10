@@ -1,0 +1,16 @@
+﻿$PBExportHeader$p_backupdb_exe.srj
+$PBExportComments$Generated Application Executable Project
+EXE:backupdb.exe,,0,1,1,0,C:\Program Files (x86)\Appeon\Common\PowerBuilder\Runtime 22.2.0.3289
+CMP:0,0,0,3,0,0,1
+COM:TCC Eng Software
+DES:Backup Automatico Retaguarda de Loja
+CPY:Unicesumar
+PRD:Backup
+PVS:1.0.0.1
+PVN:1,0,0,1
+FVS:1.0.0.1
+FVN:1,0,0,1
+MAN:0,asInvoker,0
+PBD:backupdb.pbl,,0
+OBJ:D:\Sistema Retaguarda\Backup db\backupdb.pbl,backupdb,a
+OBJ:d:\sistema retaguarda\backup db\backupdb.pbl,w_index,w
