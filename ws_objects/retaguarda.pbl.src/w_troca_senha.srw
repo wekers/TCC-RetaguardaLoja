@@ -227,12 +227,11 @@ long textcolor = 33554432
 long backcolor = 12639424
 boolean password = true
 textcase textcase = lower!
-integer limit = 8
 borderstyle borderstyle = stylelowered!
 end type
 
 event modified;if len( this.text ) < 6 then
-messagebox('Atenção', 'A senha deve conter 6 a 8 caracteres' )
+messagebox('Atenção', 'A senha deve conter no minímo 6 a 8 caracteres' )
 SetFocus( This )
 end if
 end event
@@ -253,12 +252,11 @@ long textcolor = 33554432
 long backcolor = 12639424
 boolean password = true
 textcase textcase = lower!
-integer limit = 8
 borderstyle borderstyle = stylelowered!
 end type
 
 event losefocus;if len( this.text ) < 6 then
-messagebox('Atenção', 'A senha deve conter 6 a 8 caracteres' )
+messagebox('Atenção', 'A senha deve conter no minímo 6 a 8 caracteres' )
 SetFocus( This )
 end if
 end event
@@ -279,7 +277,6 @@ long textcolor = 33554432
 long backcolor = 12639424
 boolean password = true
 textcase textcase = lower!
-integer limit = 8
 borderstyle borderstyle = stylelowered!
 end type
 
