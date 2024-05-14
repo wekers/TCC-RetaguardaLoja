@@ -130,7 +130,7 @@ If FileExists( ls_diretorio_file ) Then
 
 Else
 	/* Diretório setado no .ini não existe */	
-    MessageBox ("Falha ao fazer Backup", "O Diretório "+ls_backup_file+" que foi setado no arquivo config.ini não existe!" )
+    MessageBox ("Falha ao fazer Backup", "O Diretório "+ls_diretorio_file+" que foi setado no arquivo config.ini não existe!" )
 End If
 
 Sleep(4)
