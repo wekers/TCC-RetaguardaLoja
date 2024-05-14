@@ -68,58 +68,70 @@ lblb_data = lnv_CoderObject.Base64Decode(pwdb)
 pwdb = string(lblb_data, EncodingANSI!)
 /* fim decode base64 */
 
-string data_hora, ls_backup_file, ls_command, ls_database, ls_user, ls_host, ls_porta
+string data_hora, ls_backup_file, ls_command, ls_database, ls_user, ls_host, ls_porta, ls_diretorio_file
 
 /* Definindo a data de hoje */
 data_hora = string(today(), "yyyy-mm-d") + '" "' + String(Now(), "hh-mm")
 
-/* Defindo o caminho do backup, que está em Config.ini */
-ls_backup_file = ProfileString("Config.INI", "Local", "Diretorio", "None")
+/* Defindo o diretório do backup, que está em Config.ini */
+ls_diretorio_file = ProfileString("Config.INI", "Local", "Diretorio", "None")
 
-/* Defindo o host, que está em Config.ini */
-ls_host = ProfileString("Config.INI", "Host", "Endereco", "None")
-
-/* Defindo a porta, que está em Config.ini */
-ls_porta = ProfileString("Config.INI", "Host", "Porta", "None")
-
-/* Defindo o nome do banco de dados que deseja fazer backup */
-ls_database = "TccRetaguarda"
-
-/* Defindo o nome do usuário de dados que deseja fazer backup */
-ls_user = "unicesumar"
-
-/* O comando de backup usando pg_dump */
-ls_command = 'cmd /c "setlocal&& set PGPASSWORD='+ pwdb +'&& pg_dump -U '+ ls_user +' -h '+ ls_host +' -p '+ ls_porta +' -d '+ ls_database +' &
--Fc -b -f '+ ls_backup_file +string(data_hora)+".dmp"+'&& set PGPASSWORD="&&endlocal'
-
-//funciona também, ex:
-//ls_command = 'cmd /c  "pg_dump postgresql://usuario:senha@localhost:5432/nomeDoBanco > C:\Retaguarda\Estoque.sql"'
-//Run("psql postgresql://usuario:senha@127.0.0.1:5432/nomeDoBanco")
-//Run(ls_command)
+/* Defindo o caminho completo do backup, que está em Config.ini */
+ls_backup_file = ProfileString("Config.INI", "Local", "CaminhoCompleto", "None")
 
 
-/* executa comando e aguarda até finalizar */
-OleObject wsh
-integer  li_rc
+/* Existe o diretório? */ 
+If FileExists( ls_diretorio_file ) Then
 
-CONSTANT integer MAXIMIZED = 3
-CONSTANT integer MINIMIZED = 2
-CONSTANT integer NORMAL = 1
-CONSTANT boolean WAIT = TRUE
-CONSTANT boolean NOWAIT = FALSE
+	/* Defindo o host, que está em Config.ini */
+	ls_host = ProfileString("Config.INI", "Host", "Endereco", "None")
 
-wsh = CREATE OleObject
-li_rc = wsh.ConnectToNewObject( "WScript.Shell" )
-li_rc = wsh.Run(ls_command, MINIMIZED, WAIT) //aguarda até finalizar
+	/* Defindo a porta, que está em Config.ini */
+	ls_porta = ProfileString("Config.INI", "Host", "Porta", "None")
 
-// Verifique se o backup foi feito com sucesso
-IF li_rc = 0 THEN
-    w_index.st_texto.text = "Backup Efetuado com sucesso..."
-ELSE
-	w_index.st_texto.text = "Erro -> Falha ao fazer o Backup..."
-    MessageBox("Erro", "Falha ao fazer backup do banco de dados.")
-END IF
+	/* Defindo o nome do banco de dados que deseja fazer backup */
+	ls_database = "TccRetaguarda"
 
+	/* Defindo o nome do usuário de dados que deseja fazer backup */
+	ls_user = "unicesumar"
+
+	/* O comando de backup usando pg_dump */
+	ls_command = 'cmd /c "setlocal&& set PGPASSWORD='+ pwdb +'&& pg_dump -U '+ ls_user +' -h '+ ls_host +' -p '+ ls_porta +' -d '+ ls_database +' &
+	-Fc -b -f '+ ls_backup_file + data_hora+".dmp"+'&& set PGPASSWORD="&&endlocal'
+
+	//funciona também, ex:
+	//ls_command = 'cmd /c  "pg_dump postgresql://usuario:senha@localhost:5432/nomeDoBanco > C:\Retaguarda\Estoque.sql"'
+	//Run("psql postgresql://usuario:senha@127.0.0.1:5432/nomeDoBanco")
+	//Run(ls_command)
+
+
+	/* executa comando e aguarda até finalizar */
+	OleObject wsh
+	integer  li_rc
+
+	CONSTANT integer MAXIMIZED = 3
+	CONSTANT integer MINIMIZED = 2
+	CONSTANT integer NORMAL = 1
+	CONSTANT boolean WAIT = TRUE
+	CONSTANT boolean NOWAIT = FALSE
+
+	wsh = CREATE OleObject
+	li_rc = wsh.ConnectToNewObject( "WScript.Shell" )
+	li_rc = wsh.Run(ls_command, MINIMIZED, WAIT) //aguarda até finalizar
+
+	// Verifique se o backup foi feito com sucesso
+	IF li_rc = 0 THEN
+   		 w_index.st_texto.text = "Backup Efetuado com sucesso..."
+	ELSE
+		w_index.st_texto.text = "Erro -> Falha ao fazer o Backup..."
+	    MessageBox("Erro", "Falha ao fazer backup do banco de dados.")
+	END IF
+
+
+Else
+	/* Diretório setado no .ini não existe */	
+    MessageBox ("Falha ao fazer Backup", "O Diretório "+ls_backup_file+" que foi setado no arquivo config.ini não existe!" )
+End If
 
 Sleep(4)
 Close(w_index)
