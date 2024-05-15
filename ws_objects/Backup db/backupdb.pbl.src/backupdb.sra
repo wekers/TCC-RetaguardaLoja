@@ -129,8 +129,13 @@ If FileExists( ls_diretorio_file ) Then
 
 
 Else
+	
+	string app_dir, msg
+	app_dir = GetCurrentDirectory()
 	/* Diretório setado no .ini não existe */	
-    MessageBox ("Falha ao fazer Backup", "O Diretório "+ls_diretorio_file+" que foi setado no arquivo config.ini não existe!" )
+	msg = "Falha ao fazer Backup, o Diretório "+"~"" +ls_diretorio_file+ "~" que foi setado para armazenar os backup's no arquivo -> "+"~"" + app_dir + "\config.ini"+"~" não existe!"
+	OpenWithParm(w_response_msg, msg)
+	//MessageBox ("Falha ao fazer Backup", "O Diretório <b> "+ls_diretorio_file+" que foi setado para armazenar os backup's no arquivo -> " + app_dir + "\config.ini não existe!" )
 End If
 
 Sleep(4)
