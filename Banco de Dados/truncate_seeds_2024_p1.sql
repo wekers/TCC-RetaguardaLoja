@@ -11,7 +11,8 @@ TRUNCATE TABLE categoria RESTART IDENTITY CASCADE;
 TRUNCATE TABLE fornecedor RESTART IDENTITY CASCADE;
 TRUNCATE TABLE produto RESTART IDENTITY CASCADE;
 TRUNCATE TABLE clientes RESTART IDENTITY CASCADE;
-
+TRUNCATE TABLE forma_pagamento RESTART IDENTITY;
+TRUNCATE TABLE unidade RESTART IDENTITY;
 -- usuarios
 -- ----------------------------------------------------------
 INSERT INTO usuarios(cod, nome, senha)
