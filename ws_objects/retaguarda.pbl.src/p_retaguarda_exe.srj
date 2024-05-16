@@ -1,0 +1,14 @@
+﻿$PBExportHeader$p_retaguarda_exe.srj
+$PBExportComments$Generated Application Executable Project
+EXE:retaguarda.exe,,0,1,1,0,C:\Program Files (x86)\Appeon\Common\PowerBuilder\Runtime 22.2.0.3289
+CMP:0,0,0,3,0,0,1
+COM:Unicesumar
+DES:Eng. de Software
+CPY:
+PRD:TCC Retaguarda de Loja
+PVS:1.0.0
+PVN:1,0,0,0
+FVS:1.0.0
+FVN:1,0,0,0
+MAN:0,asInvoker,0
+PBD:retaguarda.pbl,,1
