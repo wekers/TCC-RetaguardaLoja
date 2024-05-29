@@ -125,7 +125,7 @@ end event
 
 event ue_excluir();integer id_cliente, existe_venda_cliente, msg_del, gravar_exclusao
 id_cliente =	dw_1.GetItemNumber(1,"id")
-Select count()
+Select count(id)
 Into :existe_venda_cliente
 From movimento_saida
 Where id_cliente = :id_cliente;
