@@ -1,4 +1,4 @@
 ## [1.0.1] - 2024-05-30
 ### Fixed 
-- Em 'Cadastro->Clientes' - Erro de violação SQL ao deletar clientes com dados viculados 
+- Em 'Cadastro->Clientes' - Erro de violação SQL ao deletar clientes com dados vinculados 
 
