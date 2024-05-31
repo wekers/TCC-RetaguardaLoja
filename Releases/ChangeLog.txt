@@ -2,3 +2,8 @@
 ### Fixed 
 - Em 'Cadastro->Clientes' - Erro de violação SQL ao deletar clientes com dados vinculados 
 
+### Added
+- Verifica se tem novas atualizações antes de iniciar o software, através do updater.exe do Advanced Installer, conforme:
+Atalho Desktop "Sistema Retaguarda de Loja" apontando para 'APPDIR/updater.exe' com argumentos /checknow -minuseractions -restartapp "[APPDIR]Retaguarda\retaguarda.exe"
+
+*O Instalador/Install_RetaguardaDeLoja.exe já vem com a v1.0.1
