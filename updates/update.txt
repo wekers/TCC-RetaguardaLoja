@@ -1,0 +1,12 @@
+;aiu;
+
+[Update]
+Name = Retaguarda de Loja
+ProductVersion = 1.0.1.0
+URL = http://www.example.com/downloads/Install_RetaguardaDeLoja.exe
+Size = 5300804
+SHA256 = 233FAD6C04CB7932D7607C8D13C3286BBC9AB2B0E47F75E8AEA1D0CE0C9AFFF6
+MD5 = 810d20e8f948d00a1ff8ac48d51f9bb1
+ServerFileName = Install_RetaguardaDeLoja.exe
+RegistryKey = HKUD\Software\Unicesumar\Retaguarda de Loja\Version
+Version = 1.0.1.0
