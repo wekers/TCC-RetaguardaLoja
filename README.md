@@ -30,7 +30,18 @@ _ _ _
 9. Atualizações Automáticas
 
 - - -
-#### Diagrama de Caso de Uso:
+#### Printscreen
+![](https://raw.githubusercontent.com/wekers/TCC-RetaguardaLoja/main/diagramas/login.png)<br>
+- - -
+![](https://raw.githubusercontent.com/wekers/TCC-RetaguardaLoja/main/diagramas/permissoes.png)<br>
+- - -
+![](https://raw.githubusercontent.com/wekers/TCC-RetaguardaLoja/main/diagramas/vendas.png)<br>
+- - -
+![](https://raw.githubusercontent.com/wekers/TCC-RetaguardaLoja/main/diagramas/vendas_detalhado.png)<br>
+- - -
+
+
+#### Diagrama de Caso de Uso:<br>
 ![](https://raw.githubusercontent.com/wekers/TCC-RetaguardaLoja/main/diagramas/Use%20Case%20Diagram%20Retaguarda.jpg)
 - - -
 #### Diagrama de Classe:
