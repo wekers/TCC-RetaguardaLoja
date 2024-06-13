@@ -159,6 +159,8 @@ event ue_incluir();If prossegue Then
 		m_excluir = True
 		m_menu.m_editar.m_confirmar.enabled = false
 		m_confirmar = false
+		m_menu.m_editar.m_incluir.enabled = false
+		m_incluir = false
 		
 
 	
@@ -172,9 +174,20 @@ end if
 
 dw_2.DeleteRow(dw_2.GetRow())
 prossegue = True
-m_menu.m_editar.m_confirmar.enabled = True
-m_confirmar = True
 dw_1.object.valor_total[1] =					dw_2.object.compute_2[1]
+
+If dw_2.RowCount() > 0 then
+	m_menu.m_editar.m_confirmar.enabled = True
+	m_confirmar = True
+	m_menu.m_editar.m_incluir.enabled = True
+	m_incluir = True
+else
+	m_menu.m_editar.m_confirmar.enabled = False
+	m_confirmar = False
+	m_menu.m_editar.m_excluir.enabled = False
+	m_excluir = False
+
+end if
 end event
 
 on w_entrada_produtos.create
@@ -190,7 +203,7 @@ destroy(this.dw_1)
 end on
 
 event open;m_fechar = True
-m_incluir = True
+m_incluir = False
 m_gerar = False
 m_confirmar = False
 m_excluir = False
@@ -277,6 +290,8 @@ Choose case this.GetColumnName()
 							prossegue = true
 							m_menu.m_editar.m_confirmar.enabled = True
 							m_confirmar = True
+							m_menu.m_editar.m_incluir.enabled = True
+							m_incluir = True
 				
 							return 1
 

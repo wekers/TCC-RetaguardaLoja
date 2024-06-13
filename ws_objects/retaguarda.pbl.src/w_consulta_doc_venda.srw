@@ -2,6 +2,8 @@
 forward
 global type w_consulta_doc_venda from window
 end type
+type st_doc_devolucao from statictext within w_consulta_doc_venda
+end type
 type st_4 from statictext within w_consulta_doc_venda
 end type
 type r_1 from rectangle within w_consulta_doc_venda
@@ -46,6 +48,7 @@ string icon = "DataPipeline!"
 boolean center = true
 windowanimationstyle closeanimation = rightroll!
 event ue_imprimir ( )
+st_doc_devolucao st_doc_devolucao
 st_4 st_4
 r_1 r_1
 st_3 st_3
@@ -81,6 +84,7 @@ r_1.Visible = False
 r_2.Visible = False
 r_3.Visible = False
 r_4.Visible = False
+st_doc_devolucao.Visible = False
 Case true
 	st_2.visible = true
 				st_3.visible = true
@@ -89,6 +93,7 @@ Case true
 				r_2.Visible = true
 				r_3.Visible = true
 				r_4.Visible = true
+				st_doc_devolucao.Visible = true
 End Choose
 		
 
@@ -105,6 +110,7 @@ END CHOOSE*/
 end subroutine
 
 on w_consulta_doc_venda.create
+this.st_doc_devolucao=create st_doc_devolucao
 this.st_4=create st_4
 this.r_1=create r_1
 this.st_3=create st_3
@@ -119,7 +125,8 @@ this.st_2=create st_2
 this.r_2=create r_2
 this.r_3=create r_3
 this.r_4=create r_4
-this.Control[]={this.st_4,&
+this.Control[]={this.st_doc_devolucao,&
+this.st_4,&
 this.r_1,&
 this.st_3,&
 this.sle_1,&
@@ -136,6 +143,7 @@ this.r_4}
 end on
 
 on w_consulta_doc_venda.destroy
+destroy(this.st_doc_devolucao)
 destroy(this.st_4)
 destroy(this.r_1)
 destroy(this.st_3)
@@ -168,6 +176,23 @@ end event
 
 event close;of_menu_in_close()
 end event
+
+type st_doc_devolucao from statictext within w_consulta_doc_venda
+integer x = 1422
+integer y = 1380
+integer width = 658
+integer height = 52
+integer textsize = -8
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "MS Sans Serif"
+long textcolor = 8421376
+long backcolor = 67108864
+string text = "-> Doc N°"
+boolean focusrectangle = false
+end type
 
 type st_4 from statictext within w_consulta_doc_venda
 integer x = 169
@@ -336,6 +361,7 @@ recuperar_dw1 = dw_1.retrieve(n_doc)
 
 					NEXT	
 					legenda_devolucao(true) // mostra legenda devolução
+					st_doc_devolucao.text = "-> Doc Devolução N°: "+string(id_devolucao)
 			else
 					
 				legenda_devolucao(false) //oculta legenda devolução
