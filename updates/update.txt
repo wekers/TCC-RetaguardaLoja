@@ -3,17 +3,17 @@
 [Update]
 Name = Retaguarda de Loja
 ProductVersion = 1.1.0.0
-URL = https://github.com/wekers/TCC-RetaguardaLoja/releases/download/v1.1.0/UpdateRetaguardaDeLoja_v1.1.0.exe
-Size = 21996285
-SHA256 = 8674645797DFB4EBE7C249479E828A9B3BE785A104B7AB08FF287943B8517124
-MD5 = 5b238ee62c49950244b8f1b50b0b8b7a
+URL = http://www.example.com/downloads/Install_RetaguardaDeLoja.exe
+Size = 22663933
+SHA256 = 86EEAD22CBEE220E8F2348357A9094512512253C125B97F30B8E42848FC2741D
+MD5 = a0a712c5e0ed192804f53ff9abeb608e
 ServerFileName = UpdateRetaguardaDeLoja_v1.1.0.exe
 RegistryKey = HKUD\Software\Unicesumar\Retaguarda de Loja\Version
 Version = 1.1.0.0
-Description = Nova Versao do Retaguarda de Loja
+Description = Esta será uma Nova Versão do Retaguarda de Loja!
 Description1 = v1.1.0
-Feature = - Sistemas -> Ajuda (Abre o manual do usuario)
-Feature1 = - Consulta -> doc -> venda (se devolucao, mostra seu numero do Doc codigo da devolucao)
+Feature = - Sistemas -> Ajuda (Abre o manual do usuário)
+Feature1 = - Consulta -> doc -> venda (se devolução, mostra seu N° do Doc código da devolução)
 Enhancement = da v1.0.1 para v1.1.0
 BugFix = Em 'Estoque -> Entrada de Produtos'
 BugFix1 = Estava aceitando confirmar sem produtos.
