@@ -7,3 +7,16 @@
 Atalho Desktop "Sistema Retaguarda de Loja" apontando para 'APPDIR/updater.exe' com argumentos /checknow -minuseractions -restartapp "[APPDIR]Retaguarda\retaguarda.exe"
 
 *O Instalador/Install_RetaguardaDeLoja.exe já vem com a v1.0.1
+
+
+## [1.1.0] - 2024-06-13
+### Fixed 
+- Em 'Estoque -> Entrada de Produtos'
+Estava aceitando confirmar sem produtos
+
+### Added
+- Sistemas -> Ajuda
+Abre o manual .chm
+
+- Consulta -> doc -> venda
+se devolução, mostra seu Doc código da devolução
