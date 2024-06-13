@@ -6,9 +6,9 @@ COM:Unicesumar
 DES:Eng. de Software
 CPY:
 PRD:TCC Retaguarda de Loja
-PVS:1.0.1
-PVN:1,0,1,0
-FVS:1.0.1
-FVN:1,0,1,0
+PVS:1.1.0
+PVN:1,1,0,0
+FVS:1.1.0
+FVN:1,1,0,0
 MAN:0,asInvoker,0
 PBD:retaguarda.pbl,,1
