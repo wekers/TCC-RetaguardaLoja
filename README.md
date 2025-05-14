@@ -4,7 +4,7 @@ TCC - Retaguarda de Loja
 
 
 <p align="left">
-  <img src="https://img.shields.io/static/v1?label=TCC&message=Eng. de Software&color=8257E5&labelColor=000000" alt="TCC" />
+  <img src="https://img.shields.io/static/v1?label=TCC&message=Eng.%20de%20Software&color=8257E5&labelColor=000000" alt="TCC" />
 </p>
 
 Este repositório contém o código-fonte do projeto de Trabalho de Conclusão de Curso (TCC) em Engenharia de Software, focado no desenvolvimento de um Sistema de Retaguarda de Loja.
